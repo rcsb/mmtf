@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>MMTF Specification</title>
+    <script src="marked.js"></script>
+</head>
+<body>
+    <div id="content"></div>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.addEventListener( "load", function(){
+            document.getElementById('content').innerHTML = marked(xhr.responseText);
+        }, true );
+        xhr.open( "GET", "spec.md" );
+        xhr.send();
+    </script>
+</body>
+</html>
