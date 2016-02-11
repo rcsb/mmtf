@@ -75,10 +75,11 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - Integer with the number of atoms
 
 
-#### numBonds
+#### numBonds - not for now
 
 - integer with the number of bonds
 - TODO not available yet, currently calculated from data in `resOrder` and `groupMap`.
+
 
 
 #### bioAssembly
@@ -129,7 +130,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - TODO describe layout
 
 
-#### resOrder
+#### resOrder => groupTypeList
 
 - List of pointers to the groupMap dictionary
 - One entry for each residue
@@ -137,7 +138,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - TODO can probably be a 8-bit or 16-bit unsigned integer array
 
 
-#### _atom_site_auth_seq_id
+#### _atom_site_auth_seq_id => resnumList
 
 - List of group/residue numbers
 - One entry for each group/residue
@@ -145,7 +146,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - Decodes into 32-bit signed integer array
 
 
-#### secStruct
+#### secStruct => secStructList
 
 - List of secondary structure codes
 - One entry per residue
@@ -153,7 +154,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - TODO how to handle multi-model structures?
 
 
-#### _atom_site_label_entity_poly_seq_num
+#### _atom_site_label_entity_poly_seq_num => remove
 
 - ??? identical to label_seq_id mmcif field?
 - TODO maybe remove or optional
@@ -162,7 +163,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 ### Atom data
 
-#### _atom_site_id
+#### _atom_site_id => atomIdList
 
 - List of atom serial numbers
 - One entry for each atom
@@ -170,7 +171,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - Decodes into 32-bit signed integer array
 
 
-#### _atom_site_label_alt_id
+#### _atom_site_label_alt_id => altLabelList
 
 - List of atom alternate location identifier
 - One entry for each atom
@@ -178,7 +179,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - Decodes into 8-bit unsigned integer array representing ASCII characters
 
 
-#### _atom_site_pdbx_PDB_ins_code
+#### _atom_site_pdbx_PDB_ins_code => insCodeList
 
 - List of atom insertion codes
 - One entry for each atom
@@ -187,14 +188,14 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - TODO currently not decoded
 
 
-#### b_factor_big & b_factor_small
+#### b_factor_big & b_factor_small => bFactorBig, bFactorSmall
 
 - List of atom b-factors
 - One entry for each atom
 - Split-list delta encoded
 
 
-#### cartn_x_big & cartn_x_small, cartn_y_big & cartn_y_small, cartn_z_big & cartn_z_small
+#### cartn_x_big & cartn_x_small, cartn_y_big & cartn_y_small, cartn_z_big & cartn_z_small => xCoordSmall, xCoordBig
 
 - List of x, y, and z atom coordinates
 - One entry for each atom and coordinate
@@ -202,7 +203,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - Decode into 32-bit float arrays
 
 
-#### occupancy
+#### occupancy => occList
 
 - Delta and run-length encoded
 - Decodes into 32-bit float array
