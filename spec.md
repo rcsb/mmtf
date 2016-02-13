@@ -68,6 +68,18 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 ## Fields
 
+### Format data
+
+#### mmtfVersion
+
+- String holding the version number of the specification the file adheres to.
+
+
+#### mmtfProducer
+
+- String holding the name and version of the software used to produce the file.
+
+
 ### Structure data
 
 #### numAtoms
