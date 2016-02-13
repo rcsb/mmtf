@@ -77,7 +77,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### numBonds - not for now
 
-- integer with the number of bonds
+- Integer with the number of bonds
 - TODO not available yet, currently calculated from data in `resOrder` and `groupMap`.
 
 
@@ -213,7 +213,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 ## Extra
 
-Some useful values are not explicitly included as a field in the msgpack but can easily derived from other fields.
+Some useful values are not explicitly included as a field in the `msgpack` but can easily derived from other fields.
 
 - Residue count is length of `resOrder` field.
 - Chain count is length of `groupsPerChain` field.
