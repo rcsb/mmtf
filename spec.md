@@ -150,7 +150,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - TODO can probably be a 8-bit or 16-bit unsigned integer array
 
 
-#### _atom_site_auth_seq_id => resnumList
+#### _atom_site_auth_seq_id => resNumList => groupNumList
 
 - List of group/residue numbers
 - One entry for each group/residue
