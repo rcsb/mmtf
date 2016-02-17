@@ -171,13 +171,13 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 #### bondAtomList
 
 - Optional field.
-- Array of integer pairs representing indices of bonded atoms. The indices point to the [Atom data](#atom-data) arrays.
+- Array of 32-bit unsigned integer pairs representing indices of bonded atoms. The indices point to the [Atom data](#atom-data) arrays.
 
 
 #### bondOrderList
 
-- Optional field.
-- Array of integers denoting bond orders for bonds in `bondAtomList`.
+- Optional field. If it exists `bondAtomList` must also be present.
+- Array of 8-bit unsigned integers denoting bond orders for bonds in `bondAtomList`.
 - Run-length encoded.
 
 
