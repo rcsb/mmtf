@@ -11,7 +11,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - Msgpack (v5) as container format, see [msgpack spec](https://github.com/msgpack/msgpack/blob/master/spec.md).
 - Encoded, binary fields are stored as big-endian when applicable (16/32-bit un/signed integers, 16/32/64 floats).
 - 64-bit un/signed integers in custom fields are forbidden as they can not represented natively in JavaScript.
-- Some fields are optional.
+- Fields are either optional or required. Decoding libraries must handle both presence and absence of optional fields.
 - TODO debate custom fields
 
 
@@ -73,11 +73,13 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### mmtfVersion
 
+- Required field.
 - String holding the version number of the specification the file adheres to.
 
 
 #### mmtfProducer
 
+- Required field.
 - String holding the name and version of the software used to produce the file.
 - For development versions it can be useful to also include the checksum of the commit.
 
@@ -86,17 +88,19 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### numAtoms
 
+- Required field.
 - Integer with the number of atoms
 
 
 #### numBonds
 
+- Required field.
 - Integer with the number of bonds
-
 
 
 #### bioAssembly
 
+- Optional field.
 - Biological assembly data dumped from `biojava`
 - TODO evaluate layout
 - TODO describe layout
@@ -104,11 +108,13 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### spaceGroup
 
+- Optional field.
 - String containing the space group name
 
 
 #### unitCell
 
+- Optional field.
 - Array of six values defining the unit cell
 - The first three entries are the length of the sides a, b, and c
 - The last three angles are the alpha, beta, and gamma angles
@@ -119,6 +125,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### chainsPerModel
 
+- Required field.
 - List of number of chains in each model
 
 
@@ -126,11 +133,13 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### groupsPerChain
 
+- Required field.
 - List of number of groups/residues in each chain
 
 
 #### chainList
 
+- Required field.
 - List of chain names
 - 8-bit unsigned integer array with four bytes for each chain name
 
@@ -139,12 +148,14 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### groupMap
 
+- Required field.
 - Dictionary of per-residue/group data
 - TODO describe layout
 
 
 #### groupTypeList
 
+- Required field.
 - List of pointers to the groupMap dictionary
 - One entry for each residue
 - Currently a 32-bit signed integer array
@@ -153,6 +164,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### groupNumList
 
+- Required field.
 - List of group/residue numbers
 - One entry for each group/residue
 - Delta and run-length encoded
@@ -161,6 +173,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### secStructList
 
+- Optional field.
 - List of secondary structure codes
 - One entry per residue
 - 8-bit signed integer array
@@ -171,6 +184,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### atomIdList
 
+- Optional field.
 - List of atom serial numbers
 - One entry for each atom
 - Delta and run-length encoded
@@ -179,6 +193,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### altLabelList
 
+- Optional field.
 - List of atom alternate location identifier
 - One entry for each atom
 - Run-length encoded
@@ -187,6 +202,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### insCodeList
 
+- Optional field.
 - List of atom insertion codes
 - One entry for each atom
 - Run-length encoded
@@ -196,6 +212,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### bFactorBig, bFactorSmall
 
+- Optional field.
 - List of atom b-factors
 - One entry for each atom
 - Split-list delta encoded
@@ -203,6 +220,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### xCoordBig & xCoordSmall, yCoordBig & yCoordSmall, zCoordBig & zCoordSmall
 
+- Required field.
 - List of x, y, and z atom coordinates
 - One entry for each atom and coordinate
 - Split-list delta encoded
@@ -211,6 +229,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 #### occList
 
+- Optional field.
 - Delta and run-length encoded
 - Decodes into 32-bit float array
 - TODO currently not decoded
