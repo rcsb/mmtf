@@ -90,13 +90,13 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 #### numAtoms
 
 - Required field.
-- Integer with the number of atoms
+- 32-bit unsigned integer holding the number of atoms.
 
 
 #### numBonds
 
 - Required field.
-- Integer with the number of bonds
+- 32-bit unsigned integer holding the number of bonds.
 
 
 #### bioAssembly
@@ -137,10 +137,9 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 #### unitCell
 
 - Optional field.
-- Array of six values defining the unit cell
-- The first three entries are the length of the sides a, b, and c
-- The last three angles are the alpha, beta, and gamma angles
-
+- Array of six 32-bit float values defining the unit cell.
+- The first three entries are the length of the sides `a`, `b`, and `c`.
+- The last three angles are the `alpha`, `beta`, and `gamma` angles.
 
 
 ### Model data
@@ -148,7 +147,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 #### chainsPerModel
 
 - Required field.
-- List of number of chains in each model
+- List of number of chains in each model.
 
 
 ### Chain data
@@ -156,14 +155,14 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 #### groupsPerChain
 
 - Required field.
-- List of number of groups/residues in each chain
+- List of number of groups/residues in each chain.
 
 
 #### chainList
 
 - Required field.
-- List of chain names
-- 8-bit unsigned integer array with four bytes for each chain name
+- List of chain names.
+- Array of 8-bit unsigned integers with four bytes for each chain name.
 
 
 ### Group data
@@ -171,34 +170,34 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 #### groupMap
 
 - Required field.
-- Dictionary of per-residue/group data
+- Dictionary of per-residue/group data.
 - TODO describe layout
 
 
 #### groupTypeList
 
 - Required field.
-- List of pointers to the groupMap dictionary
-- One entry for each residue
-- Currently a 32-bit signed integer array
-- TODO can probably be a 8-bit or 16-bit unsigned integer array
+- List of pointers to the groupMap dictionary.
+- One entry for each residue.
+- Currently an array of 32-bit signed integers.
+- TODO can probably be an array of 16-bit unsigned integers.
 
 
 #### groupNumList
 
 - Required field.
-- List of group/residue numbers
-- One entry for each group/residue
-- Delta and run-length encoded
-- Decodes into 32-bit signed integer array
+- List of group/residue numbers.
+- One entry for each group/residue.
+- Delta and run-length encoded.
+- Decodes into an array of 32-bit signed integers.
 
 
 #### secStructList
 
 - Optional field.
-- List of secondary structure codes
-- One entry per residue
-- 8-bit signed integer array
+- List of secondary structure codes.
+- One entry per residue.
+- Array of 8-bit signed integers.
 - TODO how to handle multi-model structures?
 
 
@@ -207,55 +206,55 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 #### atomIdList
 
 - Optional field.
-- List of atom serial numbers
-- One entry for each atom
-- Delta and run-length encoded
-- Decodes into 32-bit signed integer array
+- List of atom serial numbers.
+- One entry for each atom.
+- Delta and run-length encoded.
+- Decodes into an array of 32-bit signed integers.
 
 
 #### altLabelList
 
 - Optional field.
-- List of atom alternate location identifier
-- One entry for each atom
-- Run-length encoded
-- Decodes into 8-bit unsigned integer array representing ASCII characters
+- List of atom alternate location identifier.
+- One entry for each atom.
+- Run-length encoded.
+- Decodes into an array of 8-bit unsigned integers representing ASCII characters.
 
 
 #### insCodeList
 
 - Optional field.
-- List of atom insertion codes
-- One entry for each atom
-- Run-length encoded
-- Decodes into a 8-bit unsigned integer array representing the insertion code character or null
-- TODO currently not decoded
+- List of atom insertion codes.
+- One entry for each atom.
+- Run-length encoded.
+- Decodes into an array of 8-bit unsigned integers representing the insertion code character or null.
 
 
 #### bFactorBig, bFactorSmall
 
 - Optional field.
-- List of atom b-factors
-- One entry for each atom
-- Split-list delta encoded
+- List of atom b-factors.
+- One entry for each atom.
+- Split-list delta encoded.
+- Integer encoded with a multiplier of 100.
+- Decodes into an array of 32-bit floats.
 
 
 #### xCoordBig & xCoordSmall, yCoordBig & yCoordSmall, zCoordBig & zCoordSmall
 
 - Required field.
-- List of x, y, and z atom coordinates
-- One entry for each atom and coordinate
-- Split-list delta encoded
-- Decode into 32-bit float arrays
+- List of x, y, and z atom coordinates.
+- One entry for each atom and coordinate.
+- Split-list delta encoded.
+- Integer encoded with a multiplier of 1000.
+- Decode into arrays of 32-bit floats.
 
 
 #### occList
 
 - Optional field.
-- Delta and run-length encoded
-- Decodes into 32-bit float array
-- TODO currently not decoded
-
+- Delta and run-length encoded.
+- Decodes into an array of 32-bit floats.
 
 
 ## Extra
