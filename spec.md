@@ -12,6 +12,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - Encoded, binary fields are stored as big-endian when applicable (16/32-bit un/signed integers, 16/32/64 floats).
 - 64-bit un/signed integers in custom fields are forbidden as they can not represented natively in JavaScript.
 - Some fields are optional.
+- TODO debate custom fields
 
 
 
