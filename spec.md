@@ -175,7 +175,30 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 - Required field.
 - Dictionary of per-residue/group data.
-- TODO describe layout
+- The `groupMap` is a dictionary/object of `groupType` entries.
+- Each `groupType` entry contains the following fields:
+	- `atomCharges` is an array of integers holding the formal charges of each atom.
+	- `atomInfo` is an array of string pairs representing the element and the atom name.
+	- `bondIndices` is an array of integer pairs representing indices of bonded atoms.
+	- `bondOrders` is an array of integers denoting the number of chemical bonds for each bond.
+	- `hetFlag` is a boolean denoting if the group is a not a standard protein, DNA or RNA residue.
+	- `groupName` is string of the name of the group.
+- Layout example:
+	```
+	{
+		0: {
+			atomCharges: [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+			atomInfo: [ "N", "N", "C", "CA", "C", "C", "O", "O", "C", "CB", "C", "CG", "S", "SD", "C", "CE" ],
+			bondIndices: [ 1, 0, 2, 1, 4, 1, 3, 2, 5, 4, 6, 5, 7, 6 ],
+			bondOrders: [ 1, 1, 1, 2, 1, 1, 1 ],
+			hetFlag: false,
+			groupName: "MET"
+		},
+		1: {
+			// ...
+		}
+	}
+	```
 
 
 #### groupTypeList
