@@ -99,6 +99,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 - Required field.
 - 32-bit unsigned integer holding the number of bonds.
+- This number must reflect both the bonds given in `bondAtomList` and the bonds given in the `groupType` entries in `groupMap`.
 
 
 #### bioAssembly
