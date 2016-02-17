@@ -78,6 +78,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 #### mmtfProducer
 
 - String holding the name and version of the software used to produce the file.
+- For development versions it can be useful to also include the checksum of the commit.
 
 
 ### Structure data
