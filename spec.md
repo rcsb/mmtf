@@ -91,7 +91,6 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 #### numBonds - not for now
 
 - Integer with the number of bonds
-- TODO not available yet, currently calculated from data in `resOrder` and `groupMap`.
 
 
 
