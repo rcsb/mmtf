@@ -9,8 +9,8 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 ## Remarks
 
-- Msgpack (v5) as container format, see [msgpack spec](https://github.com/msgpack/msgpack/blob/master/spec.md).
-- Encoded, binary fields are stored as big-endian when applicable (16/32-bit un/signed integers, 16/32/64 floats).
+- Msgpack (v5) is used as the container format, see [msgpack spec](https://github.com/msgpack/msgpack/blob/master/spec.md).
+- Encoded, binary fields are stored as big-endian when applicable i.e. for 16/32-bit un/signed integers and for 16/32/64 floats.
 - 64-bit un/signed integers in custom fields are forbidden as they can not represented natively in JavaScript.
 - Fields are either optional or required. Decoding libraries must handle both presence and absence of optional fields.
 - TODO debate custom fields
@@ -102,6 +102,8 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 #### bioAssembly
 
 - Optional field.
+- The `bioAssembly` field is a dictionary/object of `assembly` entries.
+- An `assembly` entry holds an array of transforms that contain a `chainId` list and a 4x4 `transformation` matrix.
 - Layout example:
 	```
 	{
@@ -120,12 +122,13 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 					]
 				}
 			]
+		},
+		2: {
+			// ...
 		}
 	}
 	```
-- TODO cleanup layout
-- The `bioAssembly` field is a dictionary/object of multiple `assembly` entries.
-- An `assembly` entry holds an array of transforms that contain a `chainId` list and a 4x4 `transformation` matrix.
+- TODO simplify layout
 
 
 #### spaceGroup
