@@ -2,7 +2,7 @@
 
 # MMTF Sepcification
 
-*INITIAL DRAFT* (to be replace by the version number)
+*INITIAL DRAFT* (to be replaced by the version number)
 
 The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encoding of biological structures. It includes the coordinates, the topology and associated data. Pronounced goals are a reduced file size for efficient transmission over the Internet or from hard disk to memory and fast decoding/parsing speed. Additionally the format aims to be easy to understand and implement to facilitates its dissemination.
 
