@@ -167,13 +167,6 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - TODO how to handle multi-model structures?
 
 
-#### _atom_site_label_entity_poly_seq_num => remove
-
-- ??? identical to label_seq_id mmcif field?
-- TODO maybe remove or optional
-- TODO currently not decoded in JS decoder
-
-
 ### Atom data
 
 #### _atom_site_id => atomIdList
