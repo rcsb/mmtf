@@ -140,6 +140,10 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - Array of six 32-bit float values defining the unit cell.
 - The first three entries are the length of the sides `a`, `b`, and `c`.
 - The last three angles are the `alpha`, `beta`, and `gamma` angles.
+- Layout example:
+	```
+	[ 10, 12, 30, 90, 90, 120 ]
+	```
 
 
 ### Model data
