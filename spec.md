@@ -218,8 +218,19 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 ## Extra
 
-Some useful values are not explicitly included as a field in the `msgpack` but can easily derived from other fields.
+Some useful values are not explicitly included as a field in the `msgpack` but can easily derived from other fields. Implementers of decoders are encouraged to provide the following fields through their API.
 
-- Residue count is length of `resOrder` field.
-- Chain count is length of `groupsPerChain` field.
-- Model count is length of `chainsPerModel` field.
+
+#### numResidues
+
+- The number of residues is equal to the length of the `groupTypeId` field.
+
+
+#### numChains
+
+- The number of chains is equal to the length of the `groupsPerChain` field.
+
+
+#### numModels
+
+- The number of models is equal to the length of the `chainsPerModel` field.
