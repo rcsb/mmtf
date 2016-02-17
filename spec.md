@@ -138,6 +138,10 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 - Optional field.
 - String containing the Hermann-Mauguin space-group symbol.
+- Layout example:
+	```
+	"P 1 21 1"
+	```
 
 
 #### unitCell
