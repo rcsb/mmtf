@@ -89,6 +89,18 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 ### Structure data
 
+#### title
+
+- Optional field.
+- String containing a short description of the file's content.
+
+
+#### pdbId
+
+- Optional field.
+- String of 4 characters representing a PDB ID.
+
+
 #### numAtoms
 
 - Required field.
