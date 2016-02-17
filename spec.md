@@ -102,9 +102,30 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 #### bioAssembly
 
 - Optional field.
-- Biological assembly data dumped from `biojava`
-- TODO evaluate layout
-- TODO describe layout
+- Layout example:
+	```
+	{
+		1: {
+			id: 1,
+			macromolecularSize: 1,
+			transforms: [
+				{
+					id: 1,
+					chainId: [ "A", "B", "..." ],
+					transformation: [
+						1, 0, 0, 0,
+						0, 1, 0, 0,
+						0, 0, 1, 0,
+						0, 0, 0, 1
+					]
+				}
+			]
+		}
+	}
+	```
+- TODO cleanup layout
+- The `bioAssembly` field is a dictionary/object of multiple `assembly` entries.
+- An `assembly` entry holds an array of transforms that contain a `chainId` list and a 4x4 `transformation` matrix.
 
 
 #### spaceGroup
