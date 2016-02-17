@@ -13,6 +13,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - Encoded, binary fields are stored as big-endian when applicable i.e. for 16/32-bit un/signed integers and for 16/32/64 floats.
 - 64-bit un/signed integers in custom fields are forbidden as they can not represented natively in JavaScript.
 - Fields are either optional or required. Decoding libraries must handle both presence and absence of optional fields.
+- Spatial data (e.g. coordinates, unit cell lengths) are given in angstrom.
 - TODO debate custom fields
 
 
@@ -141,8 +142,8 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 - Optional field.
 - Array of six 32-bit float values defining the unit cell.
-- The first three entries are the length of the sides `a`, `b`, and `c`.
-- The last three angles are the `alpha`, `beta`, and `gamma` angles.
+- The first three entries are the length of the sides `a`, `b`, and `c` in angstrom.
+- The last three angles are the `alpha`, `beta`, and `gamma` angles in degree.
 - Layout example:
 	```
 	[ 10, 12, 30, 90, 90, 120 ]
@@ -290,7 +291,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - One entry for each atom and coordinate.
 - Split-list delta encoded.
 - Integer encoded with a multiplier of 1000.
-- Decode into arrays of 32-bit floats.
+- Decode into arrays of 32-bit floats representing coordinates in angstrom.
 
 
 #### occList
