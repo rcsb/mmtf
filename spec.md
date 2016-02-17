@@ -11,6 +11,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 - Msgpack (v5) is used as the container format, see [msgpack spec](https://github.com/msgpack/msgpack/blob/master/spec.md).
 - Encoded, binary fields are stored as big-endian when applicable i.e. for 16/32-bit un/signed integers and for 16/32/64 floats.
+- For encoded fields, decoding instructions are provided below.
 - 64-bit un/signed integers in custom fields are forbidden as they can not represented natively in JavaScript.
 - Fields are either optional or required. Decoding libraries must handle both presence and absence of optional fields.
 - Spatial data (e.g. coordinates, unit cell lengths) are given in angstrom.
@@ -225,6 +226,9 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - One entry for each residue.
 - Currently an array of 32-bit signed integers.
 - TODO can probably be an array of 16-bit unsigned integers.
+- Decoding instructions:
+	1. Get 32-bit signed integers from 8-bit unsigned integers input.
+	2. Return output from step 1.
 
 
 #### groupNumList
@@ -234,6 +238,12 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - One entry for each group/residue.
 - Delta and run-length encoded.
 - Decodes into an array of 32-bit signed integers.
+- Note: must be signed to represent PDB data which includes negative group numbers.
+- Decoding instructions:
+	1. Get 32-bit signed integers from 8-bit unsigned integers input.
+	2. Apply run-length decoding to output from step 1.
+	3. Apply delta decoding to output from step 2.
+	4. Return output from step 3.
 
 
 #### secStructList
@@ -243,6 +253,9 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - One entry per residue.
 - Array of 8-bit signed integers.
 - TODO how to handle multi-model structures?
+- Decoding instructions:
+	1. Get 8-bit signed integers from 8-bit unsigned integers input.
+	2. Return output from step 1.
 
 
 ### Atom data
@@ -254,6 +267,11 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - One entry for each atom.
 - Delta and run-length encoded.
 - Decodes into an array of 32-bit signed integers.
+- Decoding instructions:
+	1. Get 32-bit signed integers from 8-bit unsigned integers input.
+	2. Apply run-length decoding to output from step 1.
+	3. Apply delta decoding to output from step 2.
+	4. Return output from step 3.
 
 
 #### altLabelList
@@ -263,6 +281,9 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - One entry for each atom.
 - Run-length encoded.
 - Decodes into an array of 8-bit unsigned integers representing ASCII characters.
+- Decoding instructions:
+	1. Apply run-length decoding to string list input.
+	2. Return output from step 1.
 
 
 #### insCodeList
@@ -272,6 +293,9 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - One entry for each atom.
 - Run-length encoded.
 - Decodes into an array of 8-bit unsigned integers representing the insertion code character or null.
+- Decoding instructions:
+	1. Apply run-length decoding to string list input.
+	2. Return output from step 1.
 
 
 #### bFactorBig, bFactorSmall
@@ -282,6 +306,11 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - Split-list delta encoded.
 - Integer encoded with a multiplier of 100.
 - Decodes into an array of 32-bit floats.
+- Decoding instructions:
+	1. Get 32-bit signed integers from 8-bit unsigned integers input.
+	2. Apply split-list delta decoding to output from step 1.
+	3. Apply integer decoding with a divisor of 100 to output from step 2.
+	4. Return output from step 3.
 
 
 #### xCoordBig & xCoordSmall, yCoordBig & yCoordSmall, zCoordBig & zCoordSmall
@@ -292,6 +321,11 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - Split-list delta encoded.
 - Integer encoded with a multiplier of 1000.
 - Decode into arrays of 32-bit floats representing coordinates in angstrom.
+- Decoding instructions:
+	1. Get 32-bit signed integers from 8-bit unsigned integers input.
+	2. Apply split-list delta decoding to output from step 1.
+	3. Apply integer decoding with a divisor of 1000 to output from step 2.
+	4. Return output from step 3.
 
 
 #### occList
@@ -299,6 +333,12 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - Optional field.
 - Delta and run-length encoded.
 - Decodes into an array of 32-bit floats.
+- Decoding instructions:
+	1. Get 32-bit signed integers from 8-bit unsigned integers input.
+	2. Apply run-length decoding to output from step 1.
+	3. Apply delta decoding to output from step 2.
+	4. Apply integer decoding with a divisor of 100 to output from step 3.
+	5. Return output from step 4.
 
 
 ## Extra
