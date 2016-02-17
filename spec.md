@@ -131,7 +131,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 #### spaceGroup
 
 - Optional field.
-- String containing the space group name
+- String containing the Hermann-Mauguin space-group symbol.
 
 
 #### unitCell
