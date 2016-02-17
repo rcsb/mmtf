@@ -349,6 +349,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 - Optional field.
 - Delta and run-length encoded.
+- Integer encoded with a multiplier of 100.
 - Decodes into an array of 32-bit floats.
 - Decoding instructions:
 	1. Get 32-bit signed integers from 8-bit unsigned integers input.
