@@ -12,14 +12,23 @@
             margin-right: auto;
             font-family: sans-serif;
         }
+        #edit {
+            float: right;
+            background-color: #DDDDDD;
+            padding: 10px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <div id="content"></div>
+    <div id="content">
+        <span id="edit"><a target="_blank" href="https://git.rcsb.org/Research/MMTF-Specification/edit/master/spec.md">Edit</a></span>
+        <div id="markdown"></div>
+    </div>
     <script>
         var xhr = new XMLHttpRequest();
         xhr.addEventListener( "load", function(){
-            document.getElementById('content').innerHTML = marked(xhr.responseText);
+            document.getElementById('markdown').innerHTML = marked(xhr.responseText);
         }, true );
         xhr.open( "GET", "spec.md" );
         xhr.send();
