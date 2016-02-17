@@ -194,11 +194,11 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - The `groupMap` is a dictionary/object of `groupType` entries.
 - Each `groupType` entry contains the following fields:
 	- `atomCharges` is an array of integers holding the formal charges of each atom.
-	- `atomInfo` is an array of string pairs representing the element and the atom name.
-	- `bondIndices` is an array of integer pairs representing indices of bonded atoms.
-	- `bondOrders` is an array of integers denoting the number of chemical bonds for each bond.
+	- `atomInfo` is an array of string pairs representing the element (0 to 3 characters) and the atom name (0 to 4 characters).
+	- `bondIndices` is an array of integer pairs representing indices of bonded atoms. The indices point to the `atomInfo`/`atomCharges` arrays.
+	- `bondOrders` is an array of integers denoting the number of chemical bonds for each bond in `bondIndices`.
 	- `hetFlag` is a boolean denoting if the group is a not a standard protein, DNA or RNA residue.
-	- `groupName` is string of the name of the group.
+	- `groupName` is string of the name of the group (0 to 5 characters).
 - Layout example:
 	```
 	{
