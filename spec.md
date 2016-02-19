@@ -269,6 +269,16 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 - List of secondary structure codes.
 - One entry per residue.
 - Array of 8-bit signed integers.
+- Encoding (DSSP shorthand in parentheses)
+    - 0: pi helix (i)
+    - 1: bend (s)
+    - 2: alpha helix (h)
+    - 3: extended (e)
+    - 4: 3-10 helix (g)
+    - 5: bridge (b)
+    - 6: turn (t)
+    - 7: coil (l)
+    - -1: not defined/not available
 - TODO how to handle multi-model structures?
 - Decoding instructions:
 	1. Get 8-bit signed integers from 8-bit unsigned integers input.
