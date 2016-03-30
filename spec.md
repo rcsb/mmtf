@@ -930,7 +930,7 @@ Before applying run-length decoding:
 ```
 
 
-#### bFactorBig&bFactorSmall
+#### bFactorBig bFactorSmall
 
 *Optional fields*
 
@@ -962,9 +962,9 @@ Applying integer decoding with a divisor of `100` to create a `Float32Array`:
 ```
 
 
-#### xCoordBig&xCoordSmall
-#### yCoordBig&yCoordSmall
-#### zCoordBig&zCoordSmall
+#### xCoordBig xCoordSmall
+#### yCoordBig yCoordSmall
+#### zCoordBig zCoordSmall
 
 *Required fields*
 
