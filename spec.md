@@ -7,15 +7,6 @@
 The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encoding of biological structures. It includes the coordinates, the topology and associated data. Pronounced goals are a reduced file size for efficient transmission over the Internet or from hard disk to memory and fast decoding/parsing speed. Additionally the format aims to be easy to understand and implement to facilitates its dissemination.
 
 
-## Remarks
-
-
-- Fields are either optional or required. Decoding libraries must handle both presence and absence of optional fields.
-- Spatial data (e.g. coordinates, unit cell lengths) are given in angstrom.
-- TODO debate custom fields
-
-
-
 ## Table of contents
 
 * [Container](#Container)
@@ -35,48 +26,49 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 The [fields](#fields) in MMTF are stored in a binary container format. The top-level of the container contains the field names as keys and field data as values. To describe the layout of data in MMTF we use [JSON](http://www.json.org/) throughout this document. The following table lists all top level [fields](#fields), including their [type](#types) and whether they are required or optional.
 
-| Name                     | Type                      | Required |
-| -------------------------|---------------------------|:--------:|
-| mmtfVersion              | String                    |    Y     |
-| mmtfProducer             | String                    |    Y     |
-| unitCell                 | Array                     |          |
-| spaceGroup               | String                    |          |
-| pdbId                    | String                    |          |
-| title                    | String                    |          |
-| bioAssembly              | Map                       |          |
-| entityList               | Array                     |          |
-| experimentalMethods      | Array                     |          |
-| resolution               | 32-bit Float              |          |
-| rFree                    | 32-bit Float              |          |
-| rWork                    | 32-bit Float              |          |
-| numBonds                 | 32-bit Unsigned Integer   |    Y     |
-| numAtoms                 | 32-bit Unsigned Integer   |    Y     |
-| groupMap                 | Map                       |    Y     |
-| bondAtomList             | Uint32Array               |          |
-| bondOrderList            | Uint8Array                |          |
-| xCoordBig                | Int32Array                |    Y     |
-| xCoordSmall              | Int16Array                |    Y     |
-| yCoordBig                | Int32Array                |    Y     |
-| yCoordSmall              | Int16Array                |    Y     |
-| zCoordBig                | Int32Array                |    Y     |
-| zCoordSmall              | Int16Array                |    Y     |
-| bFactorBig               | Int32Array                |          |
-| bFactorSmall             | Int16Array                |          |
-| atomIdList               | Int32Array                |          |
-| altLabelList             | Array                     |          |
-| insCodeList              | Array                     |          |
-| occList                  | Int32Array                |          |
-| groupIdList              | Int32Array                |    Y     |
-| groupTypeList            | Int32Array                |    Y     |
-| secStructList            | Int8Array                 |          |
-| chainIdList              | Uint8Array                |    Y     |
-| chainNameList            | Uint8Array                |          |
-| groupsPerChain           | Array                     |    Y     |
-| chainsPerModel           | Array                     |    Y     |
+| Name                                        | Type                        | Required |
+| --------------------------------------------|-----------------------------|:--------:|
+| [mmtfVersion](#mmtfversion)                 | [String](#string)           |    Y     |
+| [mmtfProducer](#mmtfProducer)               | [String](#string)           |    Y     |
+| [unitCell](#unitCell)                       | [Array](#array)             |          |
+| [spaceGroup](#spaceGroup)                   | [String](#string)           |          |
+| [pdbId](#pdbId)                             | [String](#string)           |          |
+| [title](#title)                             | [String](#string)           |          |
+| [bioAssembly](#bioAssembly)                 | [Map](#map)                 |          |
+| [entityList](#entityList)                   | [Array](#array)             |          |
+| [experimentalMethods](#experimentalMethods) | [Array](#array)             |          |
+| [resolution](#resolution)                   | [Float32](#float32)         |          |
+| [rFree](#rFree)                             | [Float32](#float32)         |          |
+| [rWork](#rWork)                             | [Float32](#float32)         |          |
+| [numBonds](#numBonds)                       | [Uint32](#uint32)           |    Y     |
+| [numAtoms](#numAtoms)                       | [Uint32](#uint32)           |    Y     |
+| [groupMap](#groupMap)                       | [Map](#map)                 |    Y     |
+| [bondAtomList](#bondAtomList)               | [Uint32Array](#uint32array) |          |
+| [bondOrderList](#bondOrderList)             | [Uint8Array](#uint8array)   |          |
+| [xCoordBig](#xCoordBig)                     | [Int32Array](#int32array)   |    Y     |
+| [xCoordSmall](#xCoordSmall)                 | [Int16Array](#int16array)   |    Y     |
+| [yCoordBig](#yCoordBig)                     | [Int32Array](#int32array)   |    Y     |
+| [yCoordSmall](#yCoordSmall)                 | [Int16Array](#int16array)   |    Y     |
+| [zCoordBig](#zCoordBig)                     | [Int32Array](#int32array)   |    Y     |
+| [zCoordSmall](#zCoordSmall)                 | [Int16Array](#int16array)   |    Y     |
+| [bFactorBig](#bFactorBig)                   | [Int32Array](#int32array)   |          |
+| [bFactorSmall](#bFactorSmall)               | [Int16Array](#int16array)   |          |
+| [atomIdList](#atomIdList)                   | [Int32Array](#int32array)   |          |
+| [altLabelList](#altLabelList)               | [Array](#array)             |          |
+| [insCodeList](#insCodeList)                 | [Array](#array)             |          |
+| [occList](#occList)                         | [Int32Array](#int32array)   |          |
+| [groupIdList](#groupIdList)                 | [Int32Array](#int32array)   |    Y     |
+| [groupTypeList](#groupTypeList)             | [Int32Array](#int32array)   |    Y     |
+| [secStructList](#secStructList)             | [Int8Array](#)              |          |
+| [seqResIdList](#seqResIdList)               | [Int32Array](#int32array)   |          |
+| [chainIdList](#chainIdList)                 | [Uint8Array](#uint8array)   |    Y     |
+| [chainNameList](#chainNameList)             | [Uint8Array](#uint8array)   |          |
+| [groupsPerChain](#groupsPerChain)           | [Array](#array)             |    Y     |
+| [chainsPerModel](#chainsPerModel)           | [Array](#array)             |    Y     |
 
 The MessagePack format (version 5) is used as the binary container format of MMTF. The MessagePack [specification](https://github.com/msgpack/msgpack/blob/master/spec.md) describes the data types and the data layout. Encoding and decoding libraries for MessagePack are available in many languages, see the MessagePack [website](http://msgpack.org/).
 
-While MessagePack supports `64-bit Unsigned/Signed Integers` they are forbidden in MMTF as they can not be represented natively in JavaScript. This is especially important for `userData` fields otherwise all MessagePack types are allowed (Note that the current version of the MMTF specification does not include `userData` fields but they may be added in the future).
+While MessagePack supports 64-bit Unsigned/Signed Integers they are forbidden in MMTF as they can not be represented natively in JavaScript. This is especially important for `userData` fields otherwise all MessagePack types are allowed (Note that the current version of the MMTF specification does not include `userData` fields but they may be added in the future).
 
 The first step of decoding MMTF is decoding the MessagePack encoded container. Many of the resulting MMTF fields do not need to be decoded any further. However, to allow for custom compression some fields are given as binary data and must be decoded using the strategies described below.
 
@@ -140,40 +132,74 @@ Applying delta decoding. The first entry in the list is left as is, the second i
 
 #### Split-list delta encoding
 
-- Special handling of lists with intermittent large delta values
-- The list is split into two arrays to store the values
-    - An array of 32-bit signed integers holds pairs of a large delta value and the number of subsequent small delta values
-    - An array of 16-bit signed integers holds the small values
+Split-list delta encoding is an adjusted delta encoding to handle lists with some intermittent large delta values. The list is split into two arrays, called "big" and "small". The "big" `Int32Array` holds pairs of a large delta value (>=2^15) and the number of subsequent small delta values (<2^15). The "small" `Int16Array` holds the small values, that is, the values fitting into a 16-bit Signed Integer.
 
 *Example*:
 
+Starting with the "big" `Int32Array` and the "small `Int16Array`":
+
+```JavaScript
+[ 1200, 3, 100, 2 ]  // big
+[ 0, 2, -1, -3, 5 ]  // small
 ```
-TODO
+
+Applying split-list delta decoding to create a `Int32Array`:
+
+```JSON
+[ 1200, 1200, 1202, 1201, 1301, 1298, 1303 ]
 ```
 
 
 ### Integer encoding
 
-- Convert floating point numbers to integers by multiplying with a factor and discard everything after the decimal point.
-- Depending on the multiplication factor this can change the precision but with a sufficiently large factor it is lossless.
-- The Integers can then often be compressed with delta encoding which is the main motivation for it.
+In integer encoding, floating point numbers are converted to integer values by multiplying with a factor and discard everything after the decimal point. Depending on the multiplication factor this can change the precision but with a sufficiently large factor it is lossless. The integer values can then often be compressed with delta encoding which is the main motivation for it.
 
 *Example*:
 
+Starting with the list of integer values:
+
+```JSON
+[ 100, 100, 100, 100, 50, 50 ]
 ```
-TODO
+
+Applying integer decoding with a divisor of `100`:
+
+```JSON
+[ 1.00, 1.00, 1.00, 1.00, 0.50, 0.50 ]
 ```
 
 
 ### Dictionary encoding
 
-- Create a key-value store and use the key instead of repeating the value over and over again.
-- Lists of keys can afterwards be compressed with delta and run-length encoding.
+For dictionary encoding a `Map` is created to store key-value pairs. References to the keys can then be used instead of repeating the values over and over again. Lists of keys can afterwards be compressed with delta and run-length encoding.
 
 *Example*:
 
+First create a `Map` to hold values that are referable by keys. In the following example the are two keys, `1` and `2` with some values associated.
+
+```JSON
+{
+    "1": {
+        "A": [ 1, 2, 3 ],
+        "B": "HELLO"
+    },
+    "2": {
+        "A": [ 4, 5, 6 ],
+        "B": "HEY"
+    }
+}
 ```
-TODO
+
+The keys can then be used to reference the values as often as needed:
+
+```JSON
+[ 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1 ]
+```
+
+Note that in the above example the list of keys can also be efficiently run-length encoded:
+
+```JSON
+[ 1, 4, 2, 4, 1, 3 ]
 ```
 
 
@@ -184,19 +210,19 @@ TODO
 An ASCII encoded 8-bit string of up to (2^32)-1 characters.
 
 
-### 32-bit Float
+### Float32
 
-A 32-bit floating point number.
-
-
-### 32-bit Unsigned Integer
-
-An unsigned 32-bit integer number.
+A 32-bit Floating Point number.
 
 
-### 32-bit Signed Integer
+### Uint32
 
-A signed 32-bit integer number.
+An Unsigned 32-bit Integer number.
+
+
+### Int32
+
+A Signed 32-bit Integer number.
 
 
 ### Map
@@ -221,37 +247,37 @@ Typed arrays are not directly supported by the `msgpack` format. However it is s
 
 #### Uint8Array
 
-A list of unsigned 8-bit integer numbers. There can be up to (2^32)-1 numbers.
+A list of Unsigned 8-bit Integer numbers. There can be up to (2^32)-1 numbers.
 
 
 #### Int8Array
 
-A list of signed 8-bit integer numbers. There can be up to (2^32)-1 numbers.
+A list of Signed 8-bit Integer numbers. There can be up to (2^32)-1 numbers.
 
 
 #### Uint16Array
 
-A list of unsigned 16-bit integer numbers. There can be up to (2^31)-2 numbers. Represented in big-endian format.
+A list of Unsigned 16-bit Integer numbers. There can be up to (2^31)-2 numbers. Represented in big-endian format.
 
 
 #### Int16Array
 
-A list of signed 16-bit integer numbers. There can be up to (2^31)-2 numbers. Represented in big-endian format.
+A list of Signed 16-bit Integer numbers. There can be up to (2^31)-2 numbers. Represented in big-endian format.
 
 
 #### Uint32Array
 
-A list of unsigned 32-bit integer numbers. There can be up to (2^30)-4 numbers. Represented in big-endian format.
+A list of Unsigned 32-bit Integer numbers. There can be up to (2^30)-4 numbers. Represented in big-endian format.
 
 
 #### Int32Array
 
-A list of signed 32-bit integer numbers. There can be up to (2^30)-4 numbers. Represented in big-endian format.
+A list of Signed 32-bit Integer numbers. There can be up to (2^30)-4 numbers. Represented in big-endian format.
 
 
 #### Float32Array
 
-A list of 32-bit floating point numbers. There can be up to (2^30)-4 numbers. Represented in big-endian format.
+A list of 32-bit Floating Point numbers. There can be up to (2^30)-4 numbers. Represented in big-endian format.
 
 
 
@@ -333,7 +359,7 @@ A list of 32-bit floating point numbers. There can be up to (2^30)-4 numbers. Re
 
 *Required field*
 
-*Type*: `32-bit Unsigned Integer`.
+*Type*: `Uint32`.
 
 *Description*: The overall number of atoms in the structure. This also includes atoms at alternate locations.
 
@@ -348,7 +374,7 @@ A list of 32-bit floating point numbers. There can be up to (2^30)-4 numbers. Re
 
 *Required field*
 
-*Type*: `32-bit Unsigned Integer`.
+*Type*: `Uint32`.
 
 *Description*: The overall number of bonds. This number must reflect both the bonds given in `bondAtomList` and the bonds given in the `groupType` entries in `groupMap`.
 
@@ -378,7 +404,7 @@ A list of 32-bit floating point numbers. There can be up to (2^30)-4 numbers. Re
 
 *Optional field*
 
-*Type*: `Array` of six `32-bit Float` values.
+*Type*: `Array` of six `Float32` values.
 
 *Description*: List of six values defining the unit cell. The first three entries are the length of the sides `a`, `b`, and `c` in angstrom. The last three angles are the `alpha`, `beta`, and `gamma` angles in degree.
 
@@ -451,7 +477,7 @@ A list of 32-bit floating point numbers. There can be up to (2^30)-4 numbers. Re
 
 *Optional field*
 
-*Type*: `32-bit Float`.
+*Type*: `Float32`.
 
 *Description*: The experimental resolution in Angstrom. If not applicable either do not include the field or set to `-1`.
 
@@ -470,7 +496,7 @@ A list of 32-bit floating point numbers. There can be up to (2^30)-4 numbers. Re
 
 *Optional field*
 
-*Type*: `32-bit Float`.
+*Type*: `Float32`.
 
 *Description*: The R-free value. If not applicable either do not include the field or set to `-1`.
 
@@ -489,7 +515,7 @@ A list of 32-bit floating point numbers. There can be up to (2^30)-4 numbers. Re
 
 *Optional field*
 
-*Type*: `32-bit Float`.
+*Type*: `Float32`.
 
 *Description*: The R-work value. If not applicable either do not include the field or set to `-1`.
 
@@ -562,7 +588,7 @@ The number of models in a structure is equal to the length of the `chainsPerMode
 
 *Required field*
 
-*Type*: `Array` of `Unsigned 32-bit integer` numbers. The number of models is thus equal to the length of the `chainsPerModel` field.
+*Type*: `Array` of `Uint32` numbers. The number of models is thus equal to the length of the `chainsPerModel` field.
 
 *Description*: List of the number of chains in each model.
 
@@ -584,7 +610,7 @@ The number of chains in a structure is equal to the length of the `groupsPerChai
 
 *Required field*
 
-*Type*: `Array` of `Unsigned 32-bit integer` numbers.
+*Type*: `Array` of `Uint32` numbers.
 
 *Description*: List of the number of groups (aka residues) in each chain. The number of chains is thus equal to the length of the `groupsPerChain` field.
 
@@ -609,19 +635,19 @@ In the following example there are 3 chains. The first chain has 73 groups, the 
 
 *Example*:
 
-Starting with the `BinaryArray`/`Uint8Array`
+Starting with the `BinaryArray`/`Uint8Array`:
 
 ```JSON
 [ 0, 0, 0, 65, 0, 0, 0, 66, 0, 0, 89, 67 ]
 ```
 
-Decoding the ASCII characters
+Decoding the ASCII characters:
 
 ```JSON
 [ "", "", "", "A", "", "", "", "B", "", "", "Y", "C" ]
 ```
 
-Creating the list of chain IDs
+Creating the list of chain IDs:
 
 ```JSON
 [ "A", "B", "YC" ]
@@ -646,13 +672,14 @@ Creating the list of chain IDs
 *Required field*
 
 *Type*: `Map` of `groupType` entries. A `groupType` object has the following fields:
-    - `atomCharges` is an `Array`  of `32-bit Signed Integers` holding the formal charges of each atom.
-    - `atomInfo` is an `Array` of `String` pairs representing the element (0 to 3 characters) and the atom name (0 to 4 characters).
-    - `bondIndices` is an `Array` of `32-bit Signed Integers` pairs representing indices of bonded atoms. The indices point to the `atomInfo`/`atomCharges` lists.
-    - `bondOrders` is an `Array` of `32-bit Signed Integers` denoting the number of chemical bonds for each bond in `bondIndices`.
-    - `chemCompType` is a `String` .
-    - `groupName` is a `String` holding the of the name of the group (0 to 5 characters).
-    - `singleLetterCode` is a `String` of length one representing the single letter code of protein or DNA/RNA residue, otherwise a question mark.
+
+- `atomCharges` is an `Array`  of `Int32` holding the formal charges of each atom.
+- `atomInfo` is an `Array` of `String` pairs representing the element (0 to 3 characters) and the atom name (0 to 4 characters).
+- `bondIndices` is an `Array` of `Int32` pairs representing indices of bonded atoms. The indices point to the `atomInfo`/`atomCharges` lists.
+- `bondOrders` is an `Array` of `Int32` denoting the number of chemical bonds for each bond in `bondIndices`.
+- `chemCompType` is a `String` .
+- `groupName` is a `String` holding the of the name of the group (0 to 5 characters).
+- `singleLetterCode` is a `String` of length one representing the single letter code of protein or DNA/RNA residue, otherwise a question mark.
 
 *Description*: Common group (residue) data that is referenced via the `groupType` key by group entries.
 
@@ -704,22 +731,22 @@ In the following example there are 5 groups. The 1st, 4th and 5th reference the 
 
 *Example*:
 
-Starting with the `Int32Array`
+Starting with the `Int32Array`:
 
 ```JSON
-[ 1, 10, 2, 1, 1, 4 ]
+[ 1, 10, -10, 1, 1, 4 ]
 ```
 
-Applying run-length decoding
+Applying run-length decoding:
 
 ```JSON
-[ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1 ]
+[ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -10, 1, 1, 1, 1 ]
 ```
 
-Applying delta decoding
+Applying delta decoding:
 
 ```JSON
-[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16 ]
+[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5 ]
 ```
 
 
@@ -758,6 +785,37 @@ A decoding library may decide to provide the secondary structure assignments usi
 ```
 
 
+#### seqResIdList
+
+*Required field*
+
+*Type*: `BinaryArray` that is interpreted as an `Int32Array`.
+
+*Decoding*: First, run-length decode the input `Int32Array` into a second `Int32Array`. Finally apply delta decoding to the second `Int32Array`, which can be done in-place, to create the output `Int32Array`.
+
+*Description*: List of sequence indices that point into the sequence `String` of the entity (from the `entityList` field) associated with the group. One entry for each group (residue). Set to `-1` when a group entry is has no associated entity/sequence given, for example water molecules.
+
+*Example*:
+
+Starting with the `Int32Array`:
+
+```JSON
+[ 1, 10, -10, 1, 1, 4 ]
+```
+
+Applying run-length decoding:
+
+```JSON
+[ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -10, 1, 1, 1, 1 ]
+```
+
+Applying delta decoding:
+
+```JSON
+[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5 ]
+```
+
+
 ### Atom data
 
 #### atomIdList
@@ -772,8 +830,22 @@ A decoding library may decide to provide the secondary structure assignments usi
 
 *Example*:
 
+Starting with the `Int32Array`:
+
+```JSON
+[ 1, 7, 2, 1 ]
 ```
-TODO
+
+Applying run-length decoding:
+
+```JSON
+[ 1, 1, 1, 1, 1, 1, 1, 2 ]
+```
+
+Applying delta decoding:
+
+```JSON
+[ 1, 2, 3, 4, 5, 6, 7, 9 ]
 ```
 
 
@@ -781,16 +853,36 @@ TODO
 
 *Optional field*
 
-*Type*: `Array` of alternating `String` and `32-bit Unsigned Integer` values.
+*Type*: `Array` of alternating `String` and `Uint32` values.
 
-*Decoding*: Run-length decode the input `Array` into an `Uint8Array` representing ASCII characters.
+*Decoding*: Run-length decode the input `Array` into an `Array` of `String` characters or into an `Uint8Array` representing ASCII characters.
 
 *Description*: List of alternate location identifiers, one for each atom.
 
 *Example*:
 
+Starting with the `Array`:
+
+```JSON
+[ "", 5, "A", 3, "B", 2 ]
 ```
-TODO
+
+Applying run-length decoding:
+
+```JSON
+[ "", "", "", "", "", "A", "A", "A", "B", "B" ]
+```
+
+Alternatively encode the starting `Array` as ASCII which may be more efficient:
+
+```JSON
+[ 0, 5, 65, 3, 66, 2 ]
+```
+
+Before applying run-length decoding:
+
+```JSON
+[ 0, 0, 0, 0, 0, 65, 65, 65, 66, 66 ]
 ```
 
 
@@ -798,38 +890,68 @@ TODO
 
 *Optional field*
 
-*Type*: `Array` of alternating `String` and `32-bit Unsigned Integer` values.
+*Type*: `Array` of alternating `String` and `Unit32` values.
 
-*Decoding*: Run-length decode the input `Array` into an `Uint8Array` representing ASCII characters.
+*Decoding*: Run-length decode the input `Array` into an `Array` of `String` characters or into an `Uint8Array` representing ASCII characters.
 
 *Description*: List of insertion codes, one for each atom.
 
 *Example*:
 
+Starting with the `Array`:
+
+```JSON
+[ "", 5, "A", 3, "B", 2 ]
 ```
-TODO
+
+Applying run-length decoding:
+
+```JSON
+[ "", "", "", "", "", "A", "A", "A", "B", "B" ]
+```
+
+Alternatively encode the starting `Array` as ASCII which may be more efficient:
+
+```JSON
+[ 0, 5, 65, 3, 66, 2 ]
+```
+
+Before applying run-length decoding:
+
+```JSON
+[ 0, 0, 0, 0, 0, 65, 65, 65, 66, 66 ]
 ```
 
 
-#### bFactorBig, bFactorSmall
+#### bFactorBig & bFactorSmall
 
 *Optional field*
 
-- List of atom b-factors.
-- One entry for each atom.
-- Split-list delta encoded.
-- Integer encoded with a multiplier of 100.
-- Decodes into an array of 32-bit floats.
-- Decoding instructions:
-    1. Get 32-bit signed integers from 8-bit unsigned integers input.
-    2. Apply split-list delta decoding to output from step 1.
-    3. Apply integer decoding with a divisor of 100 to output from step 2.
-    4. Return output from step 3.
+*Type*: Two `BinaryArray`s that are interpreted as `Int32Array` and `Int16Array`.
+
+*Decoding*: First split-list delta decode the input `Int32Array` and `Int16Array` into second `Int32Array`. Finally integer decode the second `Int32Array` using `100` as a divisor to create a `Float32Array`.
+
+*Description*: List of atom b-factors in in angstrom^2. One entry for each atom.
 
 *Example*:
 
+Starting with the "big" `Int32Array` and the "small `Int16Array`":
+
+```JavaScript
+[ 200, 3, 100, 2 ]   // big
+[ 0, 2, -1, -3, 5 ]  // small
 ```
-TODO
+
+Applying split-list delta decoding to create a `Int32Array`:
+
+```JSON
+[ 200, 200, 202, 201, 301, 298, 303 ]
+```
+
+Applying integer decoding with a divisor of `100` to create a `Float32Array`:
+
+```JSON
+[ 2.00, 2.00, 2.02, 2.01, 3.01, 2.98, 3.03 ]
 ```
 
 
@@ -837,21 +959,33 @@ TODO
 
 *Required field*
 
-- List of x, y, and z atom coordinates.
-- One entry for each atom and coordinate.
-- Split-list delta encoded.
-- Integer encoded with a multiplier of 1000.
-- Decode into arrays of 32-bit floats representing coordinates in angstrom.
-- Decoding instructions:
-    1. Get 32-bit signed integers from 8-bit unsigned integers input.
-    2. Apply split-list delta decoding to output from step 1.
-    3. Apply integer decoding with a divisor of 1000 to output from step 2.
-    4. Return output from step 3.
+*Type*: Two `BinaryArray`s that are interpreted as `Int32Array` and `Int16Array`.
+
+*Decoding*: First split-list delta decode the input `Int32Array` and `Int16Array` into second `Int32Array`. Finally integer decode the second `Int32Array` using `1000` as a divisor to create a `Float32Array`.
+
+*Description*: List of x, y, and z atom coordinates, respectively, in angstrom. One entry for each atom and coordinate.
+
+*Note*: To clarify, the data for each coordinate is stored in a separate pair of `Int32Array` and `Int16Array` fields.
 
 *Example*:
 
+Starting with the "big" `Int32Array` and the "small `Int16Array`":
+
+```JavaScript
+[ 1200, 3, 100, 2 ]  // big
+[ 0, 2, -1, -3, 5 ]  // small
 ```
-TODO
+
+Applying split-list delta decoding to create a `Int32Array`:
+
+```JSON
+[ 1200, 1200, 1202, 1201, 1301, 1298, 1303 ]
+```
+
+Applying integer decoding with a divisor of `1000` to create a `Float32Array`:
+
+```JSON
+[ 1.000, 1.200, 1.202, 1.201, 1.301, 1.298, 1.303 ]
 ```
 
 
@@ -859,20 +993,30 @@ TODO
 
 *Optional field*
 
-- Delta and run-length encoded.
-- Integer encoded with a multiplier of 100.
-- Decodes into an array of 32-bit floats.
-- Decoding instructions:
-    1. Get 32-bit signed integers from 8-bit unsigned integers input.
-    2. Apply run-length decoding to output from step 1.
-    3. Apply delta decoding to output from step 2.
-    4. Apply integer decoding with a divisor of 100 to output from step 3.
-    5. Return output from step 4.
+*Description*: List of atom occupancies, one for each atom.
+
+*Type*: `BinaryArray` that is interpreted as an `Int32Array`.
+
+*Decoding*: First, run-length decode the input `Int32Array` into a second `Int32Array`. Finally apply integer decoding using `100` as a divisor to the second `Int32Array` to create a `Float32Array`.
 
 *Example*:
 
+Starting with the `Int32Array`:
+
+```JSON
+[ 100, 4, 50, 2 ]
 ```
-TODO
+
+Applying run-length decoding:
+
+```JSON
+[ 100, 100, 100, 100, 50, 50 ]
+```
+
+Applying integer decoding with a divisor of `100` to create a `Float32Array`:
+
+```JSON
+[ 1.00, 1.00, 1.00, 1.00, 0.50, 0.50 ]
 ```
 
 
