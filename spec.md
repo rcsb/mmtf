@@ -9,10 +9,11 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 ## Table of contents
 
-* [Container](#Container)
+* [Container](#container)
 * [Encodings](#encodings)
 * [Types](#types)
 * [Fields](#fields)
+    * [Format data](#format-data)
     * [Structure data](#structure-data)
     * [Model data](#model-data)
     * [Chain data](#chain-data)
