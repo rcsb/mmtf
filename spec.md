@@ -46,14 +46,14 @@ The [fields](#fields) in MMTF are stored in a binary container format. The top-l
 | [groupMap](#groupmap)                       | [Map](#map)                 |    Y     |
 | [bondAtomList](#bondatomlist)               | [Uint32Array](#uint32array) |          |
 | [bondOrderList](#bondorderlist)             | [Uint8Array](#uint8array)   |          |
-| [xCoordBig](#xcoordbig)                     | [Int32Array](#int32array)   |    Y     |
-| [xCoordSmall](#xcoordsmall)                 | [Int16Array](#int16array)   |    Y     |
-| [yCoordBig](#ycoordbig)                     | [Int32Array](#int32array)   |    Y     |
-| [yCoordSmall](#yCoordSmall)                 | [Int16Array](#int16array)   |    Y     |
-| [zCoordBig](#zcoordbig)                     | [Int32Array](#int32array)   |    Y     |
-| [zCoordSmall](#zcoordsmall)                 | [Int16Array](#int16array)   |    Y     |
-| [bFactorBig](#bfactorbig)                   | [Int32Array](#int32array)   |          |
-| [bFactorSmall](#bfactorsmall)               | [Int16Array](#int16array)   |          |
+| [xCoordBig](#xcoordbig-xcoordsmall)         | [Int32Array](#int32array)   |    Y     |
+| [xCoordSmall](#xcoordbig-xcoordsmall)       | [Int16Array](#int16array)   |    Y     |
+| [yCoordBig](#ycoordbig-ycoordSmall)         | [Int32Array](#int32array)   |    Y     |
+| [yCoordSmall](#ycoordbig-ycoordSmall)       | [Int16Array](#int16array)   |    Y     |
+| [zCoordBig](#zcoordbig-zcoordsmall)         | [Int32Array](#int32array)   |    Y     |
+| [zCoordSmall](#zcoordbig-zcoordsmall)       | [Int16Array](#int16array)   |    Y     |
+| [bFactorBig](#bfactorbig-bfactorsmall)      | [Int32Array](#int32array)   |          |
+| [bFactorSmall](#bfactorbig-bfactorsmall)    | [Int16Array](#int16array)   |          |
 | [atomIdList](#atomidlist)                   | [Int32Array](#int32array)   |          |
 | [altLabelList](#altlabellist)               | [Array](#array)             |          |
 | [insCodeList](#inscodelist)                 | [Array](#array)             |          |
@@ -930,9 +930,9 @@ Before applying run-length decoding:
 ```
 
 
-#### bFactorBig & bFactorSmall
+#### bFactorBig/bFactorSmall
 
-*Optional field*
+*Optional fields*
 
 *Type*: Two `BinaryArray`s that are interpreted as `Int32Array` and `Int16Array`.
 
@@ -962,9 +962,11 @@ Applying integer decoding with a divisor of `100` to create a `Float32Array`:
 ```
 
 
-#### xCoordBig & xCoordSmall, yCoordBig & yCoordSmall, zCoordBig & zCoordSmall
+#### xCoordBig/xCoordSmall
+#### yCoordBig/yCoordSmall
+#### zCoordBig/zCoordSmall
 
-*Required field*
+*Required fields*
 
 *Type*: Two `BinaryArray`s that are interpreted as `Int32Array` and `Int16Array`.
 
