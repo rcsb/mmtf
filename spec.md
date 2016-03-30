@@ -48,8 +48,8 @@ The [fields](#fields) in MMTF are stored in a binary container format. The top-l
 | [bondOrderList](#bondorderlist)             | [Uint8Array](#uint8array)   |          |
 | [xCoordBig](#xcoordbig-xcoordsmall)         | [Int32Array](#int32array)   |    Y     |
 | [xCoordSmall](#xcoordbig-xcoordsmall)       | [Int16Array](#int16array)   |    Y     |
-| [yCoordBig](#ycoordbig-ycoordSmall)         | [Int32Array](#int32array)   |    Y     |
-| [yCoordSmall](#ycoordbig-ycoordSmall)       | [Int16Array](#int16array)   |    Y     |
+| [yCoordBig](#ycoordbig-ycoordsmall)         | [Int32Array](#int32array)   |    Y     |
+| [yCoordSmall](#ycoordbig-ycoordsmall)       | [Int16Array](#int16array)   |    Y     |
 | [zCoordBig](#zcoordbig-zcoordsmall)         | [Int32Array](#int32array)   |    Y     |
 | [zCoordSmall](#zcoordbig-zcoordsmall)       | [Int16Array](#int16array)   |    Y     |
 | [bFactorBig](#bfactorbig-bfactorsmall)      | [Int32Array](#int32array)   |          |
@@ -930,7 +930,7 @@ Before applying run-length decoding:
 ```
 
 
-#### bFactorBig/bFactorSmall
+#### bFactorBig&bFactorSmall
 
 *Optional fields*
 
@@ -962,9 +962,9 @@ Applying integer decoding with a divisor of `100` to create a `Float32Array`:
 ```
 
 
-#### xCoordBig/xCoordSmall
-#### yCoordBig/yCoordSmall
-#### zCoordBig/zCoordSmall
+#### xCoordBig&xCoordSmall
+#### yCoordBig&yCoordSmall
+#### zCoordBig&zCoordSmall
 
 *Required fields*
 
