@@ -20,7 +20,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
     * [Group data](#group-data)
     * [Atom data](#atom-data)
 * [Extra](#extra)
-* [mmCIF](#mmCIF)
+* [mmCIF](#mmcif)
 
 
 ## Container
@@ -30,42 +30,42 @@ The [fields](#fields) in MMTF are stored in a binary container format. The top-l
 | Name                                        | Type                        | Required |
 | --------------------------------------------|-----------------------------|:--------:|
 | [mmtfVersion](#mmtfversion)                 | [String](#string)           |    Y     |
-| [mmtfProducer](#mmtfProducer)               | [String](#string)           |    Y     |
-| [unitCell](#unitCell)                       | [Array](#array)             |          |
-| [spaceGroup](#spaceGroup)                   | [String](#string)           |          |
-| [pdbId](#pdbId)                             | [String](#string)           |          |
+| [mmtfProducer](#mmtfproducer)               | [String](#string)           |    Y     |
+| [unitCell](#unitcell)                       | [Array](#array)             |          |
+| [spaceGroup](#spacegroup)                   | [String](#string)           |          |
+| [pdbId](#pdbid)                             | [String](#string)           |          |
 | [title](#title)                             | [String](#string)           |          |
-| [bioAssembly](#bioAssembly)                 | [Map](#map)                 |          |
-| [entityList](#entityList)                   | [Array](#array)             |          |
-| [experimentalMethods](#experimentalMethods) | [Array](#array)             |          |
+| [bioAssembly](#bioassembly)                 | [Map](#map)                 |          |
+| [entityList](#entitylist)                   | [Array](#array)             |          |
+| [experimentalMethods](#experimentalmethods) | [Array](#array)             |          |
 | [resolution](#resolution)                   | [Float32](#float32)         |          |
-| [rFree](#rFree)                             | [Float32](#float32)         |          |
-| [rWork](#rWork)                             | [Float32](#float32)         |          |
-| [numBonds](#numBonds)                       | [Uint32](#uint32)           |    Y     |
-| [numAtoms](#numAtoms)                       | [Uint32](#uint32)           |    Y     |
-| [groupMap](#groupMap)                       | [Map](#map)                 |    Y     |
-| [bondAtomList](#bondAtomList)               | [Uint32Array](#uint32array) |          |
-| [bondOrderList](#bondOrderList)             | [Uint8Array](#uint8array)   |          |
-| [xCoordBig](#xCoordBig)                     | [Int32Array](#int32array)   |    Y     |
-| [xCoordSmall](#xCoordSmall)                 | [Int16Array](#int16array)   |    Y     |
-| [yCoordBig](#yCoordBig)                     | [Int32Array](#int32array)   |    Y     |
+| [rFree](#rfree)                             | [Float32](#float32)         |          |
+| [rWork](#rwork)                             | [Float32](#float32)         |          |
+| [numBonds](#numbonds)                       | [Uint32](#uint32)           |    Y     |
+| [numAtoms](#numatoms)                       | [Uint32](#uint32)           |    Y     |
+| [groupMap](#groupmap)                       | [Map](#map)                 |    Y     |
+| [bondAtomList](#bondatomlist)               | [Uint32Array](#uint32array) |          |
+| [bondOrderList](#bondorderlist)             | [Uint8Array](#uint8array)   |          |
+| [xCoordBig](#xcoordbig)                     | [Int32Array](#int32array)   |    Y     |
+| [xCoordSmall](#xcoordsmall)                 | [Int16Array](#int16array)   |    Y     |
+| [yCoordBig](#ycoordbig)                     | [Int32Array](#int32array)   |    Y     |
 | [yCoordSmall](#yCoordSmall)                 | [Int16Array](#int16array)   |    Y     |
-| [zCoordBig](#zCoordBig)                     | [Int32Array](#int32array)   |    Y     |
-| [zCoordSmall](#zCoordSmall)                 | [Int16Array](#int16array)   |    Y     |
-| [bFactorBig](#bFactorBig)                   | [Int32Array](#int32array)   |          |
-| [bFactorSmall](#bFactorSmall)               | [Int16Array](#int16array)   |          |
-| [atomIdList](#atomIdList)                   | [Int32Array](#int32array)   |          |
-| [altLabelList](#altLabelList)               | [Array](#array)             |          |
-| [insCodeList](#insCodeList)                 | [Array](#array)             |          |
-| [occList](#occList)                         | [Int32Array](#int32array)   |          |
-| [groupIdList](#groupIdList)                 | [Int32Array](#int32array)   |    Y     |
-| [groupTypeList](#groupTypeList)             | [Int32Array](#int32array)   |    Y     |
-| [secStructList](#secStructList)             | [Int8Array](#)              |          |
-| [seqResIdList](#seqResIdList)               | [Int32Array](#int32array)   |          |
-| [chainIdList](#chainIdList)                 | [Uint8Array](#uint8array)   |    Y     |
-| [chainNameList](#chainNameList)             | [Uint8Array](#uint8array)   |          |
-| [groupsPerChain](#groupsPerChain)           | [Array](#array)             |    Y     |
-| [chainsPerModel](#chainsPerModel)           | [Array](#array)             |    Y     |
+| [zCoordBig](#zcoordbig)                     | [Int32Array](#int32array)   |    Y     |
+| [zCoordSmall](#zcoordsmall)                 | [Int16Array](#int16array)   |    Y     |
+| [bFactorBig](#bfactorbig)                   | [Int32Array](#int32array)   |          |
+| [bFactorSmall](#bfactorsmall)               | [Int16Array](#int16array)   |          |
+| [atomIdList](#atomidlist)                   | [Int32Array](#int32array)   |          |
+| [altLabelList](#altlabellist)               | [Array](#array)             |          |
+| [insCodeList](#inscodelist)                 | [Array](#array)             |          |
+| [occList](#occlist)                         | [Int32Array](#int32array)   |          |
+| [groupIdList](#groupidlist)                 | [Int32Array](#int32array)   |    Y     |
+| [groupTypeList](#grouptypelist)             | [Int32Array](#int32array)   |    Y     |
+| [secStructList](#secstructlist)             | [Int8Array](#)              |          |
+| [seqResIdList](#seqresidlist)               | [Int32Array](#int32array)   |          |
+| [chainIdList](#chainidlist)                 | [Uint8Array](#uint8array)   |    Y     |
+| [chainNameList](#chainnamelist)             | [Uint8Array](#uint8array)   |          |
+| [groupsPerChain](#groupsperchain)           | [Array](#array)             |    Y     |
+| [chainsPerModel](#chainspermodel)           | [Array](#array)             |    Y     |
 
 The MessagePack format (version 5) is used as the binary container format of MMTF. The MessagePack [specification](https://github.com/msgpack/msgpack/blob/master/spec.md) describes the data types and the data layout. Encoding and decoding libraries for MessagePack are available in many languages, see the MessagePack [website](http://msgpack.org/).
 
