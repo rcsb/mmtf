@@ -726,7 +726,7 @@ In the following example there are 5 groups. The 1st, 4th and 5th reference the 
 ```
 
 
-#### groupNumList
+#### groupIdList
 
 *Required field*
 
