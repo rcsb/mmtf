@@ -28,7 +28,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 The [fields](#fields) in MMTF are stored in a binary container format. The top-level of the container contains the field names as keys and field data as values. To describe the layout of data in MMTF we use [JSON](http://www.json.org/) throughout this document. The following table lists all top level [fields](#fields), including their [type](#types) and whether they are required or optional.
 
 | Name                                        | Type                        | Required |
-| --------------------------------------------|-----------------------------|:--------:|
+|---------------------------------------------|-----------------------------|:--------:|
 | [mmtfVersion](#mmtfversion)                 | [String](#string)           |    Y     |
 | [mmtfProducer](#mmtfproducer)               | [String](#string)           |    Y     |
 | [unitCell](#unitcell)                       | [Array](#array)             |          |
@@ -936,7 +936,7 @@ Before applying run-length decoding:
 
 *Type*: Two `BinaryArray`s that are interpreted as `Int32Array` and `Int16Array`.
 
-*Decoding*: First split-list delta decode the input `Int32Array` and `Int16Array` into second `Int32Array`. Finally integer decode the second `Int32Array` using `100` as a divisor to create a `Float32Array`.
+*Decoding*: First split-list delta decode the input `Int32Array` and `Int16Array` into a second `Int32Array`. Finally integer decode the second `Int32Array` using `100` as the divisor to create a `Float32Array`.
 
 *Description*: List of atom b-factors in in angstrom^2. One entry for each atom.
 
@@ -970,7 +970,7 @@ Applying integer decoding with a divisor of `100` to create a `Float32Array`:
 
 *Type*: Two `BinaryArray`s that are interpreted as `Int32Array` and `Int16Array`.
 
-*Decoding*: First split-list delta decode the input `Int32Array` and `Int16Array` into second `Int32Array`. Finally integer decode the second `Int32Array` using `1000` as a divisor to create a `Float32Array`.
+*Decoding*: First split-list delta decode the input `Int32Array` and `Int16Array` into a second `Int32Array`. Finally integer decode the second `Int32Array` using `1000` as the divisor to create a `Float32Array`.
 
 *Description*: List of x, y, and z atom coordinates, respectively, in angstrom. One entry for each atom and coordinate.
 
@@ -1006,7 +1006,7 @@ Applying integer decoding with a divisor of `1000` to create a `Float32Array`:
 
 *Type*: `BinaryArray` that is interpreted as an `Int32Array`.
 
-*Decoding*: First, run-length decode the input `Int32Array` into a second `Int32Array`. Finally apply integer decoding using `100` as a divisor to the second `Int32Array` to create a `Float32Array`.
+*Decoding*: First, run-length decode the input `Int32Array` into a second `Int32Array`. Finally apply integer decoding using `100` as the divisor to the second `Int32Array` to create a `Float32Array`.
 
 *Example*:
 
