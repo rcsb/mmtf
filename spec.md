@@ -450,7 +450,7 @@ A list of 32-bit Floating Point numbers. There can be up to (2^30)-4 numbers. Re
 
 *Optional field*
 
-*Type*: `Array` of `entity` entries. An `entity` object has three fields, `chainIndexList` of type `Array`, `description` of type `String` and `type` of type `String`.
+*Type*: `Array` of `entity` entries. An `entity` object has four fields, `chainIndexList` of type `Array`, `description` of type `String`, `type` of type `String` and `sequence` of type `String`.
 
 *Description*: List of unique molecular entities within the structure. The values in `chainIdList` must correspond with each of the chains in the top-level `chainIdList` field that represent instances of that entity. The entity `type` must be `polymer`, `non-polymer` or `water`. A `description` text can be included for each `entity`.
 
@@ -463,12 +463,14 @@ A list of 32-bit Floating Point numbers. There can be up to (2^30)-4 numbers. Re
     {
         "chainIndexList": [ 1, 2, 3 ],
         "description": "some polymer",
-        "type": "polymer"
+        "type": "polymer",
+        "sequence": "MNTYASDE"
     },
     {
         "chainIndexList": [ 4 ],
         "description": "some ligand",
-        "type": "non-polymer"
+        "type": "non-polymer",
+        "sequence": ""
     }
 ]
 ```
