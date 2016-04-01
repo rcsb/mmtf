@@ -35,7 +35,7 @@ The [fields](#fields) in MMTF are stored in a binary container format. The top-l
 | [spaceGroup](#spacegroup)                   | [String](#string)           |          |
 | [pdbId](#pdbid)                             | [String](#string)           |          |
 | [title](#title)                             | [String](#string)           |          |
-| [bioAssembly](#bioassembly)                 | [Map](#map)                 |          |
+| [bioAssemblyList](#bioassemblylist)         | [Array](#array)             |          |
 | [entityList](#entitylist)                   | [Array](#array)             |          |
 | [experimentalMethods](#experimentalmethods) | [Array](#array)             |          |
 | [resolution](#resolution)                   | [Float32](#float32)         |          |
@@ -416,22 +416,20 @@ A list of 32-bit Floating Point numbers. There can be up to (2^30)-4 numbers. Re
 ```
 
 
-#### bioAssembly
+#### bioAssemblyList
 
 *Optional field*
 
-*Type*: `Map` of `assembly` entries. An `assembly` entry holds
+*Type*: `Array` of `assembly` entries. An `assembly` entry holds
     - an array of transforms that contain a `chainIdList` and a 4x4 `transformation` matrix.
-    - a `32-bit Signed Integer` named `macroMolecularSize`
 
-*Description*: List of instructions on how to transform a list of chains to create (biological) assemblies.
+*Description*: List of instructions on how to transform coordinates for a list of chains to create (biological) assemblies.
 
 *Example*:
 
 ```JSON
-{
-    "1": {
-        "macroMolecularSize": 1,
+[
+    {
         "transforms": [
             {
                 "chainIdList": [ "A", "B", "..." ],
@@ -444,7 +442,7 @@ A list of 32-bit Floating Point numbers. There can be up to (2^30)-4 numbers. Re
             }
         ]
     }
-}
+]
 ```
 
 
