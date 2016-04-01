@@ -56,11 +56,11 @@ The [fields](#fields) in MMTF are stored in a binary container format. The top-l
 | [bFactorSmall](#bfactorbig-bfactorsmall)    | [Int16Array](#int16array)   |          |
 | [atomIdList](#atomidlist)                   | [Int32Array](#int32array)   |          |
 | [altLabelList](#altlabellist)               | [Array](#array)             |          |
-| [insCodeList](#inscodelist)                 | [Array](#array)             |          |
 | [occList](#occlist)                         | [Int32Array](#int32array)   |          |
 | [groupIdList](#groupidlist)                 | [Int32Array](#int32array)   |    Y     |
 | [groupTypeList](#grouptypelist)             | [Int32Array](#int32array)   |    Y     |
 | [secStructList](#secstructlist)             | [Int8Array](#)              |          |
+| [insCodeList](#inscodelist)                 | [Array](#array)             |          |
 | [seqResIdList](#seqresidlist)               | [Int32Array](#int32array)   |          |
 | [chainIdList](#chainidlist)                 | [Uint8Array](#uint8array)   |    Y     |
 | [chainNameList](#chainnamelist)             | [Uint8Array](#uint8array)   |          |
@@ -792,6 +792,43 @@ A decoding library may decide to provide the secondary structure assignments usi
 ```
 
 
+#### insCodeList
+
+*Optional field*
+
+*Type*: `Array` of alternating `String` and `Unit32` values.
+
+*Decoding*: Run-length decode the input `Array` into an `Array` of `String` characters or into an `Uint8Array` representing ASCII characters.
+
+*Description*: List of insertion codes, one for each group (residue).
+
+*Example*:
+
+Starting with the `Array`:
+
+```JSON
+[ "", 5, "A", 3, "B", 2 ]
+```
+
+Applying run-length decoding:
+
+```JSON
+[ "", "", "", "", "", "A", "A", "A", "B", "B" ]
+```
+
+Alternatively encode the starting `Array` as ASCII which may be more efficient:
+
+```JSON
+[ 0, 5, 65, 3, 66, 2 ]
+```
+
+Before applying run-length decoding:
+
+```JSON
+[ 0, 0, 0, 0, 0, 65, 65, 65, 66, 66 ]
+```
+
+
 #### seqResIdList
 
 *Required field*
@@ -865,43 +902,6 @@ Applying delta decoding:
 *Decoding*: Run-length decode the input `Array` into an `Array` of `String` characters or into an `Uint8Array` representing ASCII characters.
 
 *Description*: List of alternate location identifiers, one for each atom.
-
-*Example*:
-
-Starting with the `Array`:
-
-```JSON
-[ "", 5, "A", 3, "B", 2 ]
-```
-
-Applying run-length decoding:
-
-```JSON
-[ "", "", "", "", "", "A", "A", "A", "B", "B" ]
-```
-
-Alternatively encode the starting `Array` as ASCII which may be more efficient:
-
-```JSON
-[ 0, 5, 65, 3, 66, 2 ]
-```
-
-Before applying run-length decoding:
-
-```JSON
-[ 0, 0, 0, 0, 0, 65, 65, 65, 66, 66 ]
-```
-
-
-#### insCodeList
-
-*Optional field*
-
-*Type*: `Array` of alternating `String` and `Unit32` values.
-
-*Decoding*: Run-length decode the input `Array` into an `Array` of `String` characters or into an `Uint8Array` representing ASCII characters.
-
-*Description*: List of insertion codes, one for each atom.
 
 *Example*:
 
