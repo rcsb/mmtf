@@ -1029,6 +1029,8 @@ Applying integer decoding with a divisor of `100` to create a `Float32Array`:
 
 ## mmCIF
 
+TODO
+
 This section describes how (and what) data from mmCIF files (including associated data from CCD and BIRD files) can be stored in MMTF.
 
 
