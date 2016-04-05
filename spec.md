@@ -33,7 +33,7 @@ The [fields](#fields) in MMTF are stored in a binary container format. The top-l
 | [mmtfProducer](#mmtfproducer)               | [String](#string)           |    Y     |
 | [unitCell](#unitcell)                       | [Array](#array)             |          |
 | [spaceGroup](#spacegroup)                   | [String](#string)           |          |
-| [pdbId](#pdbid)                             | [String](#string)           |          |
+| [structureId](#structureid)                 | [String](#string)           |          |
 | [title](#title)                             | [String](#string)           |          |
 | [bioAssemblyList](#bioassemblylist)         | [Array](#array)             |          |
 | [entityList](#entitylist)                   | [Array](#array)             |          |
@@ -337,22 +337,18 @@ A list of 32-bit Floating Point numbers. There can be up to (2^30)-4 numbers. Re
 ```
 
 
-#### pdbId
+#### structureId
 
 *Optional field*
 
-*Type*: `String` of four characters.
+*Type*: `String`
 
-*Description*: The four character PDB ID.
+*Description*: An ID for the structure, for example the PDB ID if applicable.
 
 *Examples*:
 
 ```JSON
 "1CRN"
-```
-
-```JSON
-"3pqr"
 ```
 
 
