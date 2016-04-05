@@ -35,6 +35,7 @@ The [fields](#fields) in MMTF are stored in a binary container format. The top-l
 | [spaceGroup](#spacegroup)                   | [String](#string)           |          |
 | [structureId](#structureid)                 | [String](#string)           |          |
 | [title](#title)                             | [String](#string)           |          |
+| [date](#date)                               | [String](#string)           |          |
 | [bioAssemblyList](#bioassemblylist)         | [Array](#array)             |          |
 | [entityList](#entitylist)                   | [Array](#array)             |          |
 | [experimentalMethods](#experimentalmethods) | [Array](#array)             |          |
@@ -345,10 +346,27 @@ A list of 32-bit Floating Point numbers. There can be up to (2^30)-4 numbers. Re
 
 *Description*: An ID for the structure, for example the PDB ID if applicable.
 
-*Examples*:
+*Example*:
 
 ```JSON
 "1CRN"
+```
+
+
+#### date
+
+*Optional field*
+
+*Type*: `String` with the format `YYYY-MM-DD`, where `YYYY` stands for the year in the Gregorian calendar, `MM` is the month of the year between 01 (January) and 12 (December), and `DD` is the day of the month between 01 and 31.
+
+*Description*: A date that relates to the structure, e.g. the date of release or creation.
+
+*Example*:
+
+For example, the second day of October in the year 2005 is written as:
+
+```JSON
+"2005-10-02"
 ```
 
 
