@@ -496,7 +496,7 @@ For example, the second day of October in the year 2005 is written as:
 
 *Type*: `Float32`.
 
-*Description*: The experimental resolution in Angstrom. If not applicable either do not include the field or set to `-1`.
+*Description*: The experimental resolution in Angstrom. If not applicable do not include the field.
 
 *Examples*:
 
@@ -515,7 +515,7 @@ For example, the second day of October in the year 2005 is written as:
 
 *Type*: `Float32`.
 
-*Description*: The R-free value. If not applicable either do not include the field or set to `-1`.
+*Description*: The R-free value. If not applicable either do not include the field.
 
 *Examples*:
 
@@ -534,7 +534,7 @@ For example, the second day of October in the year 2005 is written as:
 
 *Type*: `Float32`.
 
-*Description*: The R-work value. If not applicable either do not include the field or set to `-1`.
+*Description*: The R-work value. If not applicable either do not include the field.
 
 *Examples*:
 
