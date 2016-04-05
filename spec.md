@@ -61,7 +61,7 @@ The [fields](#fields) in MMTF are stored in a binary container format. The top-l
 | [groupTypeList](#grouptypelist)             | [Int32Array](#int32array)   |    Y     |
 | [secStructList](#secstructlist)             | [Int8Array](#)              |          |
 | [insCodeList](#inscodelist)                 | [Array](#array)             |          |
-| [seqResIdList](#seqresidlist)               | [Int32Array](#int32array)   |          |
+| [sequenceIdList](#sequenceidlist)           | [Int32Array](#int32array)   |          |
 | [chainIdList](#chainidlist)                 | [Uint8Array](#uint8array)   |    Y     |
 | [chainNameList](#chainnamelist)             | [Uint8Array](#uint8array)   |          |
 | [groupsPerChain](#groupsperchain)           | [Array](#array)             |    Y     |
@@ -825,7 +825,7 @@ Before applying run-length decoding:
 ```
 
 
-#### seqResIdList
+#### sequenceIdList
 
 *Required field*
 
