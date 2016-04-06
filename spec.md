@@ -435,7 +435,7 @@ For example, the second day of October in the year 2005 is written as:
 *Optional field*
 
 *Type*: `Array` of `assembly` entries. An `assembly` entry holds
-    - an array of transforms that contain a `chainIdList` and a 4x4 `transformation` matrix.
+    - an array of transforms that contain a `chainIndexList` and a 4x4 `transformation` matrix.
 
 *Description*: List of instructions on how to transform coordinates for a list of chains to create (biological) assemblies.
 
@@ -446,7 +446,7 @@ For example, the second day of October in the year 2005 is written as:
     {
         "transforms": [
             {
-                "chainIdList": [ "A", "B", "..." ],
+                "chainIndexList": [ 0, 1, 2 ],
                 "transformation": [
                     1, 0, 0, 0,
                     0, 1, 0, 0,
