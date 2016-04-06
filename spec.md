@@ -504,10 +504,6 @@ For example, the second day of October in the year 2005 is written as:
 2.3
 ```
 
-```JSON
--1
-```
-
 
 #### rFree
 
@@ -515,16 +511,12 @@ For example, the second day of October in the year 2005 is written as:
 
 *Type*: `Float32`.
 
-*Description*: The R-free value. If not applicable either do not include the field.
+*Description*: The R-free value. If not applicable do not include the field.
 
 *Examples*:
 
 ```JSON
 0.203
-```
-
-```JSON
--1
 ```
 
 
@@ -534,16 +526,12 @@ For example, the second day of October in the year 2005 is written as:
 
 *Type*: `Float32`.
 
-*Description*: The R-work value. If not applicable either do not include the field.
+*Description*: The R-work value. If not applicable do not include the field.
 
 *Examples*:
 
 ```JSON
 0.176
-```
-
-```JSON
--1
 ```
 
 
