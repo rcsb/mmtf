@@ -56,7 +56,7 @@ The [fields](#fields) in MMTF are stored in a binary container format. The top-l
 | [bFactorBig](#bfactorbig-bfactorsmall)      | [Int32Array](#int32array)   |          |
 | [bFactorSmall](#bfactorbig-bfactorsmall)    | [Int16Array](#int16array)   |          |
 | [atomIdList](#atomidlist)                   | [Int32Array](#int32array)   |          |
-| [altLabelList](#altlabellist)               | [Array](#array)             |          |
+| [altLocList](#altloclist)                   | [Array](#array)             |          |
 | [occupancyList](#occupancylist)             | [Int32Array](#int32array)   |          |
 | [groupIdList](#groupidlist)                 | [Int32Array](#int32array)   |    Y     |
 | [groupTypeList](#grouptypelist)             | [Int32Array](#int32array)   |    Y     |
@@ -907,7 +907,7 @@ Applying delta decoding:
 ```
 
 
-#### altLabelList
+#### altLocList
 
 *Optional field*
 
