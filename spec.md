@@ -767,17 +767,17 @@ Applying delta decoding:
 
 *Description*: List of secondary structure assignments coded according to the following table. If the field is included there must be an entry for each group (residue) either in all models or only in the first model.
 
-| Code | Name         | Shorthand |
-|-----:|--------------|:---------:|
-|    0 | pi helix     |     i     |
-|    1 | bend         |     s     |
-|    2 | alpha helix  |     h     |
-|    3 | extended     |     e     |
-|    4 | 3-10 helix   |     g     |
-|    5 | bridge       |     b     |
-|    6 | turn         |     t     |
-|    7 | coil         |     l     |
-|   -1 | undefined    |     -     |
+| Code | Name         |
+|-----:|--------------|
+|    0 | pi helix     |
+|    1 | bend         |
+|    2 | alpha helix  |
+|    3 | extended     |
+|    4 | 3-10 helix   |
+|    5 | bridge       |
+|    6 | turn         |
+|    7 | coil         |
+|   -1 | undefined    |
 
 *Example*:
 
@@ -785,12 +785,6 @@ Starting with the `Int8Array`:
 
 ```JSON
 [ 7, 7, 2, 2, 2, 2, 2, 2, 2, 7 ]
-```
-
-A decoding library may decide to provide the secondary structure assignments using the one letter shorthand:
-
-```JSON
-[ "l", "l", "h", "h", "h", "h", "h", "h", "h", "l" ]
 ```
 
 
