@@ -426,7 +426,7 @@ For example, the second day of October in the year 2005 is written as:
 *Example*:
 
 ```JSON
-[ 10, 12, 30, 90, 90, 120 ]
+[ 10.0, 12.0, 30.0, 90.0, 90.0, 120.0 ]
 ```
 
 
@@ -448,10 +448,10 @@ For example, the second day of October in the year 2005 is written as:
             {
                 "chainIndexList": [ 0, 1, 2 ],
                 "transformation": [
-                    1, 0, 0, 0,
-                    0, 1, 0, 0,
-                    0, 0, 1, 0,
-                    0, 0, 0, 1
+                    1.0, 0.0, 0.0, 0.0,
+                    0.0, 1.0, 0.0, 0.0,
+                    0.0, 0.0, 1.0, 0.0,
+                    0.0, 0.0, 0.0, 1.0
                 ]
             }
         ]
