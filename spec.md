@@ -810,9 +810,9 @@ A decoding library may decide to provide the secondary structure assignments usi
 
 *Optional field*
 
-*Type*: `Array` of alternating `String` and `Unit32` values.
+*Type*: `Array` of `Unit32` values.
 
-*Decoding*: Run-length decode the input `Array` into an `Array` of `String` characters or into an `Uint8Array` representing ASCII characters.
+*Decoding*: Run-length decode the input `Array` into an `Uint8Array` representing ASCII characters.
 
 *Description*: List of insertion codes, one for each group (residue).
 
@@ -821,25 +821,19 @@ A decoding library may decide to provide the secondary structure assignments usi
 Starting with the `Array`:
 
 ```JSON
-[ "", 5, "A", 3, "B", 2 ]
+[ 0, 5, 65, 3, 66, 2 ]
 ```
 
 Applying run-length decoding:
 
 ```JSON
-[ "", "", "", "", "", "A", "A", "A", "B", "B" ]
-```
-
-Alternatively encode the starting `Array` as ASCII which may be more efficient:
-
-```JSON
-[ 0, 5, 65, 3, 66, 2 ]
-```
-
-Before applying run-length decoding:
-
-```JSON
 [ 0, 0, 0, 0, 0, 65, 65, 65, 66, 66 ]
+```
+
+If needed the ASCII codes can be converted to an `Array` of `String`s with the zeros as zero-length `String`s:
+
+```JSON
+[ "", "", "", "", "", "A", "A", "A", "B", "B" ]
 ```
 
 
@@ -911,36 +905,30 @@ Applying delta decoding:
 
 *Optional field*
 
-*Type*: `Array` of alternating `String` and `Uint32` values.
+*Type*: `Array` of `Uint32` values.
 
-*Decoding*: Run-length decode the input `Array` into an `Array` of `String` characters or into an `Uint8Array` representing ASCII characters.
+*Decoding*: Run-length decode the input `Array` into an `Uint8Array` representing ASCII characters.
 
-*Description*: List of alternate location identifiers, one for each atom.
+*Description*: List of alternate location labels, one for each atom.
 
 *Example*:
 
 Starting with the `Array`:
 
 ```JSON
-[ "", 5, "A", 3, "B", 2 ]
+[ 0, 5, 65, 3, 66, 2 ]
 ```
 
 Applying run-length decoding:
 
 ```JSON
-[ "", "", "", "", "", "A", "A", "A", "B", "B" ]
-```
-
-Alternatively encode the starting `Array` as ASCII which may be more efficient:
-
-```JSON
-[ 0, 5, 65, 3, 66, 2 ]
-```
-
-Before applying run-length decoding:
-
-```JSON
 [ 0, 0, 0, 0, 0, 65, 65, 65, 66, 66 ]
+```
+
+If needed the ASCII codes can be converted to an `Array` of `String`s with the zeros as zero-length `String`s:
+
+```JSON
+[ "", "", "", "", "", "A", "A", "A", "B", "B" ]
 ```
 
 
