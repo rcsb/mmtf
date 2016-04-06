@@ -765,7 +765,7 @@ Applying delta decoding:
 
 *Type*: `BinaryArray` that is interpreted as an `Int8Array`.
 
-*Description*: List of secondary structure assignments coded according to the following table. If the field is included there must be an entry for each group (residue) either in all models or only in the first model.
+*Description*: List of secondary structure assignments coded according to the following table, which shows the eight different types of secondary structure the [DSSP](https://dx.doi.org/10.1002%2Fbip.360221211) algorithm distinguishes. If the field is included there must be an entry for each group (residue) either in all models or only in the first model.
 
 | Code | Name         |
 |-----:|--------------|
