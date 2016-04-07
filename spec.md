@@ -9,9 +9,10 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 ## Table of contents
 
+* [Overview](#overview)
 * [Container](#container)
-* [Encodings](#encodings)
 * [Types](#types)
+* [Encodings](#encodings)
 * [Fields](#fields)
     * [Format data](#format-data)
     * [Structure data](#structure-data)
@@ -23,56 +24,58 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 * [mmCIF](#mmcif)
 
 
+## Overview
+
+This specification describes a set of required and optional [fields](#fields) representing molecular structures and associated data. The fields are limited to six primitive [types](#types) for efficient serialization and deserialization using the binary [MessagePack](http://msgpack.org/) format.
+
+The [fields](#fields) in MMTF are stored in a binary container format. The top-level of the container contains the field names as keys and field data as values. To describe the layout of data in MMTF we use the [JSON](http://www.json.org/) notation throughout this document.
+
+The first step of decoding MMTF is decoding the MessagePack encoded container. Many of the resulting MMTF fields do not need to be decoded any further. However, to allow for custom compression some fields are given as binary data and must be decoded using the strategies described below.
+
+
 ## Container
 
-The [fields](#fields) in MMTF are stored in a binary container format. The top-level of the container contains the field names as keys and field data as values. To describe the layout of data in MMTF we use [JSON](http://www.json.org/) throughout this document. The following table lists all top level [fields](#fields), including their [type](#types) and whether they are required or optional.
+In principle any serialization format that supports the [types](#types) described below can be used to store the above [fields](#fields). In practice MMTF files (specifically files with the `.mmtf` extension) use the binary [MessagePack](http://msgpack.org/) serialization format.
 
-| Name                                        | Type                        | Required |
-|---------------------------------------------|-----------------------------|:--------:|
-| [mmtfVersion](#mmtfversion)                 | [String](#string)           |    Y     |
-| [mmtfProducer](#mmtfproducer)               | [String](#string)           |    Y     |
-| [unitCell](#unitcell)                       | [Array](#array)             |          |
-| [spaceGroup](#spacegroup)                   | [String](#string)           |          |
-| [structureId](#structureid)                 | [String](#string)           |          |
-| [title](#title)                             | [String](#string)           |          |
-| [depositionDate](#depositiondate)           | [String](#string)           |          |
-| [bioAssemblyList](#bioassemblylist)         | [Array](#array)             |          |
-| [entityList](#entitylist)                   | [Array](#array)             |          |
-| [experimentalMethods](#experimentalmethods) | [Array](#array)             |          |
-| [resolution](#resolution)                   | [Float32](#float32)         |          |
-| [rFree](#rfree)                             | [Float32](#float32)         |          |
-| [rWork](#rwork)                             | [Float32](#float32)         |          |
-| [numBonds](#numbonds)                       | [Uint32](#uint32)           |    Y     |
-| [numAtoms](#numatoms)                       | [Uint32](#uint32)           |    Y     |
-| [groupMap](#groupmap)                       | [Map](#map)                 |    Y     |
-| [bondAtomList](#bondatomlist)               | [Uint32Array](#uint32array) |          |
-| [bondOrderList](#bondorderlist)             | [Uint8Array](#uint8array)   |          |
-| [xCoordBig](#xcoordbig-xcoordsmall)         | [Int32Array](#int32array)   |    Y     |
-| [xCoordSmall](#xcoordbig-xcoordsmall)       | [Int16Array](#int16array)   |    Y     |
-| [yCoordBig](#ycoordbig-ycoordsmall)         | [Int32Array](#int32array)   |    Y     |
-| [yCoordSmall](#ycoordbig-ycoordsmall)       | [Int16Array](#int16array)   |    Y     |
-| [zCoordBig](#zcoordbig-zcoordsmall)         | [Int32Array](#int32array)   |    Y     |
-| [zCoordSmall](#zcoordbig-zcoordsmall)       | [Int16Array](#int16array)   |    Y     |
-| [bFactorBig](#bfactorbig-bfactorsmall)      | [Int32Array](#int32array)   |          |
-| [bFactorSmall](#bfactorbig-bfactorsmall)    | [Int16Array](#int16array)   |          |
-| [atomIdList](#atomidlist)                   | [Int32Array](#int32array)   |          |
-| [altLocList](#altloclist)                   | [Array](#array)             |          |
-| [occupancyList](#occupancylist)             | [Int32Array](#int32array)   |          |
-| [groupIdList](#groupidlist)                 | [Int32Array](#int32array)   |    Y     |
-| [groupTypeList](#grouptypelist)             | [Int32Array](#int32array)   |    Y     |
-| [secStructList](#secstructlist)             | [Int8Array](#)              |          |
-| [insCodeList](#inscodelist)                 | [Array](#array)             |          |
-| [sequenceIdList](#sequenceidlist)           | [Int32Array](#int32array)   |          |
-| [chainIdList](#chainidlist)                 | [Uint8Array](#uint8array)   |    Y     |
-| [chainNameList](#chainnamelist)             | [Uint8Array](#uint8array)   |          |
-| [groupsPerChain](#groupsperchain)           | [Array](#array)             |    Y     |
-| [chainsPerModel](#chainspermodel)           | [Array](#array)             |    Y     |
+
+### MessagePack
+
+Binary
 
 The MessagePack format (version 5) is used as the binary container format of MMTF. The MessagePack [specification](https://github.com/msgpack/msgpack/blob/master/spec.md) describes the data types and the data layout. Encoding and decoding libraries for MessagePack are available in many languages, see the MessagePack [website](http://msgpack.org/).
 
-While MessagePack supports 64-bit Unsigned/Signed Integers they are forbidden in MMTF as they can not be represented natively in JavaScript. This is especially important for `userData` fields otherwise all MessagePack types are allowed (Note that the current version of the MMTF specification does not include `userData` fields but they may be added in the future).
 
-The first step of decoding MMTF is decoding the MessagePack encoded container. Many of the resulting MMTF fields do not need to be decoded any further. However, to allow for custom compression some fields are given as binary data and must be decoded using the strategies described below.
+### JSON
+
+Human readable
+
+[JSON](http://www.json.org/)
+
+
+## Types
+
+The following types are used for the fields in this specification.
+
+* `String` An UTF-8 encoded string.
+* `Float` A 32-bit floating-point number.
+* `Integer` A 32-bit signed integer.
+* `Map` A data structure of key-value pairs where each key is unique. Also known as "dictionary", "hash".
+* `Array` A list of elements that may be of different type.
+* `Binary` A list of unsigned 8-bit integer numbers representing binary data.
+
+The `Binary` type is used here to store arrays with values of the same type. Such "typed arrays" are not directly supported by the `msgpack` format. However it is straightforward to work with arrays of simple numeric types by re-interpreting the data in a `Binary` field:
+
+* List of 8-bit unsigned integers.
+* List of 8-bit signed integers.
+* List of 16-bit unsigned integers in big-endian format.
+* List of 16-bit signed integers in big-endian format.
+* List of 32-bit unsigned integers in big-endian format.
+* List of 32-bit signed integers in big-endian format.
+* List of 32-bit floating-point numbers in big-endian format.
+
+For example, for an array of 32-bit integers groups of 4 bytes are interpreted as 32-bit integers. All such multi-byte types must be represented in big-endian format.
+
+Note that the MessagePack format limits the `String`, `Map`, `Array` and `Binary` type to (2^32)-1 entries per instance.
 
 
 ## Encodings
@@ -134,18 +137,18 @@ Applying delta decoding. The first entry in the list is left as is, the second i
 
 #### Split-list delta encoding
 
-Split-list delta encoding is an adjusted delta encoding to handle lists with some intermittent large delta values. The list is split into two arrays, called "big" and "small". The "big" `Int32Array` holds pairs of a large delta value (>=2^15) and the number of subsequent small delta values (<2^15). The "small" `Int16Array` holds the small values, that is, the values fitting into a 16-bit Signed Integer.
+Split-list delta encoding is an adjusted delta encoding to handle lists with some intermittent large delta values. The list is split into two arrays, called "big" and "small". The "big" array of 32-bit signed integers holds pairs of a large delta value (>=2^15) and the number of subsequent small delta values (<2^15). The "small" array of 16-bit signed integers holds the small values, that is, the values fitting into a 16-bit signed integer.
 
 *Example*:
 
-Starting with the "big" `Int32Array` and the "small `Int16Array`":
+Starting with the "big" and the "small" arrays:
 
 ```JavaScript
 [ 1200, 3, 100, 2 ]  // big
 [ 0, 2, -1, -3, 5 ]  // small
 ```
 
-Applying split-list delta decoding to create a `Int32Array`:
+Applying split-list delta decoding to create an array of 32-bit signed integers:
 
 ```JSON
 [ 1200, 1200, 1202, 1201, 1301, 1298, 1303 ]
@@ -205,85 +208,51 @@ Note that in the above example the list of keys can also be efficiently run-leng
 ```
 
 
-## Types
-
-### String
-
-An ASCII encoded 8-bit string of up to (2^32)-1 characters.
-
-
-### Float32
-
-A 32-bit Floating Point number.
-
-
-### Uint32
-
-An Unsigned 32-bit Integer number.
-
-
-### Int32
-
-A Signed 32-bit Integer number.
-
-
-### Map
-
-A data structure of key-value pairs where each key is unique. Also known as "dictionary", "map", "hash" or "object". There can be up to (2^32)-1 pairs.
-
-
-### Array
-
-A list of elements that may be of different type. There can be up to (2^32)-1 elements.
-
-
-### BinaryArray
-
-A list of unsigned 8-bit integer numbers representing binary data. There can be up to (2^32)-1 numbers.
-
-
-### TypedArray
-
-Typed arrays are not directly supported by the `msgpack` format. However it is straightforward to work with arrays of simple numeric types by re-interpreting the binary data in a `BinaryArray`. For example, for a `Float32Array` groups of 4 bytes of a `BinaryArray` are interpreted as a 32-bit floating point numbers. Multi-byte types are always represented in big-endian format.
-
-
-#### Uint8Array
-
-A list of Unsigned 8-bit Integer numbers. There can be up to (2^32)-1 numbers.
-
-
-#### Int8Array
-
-A list of Signed 8-bit Integer numbers. There can be up to (2^32)-1 numbers.
-
-
-#### Uint16Array
-
-A list of Unsigned 16-bit Integer numbers. There can be up to (2^31)-2 numbers. Represented in big-endian format.
-
-
-#### Int16Array
-
-A list of Signed 16-bit Integer numbers. There can be up to (2^31)-2 numbers. Represented in big-endian format.
-
-
-#### Uint32Array
-
-A list of Unsigned 32-bit Integer numbers. There can be up to (2^30)-4 numbers. Represented in big-endian format.
-
-
-#### Int32Array
-
-A list of Signed 32-bit Integer numbers. There can be up to (2^30)-4 numbers. Represented in big-endian format.
-
-
-#### Float32Array
-
-A list of 32-bit Floating Point numbers. There can be up to (2^30)-4 numbers. Represented in big-endian format.
-
-
-
 ## Fields
+
+The following table lists all top level fields, including their [type](#types) and whether they are required or optional.
+
+| Name                                        | Type                 | Required |
+|---------------------------------------------|----------------------|:--------:|
+| [mmtfVersion](#mmtfversion)                 | [String](#string)    |    Y     |
+| [mmtfProducer](#mmtfproducer)               | [String](#string)    |    Y     |
+| [unitCell](#unitcell)                       | [Array](#array)      |          |
+| [spaceGroup](#spacegroup)                   | [String](#string)    |          |
+| [structureId](#structureid)                 | [String](#string)    |          |
+| [title](#title)                             | [String](#string)    |          |
+| [depositionDate](#depositiondate)           | [String](#string)    |          |
+| [bioAssemblyList](#bioassemblylist)         | [Array](#array)      |          |
+| [entityList](#entitylist)                   | [Array](#array)      |          |
+| [experimentalMethods](#experimentalmethods) | [Array](#array)      |          |
+| [resolution](#resolution)                   | [Float](#float)      |          |
+| [rFree](#rfree)                             | [Float](#float)      |          |
+| [rWork](#rwork)                             | [Float](#float)      |          |
+| [numBonds](#numbonds)                       | [Integer](#integer)  |    Y     |
+| [numAtoms](#numatoms)                       | [Integer](#integer)  |    Y     |
+| [groupMap](#groupmap)                       | [Map](#map)          |    Y     |
+| [bondAtomList](#bondatomlist)               | [Binary](#binary)    |          |
+| [bondOrderList](#bondorderlist)             | [Binary](#binary)    |          |
+| [xCoordBig](#xcoordbig-xcoordsmall)         | [Binary](#binary)    |    Y     |
+| [xCoordSmall](#xcoordbig-xcoordsmall)       | [Binary](#binary)    |    Y     |
+| [yCoordBig](#ycoordbig-ycoordsmall)         | [Binary](#binary)    |    Y     |
+| [yCoordSmall](#ycoordbig-ycoordsmall)       | [Binary](#binary)    |    Y     |
+| [zCoordBig](#zcoordbig-zcoordsmall)         | [Binary](#binary)    |    Y     |
+| [zCoordSmall](#zcoordbig-zcoordsmall)       | [Binary](#binary)    |    Y     |
+| [bFactorBig](#bfactorbig-bfactorsmall)      | [Binary](#binary)    |          |
+| [bFactorSmall](#bfactorbig-bfactorsmall)    | [Binary](#binary)    |          |
+| [atomIdList](#atomidlist)                   | [Binary](#binary)    |          |
+| [altLocList](#altloclist)                   | [Array](#array)      |          |
+| [occupancyList](#occupancylist)             | [Binary](#binary)    |          |
+| [groupIdList](#groupidlist)                 | [Binary](#binary)    |    Y     |
+| [groupTypeList](#grouptypelist)             | [Binary](#binary)    |    Y     |
+| [secStructList](#secstructlist)             | [Binary](#binary)    |          |
+| [insCodeList](#inscodelist)                 | [Array](#array)      |          |
+| [sequenceIdList](#sequenceidlist)           | [Binary](#binary)    |          |
+| [chainIdList](#chainidlist)                 | [Binary](#binary)    |    Y     |
+| [chainNameList](#chainnamelist)             | [Binary](#binary)    |          |
+| [groupsPerChain](#groupsperchain)           | [Array](#array)      |    Y     |
+| [chainsPerModel](#chainspermodel)           | [Array](#array)      |    Y     |
+
 
 ### Format data
 
@@ -392,7 +361,7 @@ For example, the second day of October in the year 2005 is written as:
 
 *Required field*
 
-*Type*: `Uint32`.
+*Type*: `Integer`.
 
 *Description*: The overall number of atoms in the structure. This also includes atoms at alternate locations.
 
@@ -407,7 +376,7 @@ For example, the second day of October in the year 2005 is written as:
 
 *Required field*
 
-*Type*: `Uint32`.
+*Type*: `Integer`.
 
 *Description*: The overall number of bonds. This number must reflect both the bonds given in `bondAtomList` and the bonds given in the `groupType` entries in `groupMap`.
 
@@ -437,7 +406,7 @@ For example, the second day of October in the year 2005 is written as:
 
 *Optional field*
 
-*Type*: `Array` of six `Float32` values.
+*Type*: `Array` of six `Float` values.
 
 *Description*: List of six values defining the unit cell. The first three entries are the length of the sides `a`, `b`, and `c` in Å. The last three angles are the `alpha`, `beta`, and `gamma` angles in degree.
 
@@ -512,7 +481,7 @@ For example, the second day of October in the year 2005 is written as:
 
 *Optional field*
 
-*Type*: `Float32`.
+*Type*: `Float`.
 
 *Description*: The experimental resolution in Angstrom. If not applicable do not include the field.
 
@@ -527,7 +496,7 @@ For example, the second day of October in the year 2005 is written as:
 
 *Optional field*
 
-*Type*: `Float32`.
+*Type*: `Float`.
 
 *Description*: The R-free value. If not applicable do not include the field.
 
@@ -542,7 +511,7 @@ For example, the second day of October in the year 2005 is written as:
 
 *Optional field*
 
-*Type*: `Float32`.
+*Type*: `Float`.
 
 *Description*: The R-work value. If not applicable do not include the field.
 
@@ -574,7 +543,7 @@ For example, the second day of October in the year 2005 is written as:
 
 *Optional field*
 
-*Type*: `BinaryArray` that is interpreted as a `Uint32Array`.
+*Type*: `Binary` data that is interpreted as an array of 32-bit unsigned integers.
 
 *Description*: Pairs of values represent indices of covalently bonded atoms. The indices point to the [Atom data](#atom-data) arrays. Only covalent bonds may be given.
 
@@ -591,7 +560,7 @@ In the following example there are three bonds, one between the atoms with the i
 
 *Optional field* If it exists `bondAtomList` must also be present. However `bondAtomList` may exist without `bondOrderList`.
 
-*Type*: `BinaryArray` that is interpreted as a `Uint8Array`, i.e. take as is.
+*Type*: `Binary` data that is interpreted as an array of 8-bit unsigned integers, i.e. take as is.
 
 *Description*: List of bond orders for bonds in `bondAtomList`. Must be values between 1 and 3.
 
@@ -613,7 +582,7 @@ The number of models in a structure is equal to the length of the `chainsPerMode
 
 *Required field*
 
-*Type*: `Array` of `Uint32` numbers. The number of models is thus equal to the length of the `chainsPerModel` field.
+*Type*: `Array` of `Integer` numbers. The number of models is thus equal to the length of the `chainsPerModel` field.
 
 *Description*: List of the number of chains in each model.
 
@@ -635,7 +604,7 @@ The number of chains in a structure is equal to the length of the `groupsPerChai
 
 *Required field*
 
-*Type*: `Array` of `Uint32` numbers.
+*Type*: `Array` of `Integer` numbers.
 
 *Description*: List of the number of groups (aka residues) in each chain. The number of chains is thus equal to the length of the `groupsPerChain` field.
 
@@ -652,15 +621,15 @@ In the following example there are 3 chains. The first chain has 73 groups, the 
 
 *Required field*
 
-*Type*: `BinaryArray` that is interpreted as an `Uint8Array` representing ASCII characters.
+*Type*: `Binary` data that is interpreted as an array of 8-bit unsigned integers representing ASCII characters.
 
-*Decoding*: Groups of four consecutive ASCII characters create the list of chain IDs. Note that the decoding here is optional, a decoding library may choose to pass the `Uint8Array` on for performance reasons. Nevertheless we describe all the steps for complete decoding here as an illustration.
+*Decoding*: Groups of four consecutive ASCII characters create the list of chain IDs. Note that the decoding here is optional, a decoding library may choose to pass the array of 8-bit unsigned integers on for performance reasons. Nevertheless we describe all the steps for complete decoding here as an illustration.
 
 *Description*: List of chain IDs. The IDs here are used to reference the chains from other fields.
 
 *Example*:
 
-Starting with the `BinaryArray`/`Uint8Array`:
+Starting with the array of 8-bit unsigned integers:
 
 ```JSON
 [ 0, 0, 0, 65, 0, 0, 0, 66, 0, 0, 89, 67 ]
@@ -683,7 +652,7 @@ Creating the list of chain IDs:
 
 *Optional field*
 
-*Type*: `BinaryArray` that is interpreted as an `Uint8Array` representing ASCII characters.
+*Type*: `Binary` data that is interpreted as an array of 8-bit unsigned integers representing ASCII characters.
 
 *Decoding*: Same as for the `chainIdList` field.
 
@@ -733,7 +702,7 @@ Creating the list of chain IDs:
 
 *Required field*
 
-*Type*: `BinaryArray` that is interpreted as an `Int32Array`.
+*Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
 
 *Description*: List of pointers to `groupType` entries in `groupMap` by their keys. One entry for each residue, thus the number of residues is equal to the length of the `groupTypeId` field.
 
@@ -750,15 +719,15 @@ In the following example there are 5 groups. The 1st, 4th and 5th reference the 
 
 *Required field*
 
-*Type*: `BinaryArray` that is interpreted as an `Int32Array`.
+*Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
 
-*Decoding*: First, run-length decode the input `Int32Array` into a second `Int32Array`. Finally apply delta decoding to the second `Int32Array`, which can be done in-place, to create the output `Int32Array`.
+*Decoding*: First, run-length decode the input array of 32-bit signed integers into a second array of 32-bit signed integers. Finally apply delta decoding to the second array, which can be done in-place, to create the output array of 32-bit signed integers.
 
 *Description*: List of group (residue) numbers. One entry for each group/residue.
 
 *Example*:
 
-Starting with the `Int32Array`:
+Starting with the array of 32-bit signed integers:
 
 ```JSON
 [ 1, 10, -10, 1, 1, 4 ]
@@ -781,7 +750,7 @@ Applying delta decoding:
 
 *Optional field*
 
-*Type*: `BinaryArray` that is interpreted as an `Int8Array`.
+*Type*: `Binary` data that is interpreted as an array of 8-bit signed integers.
 
 *Description*: List of secondary structure assignments coded according to the following table, which shows the eight different types of secondary structure the [DSSP](https://dx.doi.org/10.1002%2Fbip.360221211) algorithm distinguishes. If the field is included there must be an entry for each group (residue) either in all models or only in the first model.
 
@@ -799,7 +768,7 @@ Applying delta decoding:
 
 *Example*:
 
-Starting with the `Int8Array`:
+Starting with the array of 8-bit signed integers:
 
 ```JSON
 [ 7, 7, 2, 2, 2, 2, 2, 2, 2, 7 ]
@@ -810,9 +779,9 @@ Starting with the `Int8Array`:
 
 *Optional field*
 
-*Type*: `Array` of `Unit32` values.
+*Type*: `Array` of `Integer` values.
 
-*Decoding*: Run-length decode the input `Array` into an `Uint8Array` representing ASCII characters.
+*Decoding*: Run-length decode the input `Array` into an array of 8-bit unsigned integers representing ASCII characters.
 
 *Description*: List of insertion codes, one for each group (residue).
 
@@ -841,15 +810,15 @@ If needed the ASCII codes can be converted to an `Array` of `String`s with the z
 
 *Required field*
 
-*Type*: `BinaryArray` that is interpreted as an `Int32Array`.
+*Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
 
-*Decoding*: First, run-length decode the input `Int32Array` into a second `Int32Array`. Finally apply delta decoding to the second `Int32Array`, which can be done in-place, to create the output `Int32Array`.
+*Decoding*: First, run-length decode the input array of 32-bit signed integers into a second array of 32-bit signed integers. Finally apply delta decoding to the second array, which can be done in-place, to create the output array of 32-bit signed integers.
 
 *Description*: List of sequence indices that point into the sequence `String` of the entity (from the `entityList` field) associated with the group. One entry for each group (residue). Set to `-1` when a group entry is has no associated entity/sequence given, for example water molecules.
 
 *Example*:
 
-Starting with the `Int32Array`:
+Starting with the array of 32-bit signed integers:
 
 ```JSON
 [ 1, 10, -10, 1, 1, 4 ]
@@ -874,15 +843,15 @@ Applying delta decoding:
 
 *Optional field*
 
-*Type*: `BinaryArray` that is interpreted as an `Int32Array`.
+*Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
 
-*Decoding*: First, run-length decode the input `Int32Array` into a second `Int32Array`. Finally apply delta decoding to the second `Int32Array`, which can be done in-place, to create the output `Int32Array`.
+*Decoding*: First, run-length decode the input array of 32-bit signed integers into a second array of 32-bit signed integers. Finally apply delta decoding to the second array, which can be done in-place, to create the output array of 32-bit signed integers.
 
 *Description*: List of atom serial numbers. One entry for each atom.
 
 *Example*:
 
-Starting with the `Int32Array`:
+Starting with the array of 32-bit signed integers:
 
 ```JSON
 [ 1, 7, 2, 1 ]
@@ -905,9 +874,9 @@ Applying delta decoding:
 
 *Optional field*
 
-*Type*: `Array` of `Uint32` values.
+*Type*: `Array` of `Integer` values.
 
-*Decoding*: Run-length decode the input `Array` into an `Uint8Array` representing ASCII characters.
+*Decoding*: Run-length decode the input `Array` into an array of 8-bit unsigned integers representing ASCII characters.
 
 *Description*: List of alternate location labels, one for each atom.
 
@@ -936,28 +905,28 @@ If needed the ASCII codes can be converted to an `Array` of `String`s with the z
 
 *Optional fields*
 
-*Type*: Two `BinaryArray`s that are interpreted as `Int32Array` and `Int16Array`.
+*Type*: Two `Binary` data fields that are interpreted as array of 32-bit signed integers and array of 16-bit signed integers.
 
-*Decoding*: First split-list delta decode the input `Int32Array` and `Int16Array` into a second `Int32Array`. Finally integer decode the second `Int32Array` using `100` as the divisor to create a `Float32Array`.
+*Decoding*: First split-list delta decode the input array of 32-bit signed integers and the array of 16-bit signed integers into a second array of 32-bit signed integers. Finally integer decode the second array using `100` as the divisor to create an array of 32-bit floating-point values.
 
 *Description*: List of atom B-factors in in Å^2. One entry for each atom.
 
 *Example*:
 
-Starting with the "big" `Int32Array` and the "small `Int16Array`":
+Starting with the "big" array of 32-bit signed integers and the "small" array of 16-bit signed integers:
 
 ```JavaScript
 [ 200, 3, 100, 2 ]   // big
 [ 0, 2, -1, -3, 5 ]  // small
 ```
 
-Applying split-list delta decoding to create a `Int32Array`:
+Applying split-list delta decoding to create an array of 32-bit signed integers:
 
 ```JSON
 [ 200, 200, 202, 201, 301, 298, 303 ]
 ```
 
-Applying integer decoding with a divisor of `100` to create a `Float32Array`:
+Applying integer decoding with a divisor of `100` to create an array of 32-bit floating-point values:
 
 ```JSON
 [ 2.00, 2.00, 2.02, 2.01, 3.01, 2.98, 3.03 ]
@@ -970,30 +939,30 @@ Applying integer decoding with a divisor of `100` to create a `Float32Array`:
 
 *Required fields*
 
-*Type*: Two `BinaryArray`s that are interpreted as `Int32Array` and `Int16Array`.
+*Type*: Two `Binary` data fields that are interpreted as array of 32-bit signed integers and array of 16-bit signed integers.
 
-*Decoding*: First split-list delta decode the input `Int32Array` and `Int16Array` into a second `Int32Array`. Finally integer decode the second `Int32Array` using `1000` as the divisor to create a `Float32Array`.
+*Decoding*: First split-list delta decode the input array of 32-bit signed integers and the array of 16-bit signed integers into a second array of 32-bit signed integers. Finally integer decode the second array using `1000` as the divisor to create an array of 32-bit floating-point values.
 
 *Description*: List of x, y, and z atom coordinates, respectively, in Å. One entry for each atom and coordinate.
 
-*Note*: To clarify, the data for each coordinate is stored in a separate pair of `Int32Array` and `Int16Array` fields.
+*Note*: To clarify, the data for each coordinate is stored in a separate pair of arrays.
 
 *Example*:
 
-Starting with the "big" `Int32Array` and the "small `Int16Array`":
+Starting with the "big" array of 32-bit signed integers and the "small" array of 16-bit signed integers:
 
 ```JavaScript
 [ 1200, 3, 100, 2 ]  // big
 [ 0, 2, -1, -3, 5 ]  // small
 ```
 
-Applying split-list delta decoding to create a `Int32Array`:
+Applying split-list delta decoding to create an array of 32-bit signed integers:
 
 ```JSON
 [ 1200, 1200, 1202, 1201, 1301, 1298, 1303 ]
 ```
 
-Applying integer decoding with a divisor of `1000` to create a `Float32Array`:
+Applying integer decoding with a divisor of `1000` to create an array of 32-bit floating-point values:
 
 ```JSON
 [ 1.000, 1.200, 1.202, 1.201, 1.301, 1.298, 1.303 ]
@@ -1006,13 +975,13 @@ Applying integer decoding with a divisor of `1000` to create a `Float32Array`:
 
 *Description*: List of atom occupancies, one for each atom.
 
-*Type*: `BinaryArray` that is interpreted as an `Int32Array`.
+*Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
 
-*Decoding*: First, run-length decode the input `Int32Array` into a second `Int32Array`. Finally apply integer decoding using `100` as the divisor to the second `Int32Array` to create a `Float32Array`.
+*Decoding*: First, run-length decode the input array of 32-bit signed integers into a second array of 32-bit signed integers. Finally apply integer decoding using `100` as the divisor to the second array to create a array of 32-bit floating-point values.
 
 *Example*:
 
-Starting with the `Int32Array`:
+Starting with the array of 32-bit signed integers:
 
 ```JSON
 [ 100, 4, 50, 2 ]
@@ -1024,7 +993,7 @@ Applying run-length decoding:
 [ 100, 100, 100, 100, 50, 50 ]
 ```
 
-Applying integer decoding with a divisor of `100` to create a `Float32Array`:
+Applying integer decoding with a divisor of `100` to create an array of 32-bit floating-point values:
 
 ```JSON
 [ 1.00, 1.00, 1.00, 1.00, 0.50, 0.50 ]
