@@ -210,7 +210,7 @@ Note that in the above example the list of keys can also be efficiently run-leng
 
 ## Fields
 
-The following table lists all top level fields, including their [type](#types) and whether they are required or optional.
+The following table lists all top level fields, including their [type](#types) and whether they are required or optional. The top-level fields themselves are stores as a `Map`.
 
 | Name                                        | Type                 | Required |
 |---------------------------------------------|----------------------|:--------:|
