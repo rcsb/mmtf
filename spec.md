@@ -293,13 +293,17 @@ A list of 32-bit Floating Point numbers. There can be up to (2^30)-4 numbers. Re
 
 *Type*: `String`
 
-*Description*: The version number of the specification the file adheres to.
+*Description*: The version number of the specification the file adheres to. The specification follows a [semantic versioning](http://semver.org/) scheme. In a version number `MAJOR.MINOR`, the `MAJOR` part is incremented when specification changes are incompatible with previous versions. The `MINOR` part is changed for additions to the specification that are backwards compatible.
 
 *Examples*:
+
+The current, unreleased, in development specification:
 
 ```JSON
 "0.1"
 ```
+
+A future version with additions backwards compatible to versions "1.0" and "1.1":
 
 ```JSON
 "1.2"
