@@ -558,7 +558,7 @@ For example, the second day of October in the year 2005 is written as:
 
 *Type*: `BinaryArray` that is interpreted as a `Uint32Array`.
 
-*Description*: Pairs of values represent indices of bonded atoms. The indices point to the [Atom data](#atom-data) arrays.
+*Description*: Pairs of values represent indices of covalently bonded atoms. The indices point to the [Atom data](#atom-data) arrays. Only covalent bonds may be given.
 
 *Example*:
 
@@ -575,7 +575,7 @@ In the following example there are three bonds, one between the atoms with the i
 
 *Type*: `BinaryArray` that is interpreted as a `Uint8Array`, i.e. take as is.
 
-*Description*: List of bond orders for bonds in `bondAtomList`.
+*Description*: List of bond orders for bonds in `bondAtomList`. Must be values between 1 and 3.
 
 *Example*:
 
@@ -682,8 +682,8 @@ Creating the list of chain IDs:
 
 - `atomCharges` is an `Array`  of `Int32` holding the formal charges of each atom.
 - `atomInfo` is an `Array` of `String`s alternating between the element (0 to 3 characters) and the atom name (0 to 5 characters). The element name must follow the IUPAC standard where only the first character is capitalized and the remaining ones are lower case, for instance `Cd` for Cadmium.
-- `bondIndices` is an `Array` of `Int32` pairs representing indices of bonded atoms. The indices point to the `atomInfo`/`atomCharges` lists.
-- `bondOrders` is an `Array` of `Int32` denoting the order for each bond in `bondIndices`. Must be a value between 1 and 3.
+- `bondIndices` is an `Array` of `Int32` pairs representing indices of covalently bonded atoms. The indices point to the `atomInfo`/`atomCharges` lists.
+- `bondOrders` is an `Array` of `Int32` denoting the order for each bond in `bondIndices`. Must be a value between 1 and 3. Only covalent bonds may be given.
 - `chemCompType` is a `String` .
 - `groupName` is a `String` holding the of the name of the group (0 to 5 characters).
 - `singleLetterCode` is a `String` of length one, representing the IUPAC single letter code for protein or DNA/RNA residues, otherwise the character 'X'.
