@@ -316,12 +316,26 @@ A future version with additions backwards compatible to versions "1.0" and "1.1"
 
 *Type*: `String`.
 
-*Description*: The name and version of the software used to produce the file. For development versions it can be useful to also include the checksum of the commit. If the producer is not available set to `"NA"`.
+*Description*: The name and version of the software used to produce the file. For development versions it can be useful to also include the checksum of the commit. If the producer is not available set to `"NA"`. The main purpose of this field is to identify the software that has written a file, for instance because it has format errors.
 
-*Example*:
+*Examples*:
+
+A software name and the checksum of a commit:
 
 ```JSON
-"RCSB-PDB Generator---version: 6b8635f8d319beea9cd7cc7f5dd2649578ac01a0"
+"RCSB PDB mmtf-java-encoder---version: 6b8635f8d319beea9cd7cc7f5dd2649578ac01a0"
+```
+
+Another software name and its version number:
+
+```JSON
+"NGL mmtf exporter v1.2"
+```
+
+No software name available:
+
+```JSON
+"NA"
 ```
 
 
