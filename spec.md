@@ -681,12 +681,12 @@ Creating the list of chain IDs:
 *Type*: `Map` of `groupType` entries. A `groupType` object has the following fields:
 
 - `atomCharges` is an `Array`  of `Int32` holding the formal charges of each atom.
-- `atomInfo` is an `Array` of `String` pairs representing the element (0 to 3 characters) and the atom name (0 to 4 characters). The element name must follow the IUPAC standard where only the first character is capitalized and the remaining ones are lower case, for instance `Cd` for Cadmium.
+- `atomInfo` is an `Array` of `String`s alternating between the element (0 to 3 characters) and the atom name (0 to 5 characters). The element name must follow the IUPAC standard where only the first character is capitalized and the remaining ones are lower case, for instance `Cd` for Cadmium.
 - `bondIndices` is an `Array` of `Int32` pairs representing indices of bonded atoms. The indices point to the `atomInfo`/`atomCharges` lists.
 - `bondOrders` is an `Array` of `Int32` denoting the number of chemical bonds for each bond in `bondIndices`.
 - `chemCompType` is a `String` .
 - `groupName` is a `String` holding the of the name of the group (0 to 5 characters).
-- `singleLetterCode` is a `String` of length one representing the single letter code of protein or DNA/RNA residue, otherwise a question mark.
+- `singleLetterCode` is a `String` of length one, representing the IUPAC single letter code for protein or DNA/RNA residues, otherwise the character 'X'.
 
 *Description*: Common group (residue) data that is referenced via the `groupType` key by group entries.
 
