@@ -421,7 +421,7 @@ For example, the second day of October in the year 2005 is written as:
 
 *Type*: `Array` of six `Float32` values.
 
-*Description*: List of six values defining the unit cell. The first three entries are the length of the sides `a`, `b`, and `c` in angstrom. The last three angles are the `alpha`, `beta`, and `gamma` angles in degree.
+*Description*: List of six values defining the unit cell. The first three entries are the length of the sides `a`, `b`, and `c` in Å. The last three angles are the `alpha`, `beta`, and `gamma` angles in degree.
 
 *Example*:
 
@@ -922,7 +922,7 @@ If needed the ASCII codes can be converted to an `Array` of `String`s with the z
 
 *Decoding*: First split-list delta decode the input `Int32Array` and `Int16Array` into a second `Int32Array`. Finally integer decode the second `Int32Array` using `100` as the divisor to create a `Float32Array`.
 
-*Description*: List of atom b-factors in in angstrom^2. One entry for each atom.
+*Description*: List of atom B-factors in in Å^2. One entry for each atom.
 
 *Example*:
 
@@ -956,7 +956,7 @@ Applying integer decoding with a divisor of `100` to create a `Float32Array`:
 
 *Decoding*: First split-list delta decode the input `Int32Array` and `Int16Array` into a second `Int32Array`. Finally integer decode the second `Int32Array` using `1000` as the divisor to create a `Float32Array`.
 
-*Description*: List of x, y, and z atom coordinates, respectively, in angstrom. One entry for each atom and coordinate.
+*Description*: List of x, y, and z atom coordinates, respectively, in Å. One entry for each atom and coordinate.
 
 *Note*: To clarify, the data for each coordinate is stored in a separate pair of `Int32Array` and `Int16Array` fields.
 
