@@ -229,7 +229,7 @@ The following table lists all top level fields, including their [type](#types) a
 | [rWork](#rwork)                             | [Float](#float)      |          |
 | [numBonds](#numbonds)                       | [Integer](#integer)  |    Y     |
 | [numAtoms](#numatoms)                       | [Integer](#integer)  |    Y     |
-| [groupMap](#groupmap)                       | [Map](#map)          |    Y     |
+| [groupList](#grouplist)                     | [Array](#Array)      |    Y     |
 | [bondAtomList](#bondatomlist)               | [Binary](#binary)    |          |
 | [bondOrderList](#bondorderlist)             | [Binary](#binary)    |          |
 | [xCoordBig](#xcoordbig-xcoordsmall)         | [Binary](#binary)    |    Y     |
@@ -378,7 +378,7 @@ For example, the second day of October in the year 2005 is written as:
 
 *Type*: `Integer`.
 
-*Description*: The overall number of bonds. This number must reflect both the bonds given in `bondAtomList` and the bonds given in the `groupType` entries in `groupMap`.
+*Description*: The overall number of bonds. This number must reflect both the bonds given in `bondAtomList` and the bonds given in the `groupType` entries in `groupList`.
 
 *Example*:
 
@@ -661,7 +661,7 @@ Creating the list of chain IDs:
 
 ### Group data
 
-#### groupMap
+#### groupList
 
 *Required field*
 
@@ -678,8 +678,6 @@ Creating the list of chain IDs:
 *Description*: Common group (residue) data that is referenced via the `groupType` key by group entries.
 
 *Vocabulary*: Known values for the groupType field `chemCompType` from the [mmCIF dictionary](http://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v40.dic/Items/_chem_comp.type.html) are `D-beta-peptide, C-gamma linking`, `D-gamma-peptide, C-delta linking`, `D-peptide COOH carboxy terminus`, `D-peptide NH3 amino terminus`, `D-peptide linking`, `D-saccharide`, `D-saccharide 1,4 and 1,4 linking`, `D-saccharide 1,4 and 1,6 linking`, `DNA OH 3 prime terminus`, `DNA OH 5 prime terminus`, `DNA linking`, `L-DNA linking`, `L-RNA linking`, `L-beta-peptide, C-gamma linking`, `L-gamma-peptide, C-delta linking`, `L-peptide COOH carboxy terminus`, `L-peptide NH3 amino terminus`, `L-peptide linking`, `L-saccharide`, `L-saccharide 1,4 and 1,4 linking`, `L-saccharide 1,4 and 1,6 linking`, `RNA OH 3 prime terminus`, `RNA OH 5 prime terminus`, `RNA linking`, `non-polymer`, `other`, `peptide linking`, `peptide-like`, `saccharide`.
-
-*Note*: The `groupMap` field is a `Map` instead of an `Array` to allow having (in the future) a global `Map` within the decoder that is only supplemented with a sparse map in the file.
 
 *Example*:
 
@@ -704,7 +702,7 @@ Creating the list of chain IDs:
 
 *Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
 
-*Description*: List of pointers to `groupType` entries in `groupMap` by their keys. One entry for each residue, thus the number of residues is equal to the length of the `groupTypeId` field.
+*Description*: List of pointers to `groupType` entries in `groupList` by their keys. One entry for each residue, thus the number of residues is equal to the length of the `groupTypeId` field.
 
 *Example*:
 
