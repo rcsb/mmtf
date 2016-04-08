@@ -440,7 +440,7 @@ For example, the third day of December in the year 2013 is written as:
 *Optional field*
 
 *Type*: `Array` of `assembly` entries. An `assembly` entry holds
-    - an array of transforms that contain a `chainIndexList` and a 4x4 `transformation` matrix.
+    - an array of transforms that contain a `chainIndexList` and a 4x4 `transformation` matrix whose elements are stored linearly in row major order. Thus, the translational component comprises the 4th, 8th, and 12th element.
 
 *Description*: List of instructions on how to transform coordinates for a list of chains to create (biological) assemblies.
 
