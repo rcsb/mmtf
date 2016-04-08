@@ -471,7 +471,7 @@ For example, the third day of December in the year 2013 is written as:
 
 *Type*: `Array` of `entity` entries. An `entity` object has four fields, `chainIndexList` of type `Array`, `description` of type `String`, `type` of type `String` and `sequence` of type `String`.
 
-*Description*: List of unique molecular entities within the structure. The indices in `chainIndexList` point to chain data in e.g. the top-level `chainIdList` field, each entry represents an instance of that entity. The entity `type` must be `polymer`, `non-polymer` or `water`. A `description` text can be included for each `entity`.
+*Description*: List of unique molecular entities within the structure. The indices in `chainIndexList` point to chain data in e.g. the top-level `chainIdList` field, each entry represents an instance of that entity. A `type` and a `description` are included for each `entity`.
 
 *Vocabulary*: Known values for the entity field `type` from the [mmCIF dictionary](http://mmcif.wwpdb.org/dictionaries/mmcif_pdbx.dic/Items/_entity.type.html) are `macrolide`, `non-polymer`, `polymer`, `water`.
 
