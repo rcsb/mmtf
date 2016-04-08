@@ -221,6 +221,7 @@ The following table lists all top level fields, including their [type](#types) a
 | [structureId](#structureid)                 | [String](#string)    |          |
 | [title](#title)                             | [String](#string)    |          |
 | [depositionDate](#depositiondate)           | [String](#string)    |          |
+| [releaseDate](#releasedate)                 | [String](#string)    |          |
 | [bioAssemblyList](#bioassemblylist)         | [Array](#array)      |          |
 | [entityList](#entitylist)                   | [Array](#array)      |          |
 | [experimentalMethods](#experimentalmethods) | [Array](#array)      |          |
@@ -354,6 +355,23 @@ For example, the second day of October in the year 2005 is written as:
 
 ```JSON
 "2005-10-02"
+```
+
+
+#### releaseDate
+
+*Optional field*
+
+*Type*: `String` with the format `YYYY-MM-DD`, where `YYYY` stands for the year in the Gregorian calendar, `MM` is the month of the year between 01 (January) and 12 (December), and `DD` is the day of the month between 01 and 31.
+
+*Description*: A date that relates to the release of the structure in a database, e.g. the wwPDB archive.
+
+*Example*:
+
+For example, the third day of December in the year 2013 is written as:
+
+```JSON
+"2013-12-03"
 ```
 
 
