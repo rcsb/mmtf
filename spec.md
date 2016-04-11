@@ -602,7 +602,17 @@ The number of models in a structure is equal to the length of the `chainsPerMode
 
 *Type*: `Array` of `Integer` numbers. The number of models is thus equal to the length of the `chainsPerModel` field.
 
-*Description*: List of the number of chains in each model.
+*Description*: List of the number of chains in each model. The list allows looping over all models:
+
+```Python
+# initialize index counter
+set modelIndex to 0
+
+# traverse models
+for modelChainCount in chainsPerModel
+    print modelIndex
+    increment modelIndex by one
+```
 
 *Example*:
 
@@ -624,7 +634,25 @@ The number of chains in a structure is equal to the length of the `groupsPerChai
 
 *Type*: `Array` of `Integer` numbers.
 
-*Description*: List of the number of groups (aka residues) in each chain. The number of chains is thus equal to the length of the `groupsPerChain` field.
+*Description*: List of the number of groups (aka residues) in each chain. The number of chains is thus equal to the length of the `groupsPerChain` field. In conjunction with `chainsPerModel`, the list allows looping over all chains:
+
+```Python
+# initialize index counters
+set chainIndex to 0
+set chainIndex to 0
+
+# traverse models
+for modelChainCount in chainsPerModel
+    print modelIndex
+    # traverse chains
+    for 1 to modelChainCount
+        print chainIndex
+        set offset to chainIndex * 4
+        print chainIdList[ offset : offset + 4 ]
+        print chainNameList[ offset : offset + 4 ]
+        increment chainIndex by 1
+    increment modelIndex by 1
+```
 
 *Example*:
 
