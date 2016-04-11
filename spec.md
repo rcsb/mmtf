@@ -501,7 +501,7 @@ For example, the third day of December in the year 2013 is written as:
 
 *Type*: `Float`.
 
-*Description*: The experimental resolution in Angstrom. If not applicable do not include the field.
+*Description*: The experimental resolution in Angstrom. If not applicable the field must be omitted.
 
 *Examples*:
 
@@ -516,7 +516,7 @@ For example, the third day of December in the year 2013 is written as:
 
 *Type*: `Float`.
 
-*Description*: The R-free value. If not applicable do not include the field.
+*Description*: The R-free value. If not applicable the field must be omitted.
 
 *Examples*:
 
@@ -531,7 +531,7 @@ For example, the third day of December in the year 2013 is written as:
 
 *Type*: `Float`.
 
-*Description*: The R-work value. If not applicable do not include the field.
+*Description*: The R-work value. If not applicable the field must be omitted.
 
 *Examples*:
 
