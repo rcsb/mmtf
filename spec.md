@@ -439,24 +439,40 @@ For example, the third day of December in the year 2013 is written as:
 
 *Optional field*
 
-*Type*: `Array` of `assembly` entries. An `assembly` entry holds
-    - an array of transforms that contain a `chainIndexList` and a 4x4 `transformation` matrix whose elements are stored linearly in row major order. Thus, the translational component comprises the 4th, 8th, and 12th element.
+*Type*: `Array` of assembly objects with the following fields:
+
+| Name                      | Type             | Description                       |
+|---------------------------|------------------|-----------------------------------|
+| transforms                | [Array](#array)  | List of transform objects         |
+
+Fields in a `transform` object:
+
+| Name                      | Type             | Description                       |
+|---------------------------|------------------|-----------------------------------|
+| chainIndexList            | [Array](#array)  | Pointers into chain data fields   |
+| transformation            | [Array](#array)  | 4x4 transformation matrix         |
+
+The entries of `chainIndexList` are indices into the [chainIdList](#chainidlist) and [chainNameList](#chainnamelist) fields.
+
+The elements of the 4x4 `transformation` matrix are stored linearly in row major order. Thus, the translational component comprises the 4th, 8th, and 12th element.
 
 *Description*: List of instructions on how to transform coordinates for a list of chains to create (biological) assemblies.
 
 *Example*:
+
+The following example shows a single transform object from PDB ID [4opj](http://www.rcsb.org/pdb/explore.do?structureId=4OPJ). The transformation matrix performs no rotation and a translation of -42.387 in dimension x.
 
 ```JSON
 [
     {
         "transforms": [
             {
-                "chainIndexList": [ 0, 1, 2 ],
+                "chainIndexList": [ 0, 4, 6 ],
                 "transformation": [
-                    1.0, 0.0, 0.0, 0.0,
-                    0.0, 1.0, 0.0, 0.0,
-                    0.0, 0.0, 1.0, 0.0,
-                    0.0, 0.0, 0.0, 1.0
+                    1.0, 0.0, 0.0, -42.387,
+                    0.0, 1.0, 0.0,   0.000,
+                    0.0, 0.0, 1.0,   0.000,
+                    0.0, 0.0, 0.0,   1.000
                 ]
             }
         ]
@@ -469,9 +485,20 @@ For example, the third day of December in the year 2013 is written as:
 
 *Optional field*
 
-*Type*: `Array` of `entity` entries. An `entity` object has four fields, `chainIndexList` of type `Array`, `description` of type `String`, `type` of type `String` and `sequence` of type `String`.
+*Type*: `Array` of entity objects with the following fields:
 
-*Description*: List of unique molecular entities within the structure. The indices in `chainIndexList` point to chain data in e.g. the top-level `chainIdList` field, each entry represents an instance of that entity. A `type` and a `description` are included for each `entity`.
+| Name             | Type               | Description                       |
+|------------------|--------------------|-----------------------------------|
+| chainIndexList   | [Array](#array)    | Pointers into chain data fields   |
+| description      | [String](#string)  | Description of the entity         |
+| type             | [String](#string)  | Name of the entity type           |
+| sequence         | [String](#string)  | Sequence in one-letter-code       |
+
+The entries of `chainIndexList` are indices into the [chainIdList](#chainidlist) and [chainNameList](#chainnamelist) fields.
+
+The characters of the `sequence` string are referenced by the entries of the [sequenceIdList](#sequenceidlist) field. 
+
+*Description*: List of unique molecular entities within the structure. Each entry in `chainIndexList` represents an instance of that entity in the structure.
 
 *Vocabulary*: Known values for the entity field `type` from the [mmCIF dictionary](http://mmcif.wwpdb.org/dictionaries/mmcif_pdbx.dic/Items/_entity.type.html) are `macrolide`, `non-polymer`, `polymer`, `water`.
 
@@ -711,15 +738,25 @@ Creating the list of chain IDs:
 
 *Required field*
 
-*Type*: `List` of `groupType` entries. A `groupType` object has the following fields:
+*Type*: `List` of `groupType` objects with the following fields:
 
-- `atomCharges` is an `Array`  of `Int32` holding the formal charges of each atom.
-- `atomInfo` is an `Array` of `String`s alternating between the element (0 to 3 characters) and the atom name (0 to 5 characters). The element name must follow the IUPAC standard where only the first character is capitalized and the remaining ones are lower case, for instance `Cd` for Cadmium.
-- `bondIndices` is an `Array` of `Int32` pairs representing indices of covalently bonded atoms. The indices point to the `atomInfo`/`atomCharges` lists.
-- `bondOrders` is an `Array` of `Int32` denoting the order for each bond in `bondIndices`. Must be a value between 1 and 3. Only covalent bonds may be given.
-- `chemCompType` is a `String` .
-- `groupName` is a `String` holding the of the name of the group (0 to 5 characters).
-- `singleLetterCode` is a `String` of length one, representing the IUPAC single letter code for protein or DNA/RNA residues, otherwise the character 'X'.
+| Name             | Type              | Description                                                 |
+|------------------|-------------------|-------------------------------------------------------------|
+| atomChargeList   | [Array](#array)   | List of formal charges as [Integers](#integer)              |
+| atomNameList     | [Array](#array)   | List of atom names, 0 to 5 character [Strings](#string)     |
+| elementList      | [Array](#array)   | List of elements, 0 to 3 character [Strings](#string)       |
+| bondIndexList    | [Array](#array)   | List of bonded atom indices, [Integers](#integer)           |
+| bondOrderList    | [Array](#array)   | List of bond orders as [Integers](#integer) between 1 and 3 |
+| groupName        | [String](#string) | The name of the group, 0 to 5 characters                    |
+| singleLetterCode | [String](#string) | The single letter code, 1 character                         |
+| chemCompType     | [String](#string) | The chemical component type                                 |
+
+
+The element name must follow the IUPAC standard where only the first character is capitalized and the remaining ones are lower case, for instance `Cd` for Cadmium.
+
+Two consecutive entries in `bondIndexList` representing indices of covalently bound atoms. The indices point into the `atomChargeList`, `atomNameList`, and `elementList` fields.
+
+The `singleLetterCode` is the IUPAC single letter code for protein or DNA/RNA residues, otherwise the character 'X'.
 
 *Description*: Common group (residue) data that is referenced via the `groupType` key by group entries.
 
@@ -730,10 +767,11 @@ Creating the list of chain IDs:
 ```JSON
 {
     "0": {
-        "atomCharges": [ 0, 0, 0, 0 ],
-        "atomInfo": [ "N", "N", "C", "CA", "C", "C", "O", "O" ],
-        "bondIndices": [ 1, 0, 2, 1, 3, 2 ],
-        "bondOrders": [ 1, 1, 2 ],
+        "atomChargeList": [ 0, 0, 0, 0 ],
+        "atomNameList": [ "N", "CA", "C", "O" ],
+        "elementList": [ "N", "C", "C", "O" ],
+        "bondIndexList": [ 1, 0, 2, 1, 3, 2 ],
+        "bondOrderList": [ 1, 1, 2 ],
         "chemCompType": "PEPTIDE LINKING",
         "groupName": "GLY",
         "singleLetterCode": "G"
