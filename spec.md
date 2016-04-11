@@ -1116,12 +1116,12 @@ for modelChainCount in chainsPerModel
             print group.singleLetterCode
             print group.chemCompType
             set atomOffset to atomIndex
-            set groupBondCount to group.bondIndices.length / 2
+            set groupBondCount to group.bondIndexList.length / 2
             for i in 1 to groupBondCount
-                print atomOffset + group.bondIndices[ i * 2 ]      # atomIndex1
-                print atomOffset + group.bondIndices[ i * 2 + 1 ]  # atomIndex2
-                print group.bondOrders[ i ]
-            set groupAtomCount to group.atomCharges.length
+                print atomOffset + group.bondIndexList[ i * 2 ]      # atomIndex1
+                print atomOffset + group.bondIndexList[ i * 2 + 1 ]  # atomIndex2
+                print group.bondOrderList[ i ]
+            set groupAtomCount to group.atomChargeList.length
             # traverse atoms
             for i in 1 to groupAtomCount
                 print atomIndex
@@ -1132,9 +1132,9 @@ for modelChainCount in chainsPerModel
                 print atomIdList[ atomIndex ]
                 print altLocList[ atomIndex ]
                 print occupancyList[ atomIndex ]
-                print group.atomCharges[ i ]
-                print group.atomInfo[ i * 2 ]      # element
-                print group.atomInfo[ i * 2 + 1 ]  # atomName
+                print group.atomChargeList[ i ]
+                print group.atomNameList[ i ]
+                print group.elementList[ i ]
                 increment atomIndex by 1
             increment groupIndex by 1
         increment chainIndex by 1
