@@ -603,7 +603,7 @@ In the following example there are three bonds, one between the atoms with the i
 
 #### bondOrderList
 
-*Optional field* If it exists `bondAtomList` must also be present. However `bondAtomList` may exist without `bondOrderList`.
+*Optional field* If it exists [bondAtomList](#bondatomlist) must also be present. However `bondAtomList` may exist without `bondOrderList`.
 
 *Type*: `Binary` data that is interpreted as an array of 8-bit unsigned integers, i.e. take as is.
 
@@ -620,7 +620,7 @@ In the following example there are bond orders given for three bonds. The first 
 
 ### Model data
 
-The number of models in a structure is equal to the length of the `chainsPerModel` field. The `chainsPerModel` field also defines which chains belong to each model.
+The number of models in a structure is equal to the length of the [chainsPerModel](chainspermodel) field. The `chainsPerModel` field also defines which chains belong to each model.
 
 
 #### chainsPerModel
@@ -652,7 +652,7 @@ In the following example there are 2 models. The first model has 5 chains and th
 
 ### Chain data
 
-The number of chains in a structure is equal to the length of the `groupsPerChain` field. The `groupsPerChain` field also defines which groups belong to each chain.
+The number of chains in a structure is equal to the length of the [groupsPerChain](#groupsperchain) field. The `groupsPerChain` field also defines which groups belong to each chain.
 
 
 #### groupsPerChain
@@ -896,7 +896,7 @@ If needed the ASCII codes can be converted to an `Array` of `String`s with the z
 
 *Decoding*: First, run-length decode the input array of 32-bit signed integers into a second array of 32-bit signed integers. Finally apply delta decoding to the second array, which can be done in-place, to create the output array of 32-bit signed integers.
 
-*Description*: List of sequence indices that point into the sequence `String` of the entity (from the `entityList` field) associated with the group. One entry for each group (residue). Set to `-1` when a group entry is has no associated entity/sequence given, for example water molecules.
+*Description*: List of indices that point into the `sequence` property of an entity object in the [entityList](entitylist) field that is associated with the chain the group belongs to (i.e. the index of the chain is included in the `chainIndexList` of the entity). There is one entry for each group (residue). It must be set to `-1` when a group entry has no associated entity (and thus no sequence), for example water molecules.
 
 *Example*:
 
