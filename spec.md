@@ -669,9 +669,9 @@ In the following example there are 3 chains. The first chain has 73 groups, the 
 
 *Type*: `Binary` data that is interpreted as an array of 8-bit unsigned integers representing ASCII characters.
 
-*Decoding*: Groups of four consecutive ASCII characters create the list of chain IDs. Note that the decoding here is optional, a decoding library may choose to pass the array of 8-bit unsigned integers on for performance reasons. Nevertheless we describe all the steps for complete decoding here as an illustration.
+*Decoding*: Groups of four consecutive ASCII characters create the list of chain IDs. Note that the ASCII decoding here is optional, a decoding library may choose to pass the array of 8-bit unsigned integers on for performance reasons. Nevertheless we describe all the steps for complete decoding here as an illustration.
 
-*Description*: List of chain IDs. The IDs here are used to reference the chains from other fields.
+*Description*: List of chain IDs.
 
 *Example*:
 
@@ -711,7 +711,7 @@ Creating the list of chain IDs:
 
 *Required field*
 
-*Type*: `Map` of `groupType` entries. A `groupType` object has the following fields:
+*Type*: `List` of `groupType` entries. A `groupType` object has the following fields:
 
 - `atomCharges` is an `Array`  of `Int32` holding the formal charges of each atom.
 - `atomInfo` is an `Array` of `String`s alternating between the element (0 to 3 characters) and the atom name (0 to 5 characters). The element name must follow the IUPAC standard where only the first character is capitalized and the remaining ones are lower case, for instance `Cd` for Cadmium.
