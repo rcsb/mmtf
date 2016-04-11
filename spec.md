@@ -20,7 +20,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
     * [Chain data](#chain-data)
     * [Group data](#group-data)
     * [Atom data](#atom-data)
-* [Extra](#extra)
+* [Traversal](#traversal)
 * [mmCIF](#mmcif)
 
 
@@ -1041,6 +1041,72 @@ Applying integer decoding with a divisor of `100` to create an array of 32-bit f
 
 ```JSON
 [ 1.00, 1.00, 1.00, 1.00, 0.50, 0.50 ]
+```
+
+
+## Traversal
+
+The following traversal pseudo code assumes that all fields have been decoded and specifically that the split-list delta encoded fields are decoded into fields named like in the following example: `xCoordBig`/`xCoordSmall` decode into `xCoordList`.
+
+```Python
+# initialize index counters
+set modelIndex to 0
+set chainIndex to 0
+set groupIndex to 0
+set atomIndex to 0
+
+# traverse models
+for modelChainCount in chainsPerModel
+    print modelIndex
+    # traverse chains
+    for 1 to modelChainCount
+        print chainIndex
+        set offset to chainIndex * 4
+        print chainIdList[ offset : offset + 4 ]
+        print chainNameList[ offset : offset + 4 ]
+        set chainGroupCount to groupsPerChain[ chainIndex ]
+        # traverse groups
+        for 1 to chainGroupCount
+            print groupIndex
+            print groupIdList[ groupIndex ]
+            print insCodeList[ groupIndex ]
+            print secStructList[ groupIndex ]
+            print sequenceIdList[ groupIndex ]
+            print groupTypeList[ groupIndex ]
+            set group to groupList[ groupTypeList[ groupIndex ] ]
+            print group.groupName
+            print group.singleLetterCode
+            print group.chemCompType
+            set atomOffset to atomIndex
+            set groupBondCount to group.bondIndices.length / 2
+            for i in 1 to groupBondCount
+                print atomOffset + group.bondIndices[ i * 2 ]      # atomIndex1
+                print atomOffset + group.bondIndices[ i * 2 + 1 ]  # atomIndex2
+                print group.bondOrders[ i ]
+            set groupAtomCount to group.atomCharges.length
+            # traverse atoms
+            for i in 1 to groupAtomCount
+                print atomIndex
+                print xCoordList[ atomIndex ]
+                print yCoordList[ atomIndex ]
+                print zCoordList[ atomIndex ]
+                print bFactorList[ atomIndex ]
+                print atomIdList[ atomIndex ]
+                print altLocList[ atomIndex ]
+                print occupancyList[ atomIndex ]
+                print group.atomCharges[ i ]
+                print group.atomInfo[ i * 2 ]      # element
+                print group.atomInfo[ i * 2 + 1 ]  # atomName
+                increment atomIndex by 1
+            increment groupIndex by 1
+        increment chainIndex by 1
+    increment modelIndex by 1
+
+# traverse inter-group bonds
+for i in 1 to bondAtomList.length / 2
+    print bondAtomList[ i * 2 ]      # atomIndex1
+    print bondAtomList[ i * 2 + 1 ]  # atomIndex2
+    print bondOrderList[ i ]
 ```
 
 
