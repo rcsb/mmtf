@@ -238,12 +238,12 @@ The following table lists all top level fields, including their [type](#types) a
 | [bFactorBig](#bfactorbig-bfactorsmall)      | [Binary](#binary)    |          |
 | [bFactorSmall](#bfactorbig-bfactorsmall)    | [Binary](#binary)    |          |
 | [atomIdList](#atomidlist)                   | [Binary](#binary)    |          |
-| [altLocList](#altloclist)                   | [Array](#array)      |          |
+| [altLocList](#altloclist)                   | [Binary](#binary)    |          |
 | [occupancyList](#occupancylist)             | [Binary](#binary)    |          |
 | [groupIdList](#groupidlist)                 | [Binary](#binary)    |    Y     |
 | [groupTypeList](#grouptypelist)             | [Binary](#binary)    |    Y     |
 | [secStructList](#secstructlist)             | [Binary](#binary)    |          |
-| [insCodeList](#inscodelist)                 | [Array](#array)      |          |
+| [insCodeList](#inscodelist)                 | [Binary](#binary)    |          |
 | [sequenceIdList](#sequenceidlist)           | [Binary](#binary)    |          |
 | [chainIdList](#chainidlist)                 | [Binary](#binary)    |    Y     |
 | [chainNameList](#chainnamelist)             | [Binary](#binary)    |          |
@@ -862,15 +862,15 @@ Starting with the array of 8-bit signed integers:
 
 *Optional field*
 
-*Type*: `Array` of `Integer` values.
+*Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
 
-*Decoding*: Run-length decode the input `Array` into an array of 8-bit unsigned integers representing ASCII characters.
+*Decoding*: Run-length decode the input array of 32-bit signed integers into an array of 8-bit unsigned integers representing ASCII characters.
 
 *Description*: List of insertion codes, one for each group (residue).
 
 *Example*:
 
-Starting with the `Array`:
+Starting with the array of 32-bit signed integers:
 
 ```JSON
 [ 0, 5, 65, 3, 66, 2 ]
@@ -962,15 +962,15 @@ Applying delta decoding:
 
 *Optional field*
 
-*Type*: `Array` of `Integer` values.
+*Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
 
-*Decoding*: Run-length decode the input `Array` into an array of 8-bit unsigned integers representing ASCII characters.
+*Decoding*: Run-length decode the input array of 32-bit signed integers into an array of 8-bit unsigned integers representing ASCII characters.
 
 *Description*: List of alternate location labels, one for each atom.
 
 *Example*:
 
-Starting with the `Array`:
+Starting with the array of 32-bit signed integers:
 
 ```JSON
 [ 0, 5, 65, 3, 66, 2 ]
