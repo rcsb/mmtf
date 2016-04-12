@@ -26,13 +26,11 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 
 ## Overview
 
-This specification describes a set of required and optional [fields](#fields) representing molecular structures and associated data. The fields are limited to six primitive [types](#types) for efficient serialization and deserialization using the binary [MessagePack](http://msgpack.org/) format.
+This specification describes a set of required and optional [fields](#fields) representing molecular structures and associated data. The fields are limited to six primitive [types](#types) for efficient serialization and deserialization using the binary [MessagePack](http://msgpack.org/) format. The [fields](#fields) in MMTF are stored in a binary [container](#container) format. The top-level of the container contains the field names as keys and field data as values. To describe the layout of data in MMTF we use the [JSON](http://www.json.org/) notation throughout this document.
 
-The [fields](#fields) in MMTF are stored in a binary [container](#container) format. The top-level of the container contains the field names as keys and field data as values. To describe the layout of data in MMTF we use the [JSON](http://www.json.org/) notation throughout this document.
+The first step of decoding MMTF is decoding the MessagePack-encoded container. Many of the resulting MMTF fields do not need to be decoded any further. However, to allow for custom compression some fields are given as binary data and must be decoded using the [strategies](#encodings) described below. For maximal size savings the binary MMTF data can be compressed using general purpose algorithms like [gzip](https://www.gnu.org/software/gzip/) or [brotli](https://github.com/google/brotli).
 
-The first step of decoding MMTF is decoding the MessagePack encoded container. Many of the resulting MMTF fields do not need to be decoded any further. However, to allow for custom compression some fields are given as binary data and must be decoded using the [strategies](#encodings) described below.
-
-For maximal size savings the binary MMTF data can be compressed using general purpose algorithms like [gzip](https://www.gnu.org/software/gzip/) or [brotli](https://github.com/google/brotli).
+The fields in the MMTF format group data of the same type together to create a flat data-structure, for instance, the coordinates of all atoms are stored together, instead of in atom objects with other atom-related data. This avoids imposing a deeply-nested hierarchical structure on consuming programs, while still allowing efficient [traversal](traversal) of models, chains, groups, and atoms.
 
 
 ## Container
