@@ -483,16 +483,16 @@ The following example shows a single transform object from PDB ID [4opj](http://
 
 *Type*: `Array` of entity objects with the following fields:
 
-| Name             | Type               | Description                       |
-|------------------|--------------------|-----------------------------------|
-| chainIndexList   | [Array](#array)    | Pointers into chain data fields   |
-| description      | [String](#string)  | Description of the entity         |
-| type             | [String](#string)  | Name of the entity type           |
-| sequence         | [String](#string)  | Sequence in one-letter-code       |
+| Name             | Type               | Description                                        |
+|------------------|--------------------|----------------------------------------------------|
+| chainIndexList   | [Array](#array)    | Pointers into chain data fields                    |
+| description      | [String](#string)  | Description of the entity                          |
+| type             | [String](#string)  | Name of the entity type                            |
+| sequence         | [String](#string)  | Sequence of the full construct in one-letter-code  |
 
 The entries of `chainIndexList` are indices into the [chainIdList](#chainidlist) and [chainNameList](#chainnamelist) fields.
 
-The characters of the `sequence` string are referenced by the entries of the [sequenceIdList](#sequenceidlist) field. 
+The `sequence` string contains the full construct, not just the resolved residues. Its characters are referenced by the entries of the [sequenceIdList](#sequenceidlist) field.
 
 *Description*: List of unique molecular entities within the structure. Each entry in `chainIndexList` represents an instance of that entity in the structure.
 
