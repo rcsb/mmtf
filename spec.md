@@ -439,7 +439,7 @@ For example, the third day of December in the year 2013 is written as:
 
 | Name                      | Type             | Description                       |
 |---------------------------|------------------|-----------------------------------|
-| transforms                | [Array](#array)  | List of transform objects         |
+| transformList             | [Array](#array)  | List of transform objects         |
 
 Fields in a `transform` object:
 
@@ -461,7 +461,7 @@ The following example shows a single transform object from PDB ID [4opj](http://
 ```JSON
 [
     {
-        "transforms": [
+        "transformList": [
             {
                 "chainIndexList": [ 0, 4, 6 ],
                 "transformation": [
