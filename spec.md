@@ -730,6 +730,11 @@ Creating the list of chain IDs:
 
 ### Group data
 
+The fields in the following sections hold group-related data.
+
+The mmCIF format allows for so-called micro-heterogeneity on the group-level. For groups (residues) with micro-heterogeneity there are two or more entries given that have the same [sequence id](#sequenceidlist), [group id](#groupidlist) (and [insertion code](#inscodelist)) but are of a different [group type](#grouptypelist). The defining property is their identical sequence id.
+
+
 #### groupList
 
 *Required field*
@@ -916,6 +921,11 @@ Applying delta decoding:
 
 
 ### Atom data
+
+The fields in the following sections hold atom-related data.
+
+The mmCIF format allows for alternate locations of atoms. Such atoms have multiple entries in the atom-level fields (including the fields in the [groupList](grouplist) entries). They can be identified and distinguished by their distinct values in the [altLocList](altloclist) field.
+
 
 #### atomIdList
 
@@ -1142,24 +1152,3 @@ for i in 1 to bondAtomList.length / 2
     print bondAtomList[ i * 2 + 1 ]  # atomIndex2
     print bondOrderList[ i ]
 ```
-
-
-## mmCIF
-
-TODO
-
-This section describes how (and what) data from mmCIF files (including associated data from CCD and BIRD files) can be stored in MMTF.
-
-
-* Entity data
-    * Full construct sequences
-* Model data
-    * ?
-* Chain data
-    * `label_asym_id` and `label_auth_id`
-* Group/Residue data
-    * Micro-heterogeneity residues
-* Atom data
-    * Alternate location atoms
-* Bond data
-    * Bonds from CCD
