@@ -208,47 +208,47 @@ Note that in the above example the list of keys can also be efficiently run-leng
 
 The following table lists all top level fields, including their [type](#types) and whether they are required or optional. The top-level fields themselves are stores as a `Map`.
 
-| Name                                        | Type                 | Required |
-|---------------------------------------------|----------------------|:--------:|
-| [mmtfVersion](#mmtfversion)                 | [String](#string)    |    Y     |
-| [mmtfProducer](#mmtfproducer)               | [String](#string)    |    Y     |
-| [unitCell](#unitcell)                       | [Array](#array)      |          |
-| [spaceGroup](#spacegroup)                   | [String](#string)    |          |
-| [structureId](#structureid)                 | [String](#string)    |          |
-| [title](#title)                             | [String](#string)    |          |
-| [depositionDate](#depositiondate)           | [String](#string)    |          |
-| [releaseDate](#releasedate)                 | [String](#string)    |          |
-| [bioAssemblyList](#bioassemblylist)         | [Array](#array)      |          |
-| [entityList](#entitylist)                   | [Array](#array)      |          |
-| [experimentalMethods](#experimentalmethods) | [Array](#array)      |          |
-| [resolution](#resolution)                   | [Float](#float)      |          |
-| [rFree](#rfree)                             | [Float](#float)      |          |
-| [rWork](#rwork)                             | [Float](#float)      |          |
-| [numBonds](#numbonds)                       | [Integer](#integer)  |    Y     |
-| [numAtoms](#numatoms)                       | [Integer](#integer)  |    Y     |
-| [groupList](#grouplist)                     | [Array](#Array)      |    Y     |
-| [bondAtomList](#bondatomlist)               | [Binary](#binary)    |          |
-| [bondOrderList](#bondorderlist)             | [Binary](#binary)    |          |
-| [xCoordBig](#xcoordbig-xcoordsmall)         | [Binary](#binary)    |    Y     |
-| [xCoordSmall](#xcoordbig-xcoordsmall)       | [Binary](#binary)    |    Y     |
-| [yCoordBig](#ycoordbig-ycoordsmall)         | [Binary](#binary)    |    Y     |
-| [yCoordSmall](#ycoordbig-ycoordsmall)       | [Binary](#binary)    |    Y     |
-| [zCoordBig](#zcoordbig-zcoordsmall)         | [Binary](#binary)    |    Y     |
-| [zCoordSmall](#zcoordbig-zcoordsmall)       | [Binary](#binary)    |    Y     |
-| [bFactorBig](#bfactorbig-bfactorsmall)      | [Binary](#binary)    |          |
-| [bFactorSmall](#bfactorbig-bfactorsmall)    | [Binary](#binary)    |          |
-| [atomIdList](#atomidlist)                   | [Binary](#binary)    |          |
-| [altLocList](#altloclist)                   | [Binary](#binary)    |          |
-| [occupancyList](#occupancylist)             | [Binary](#binary)    |          |
-| [groupIdList](#groupidlist)                 | [Binary](#binary)    |    Y     |
-| [groupTypeList](#grouptypelist)             | [Binary](#binary)    |    Y     |
-| [secStructList](#secstructlist)             | [Binary](#binary)    |          |
-| [insCodeList](#inscodelist)                 | [Binary](#binary)    |          |
-| [sequenceIdList](#sequenceidlist)           | [Binary](#binary)    |          |
-| [chainIdList](#chainidlist)                 | [Binary](#binary)    |    Y     |
-| [chainNameList](#chainnamelist)             | [Binary](#binary)    |          |
-| [groupsPerChain](#groupsperchain)           | [Array](#array)      |    Y     |
-| [chainsPerModel](#chainspermodel)           | [Array](#array)      |    Y     |
+| Name                                        | Type                | Required |
+|---------------------------------------------|---------------------|:--------:|
+| [mmtfVersion](#mmtfversion)                 | [String](#types)    |    Y     |
+| [mmtfProducer](#mmtfproducer)               | [String](#types)    |    Y     |
+| [unitCell](#unitcell)                       | [Array](#types)     |          |
+| [spaceGroup](#spacegroup)                   | [String](#types)    |          |
+| [structureId](#structureid)                 | [String](#types)    |          |
+| [title](#title)                             | [String](#types)    |          |
+| [depositionDate](#depositiondate)           | [String](#types)    |          |
+| [releaseDate](#releasedate)                 | [String](#types)    |          |
+| [bioAssemblyList](#bioassemblylist)         | [Array](#types)     |          |
+| [entityList](#entitylist)                   | [Array](#types)     |          |
+| [experimentalMethods](#experimentalmethods) | [Array](#types)     |          |
+| [resolution](#resolution)                   | [Float](#types)     |          |
+| [rFree](#rfree)                             | [Float](#types)     |          |
+| [rWork](#rwork)                             | [Float](#types)     |          |
+| [numBonds](#numbonds)                       | [Integer](#types)   |    Y     |
+| [numAtoms](#numatoms)                       | [Integer](#types)   |    Y     |
+| [groupList](#grouplist)                     | [Array](#types)     |    Y     |
+| [bondAtomList](#bondatomlist)               | [Binary](#types)    |          |
+| [bondOrderList](#bondorderlist)             | [Binary](#types)    |          |
+| [xCoordBig](#xcoordbig-xcoordsmall)         | [Binary](#types)    |    Y     |
+| [xCoordSmall](#xcoordbig-xcoordsmall)       | [Binary](#types)    |    Y     |
+| [yCoordBig](#ycoordbig-ycoordsmall)         | [Binary](#types)    |    Y     |
+| [yCoordSmall](#ycoordbig-ycoordsmall)       | [Binary](#types)    |    Y     |
+| [zCoordBig](#zcoordbig-zcoordsmall)         | [Binary](#types)    |    Y     |
+| [zCoordSmall](#zcoordbig-zcoordsmall)       | [Binary](#types)    |    Y     |
+| [bFactorBig](#bfactorbig-bfactorsmall)      | [Binary](#types)    |          |
+| [bFactorSmall](#bfactorbig-bfactorsmall)    | [Binary](#types)    |          |
+| [atomIdList](#atomidlist)                   | [Binary](#types)    |          |
+| [altLocList](#altloclist)                   | [Binary](#types)    |          |
+| [occupancyList](#occupancylist)             | [Binary](#types)    |          |
+| [groupIdList](#groupidlist)                 | [Binary](#types)    |    Y     |
+| [groupTypeList](#grouptypelist)             | [Binary](#types)    |    Y     |
+| [secStructList](#secstructlist)             | [Binary](#types)    |          |
+| [insCodeList](#inscodelist)                 | [Binary](#types)    |          |
+| [sequenceIndexList](#sequenceindexlist)     | [Binary](#types)    |          |
+| [chainIdList](#chainidlist)                 | [Binary](#types)    |    Y     |
+| [chainNameList](#chainnamelist)             | [Binary](#types)    |          |
+| [groupsPerChain](#groupsperchain)           | [Array](#types)     |    Y     |
+| [chainsPerModel](#chainspermodel)           | [Array](#types)     |    Y     |
 
 
 ### Format data
@@ -257,7 +257,7 @@ The following table lists all top level fields, including their [type](#types) a
 
 *Required field*
 
-*Type*: `String`
+*Type*: [String](#types).
 
 *Description*: The version number of the specification the file adheres to. The specification follows a [semantic versioning](http://semver.org/) scheme. In a version number `MAJOR.MINOR`, the `MAJOR` part is incremented when specification changes are incompatible with previous versions. The `MINOR` part is changed for additions to the specification that are backwards compatible.
 
@@ -280,7 +280,7 @@ A future version with additions backwards compatible to versions "1.0" and "1.1"
 
 *Required field*
 
-*Type*: `String`.
+*Type*: [String](#types).
 
 *Description*: The name and version of the software used to produce the file. For development versions it can be useful to also include the checksum of the commit. The main purpose of this field is to identify the software that has written a file, for instance because it has format errors.
 
@@ -305,7 +305,7 @@ Another software name and its version number:
 
 *Optional field*
 
-*Type*: `String`.
+*Type*: [String](#types).
 
 *Description*: A short description of the structural data included in the file.
 
@@ -320,7 +320,7 @@ Another software name and its version number:
 
 *Optional field*
 
-*Type*: `String`
+*Type*: [String](#types).
 
 *Description*: An ID for the structure, for example the PDB ID if applicable.
 
@@ -335,7 +335,7 @@ Another software name and its version number:
 
 *Optional field*
 
-*Type*: `String` with the format `YYYY-MM-DD`, where `YYYY` stands for the year in the Gregorian calendar, `MM` is the month of the year between 01 (January) and 12 (December), and `DD` is the day of the month between 01 and 31.
+*Type*: [String](#types) with the format `YYYY-MM-DD`, where `YYYY` stands for the year in the Gregorian calendar, `MM` is the month of the year between 01 (January) and 12 (December), and `DD` is the day of the month between 01 and 31.
 
 *Description*: A date that relates to the deposition of the structure in a database, e.g. the wwPDB archive.
 
@@ -352,7 +352,7 @@ For example, the second day of October in the year 2005 is written as:
 
 *Optional field*
 
-*Type*: `String` with the format `YYYY-MM-DD`, where `YYYY` stands for the year in the Gregorian calendar, `MM` is the month of the year between 01 (January) and 12 (December), and `DD` is the day of the month between 01 and 31.
+*Type*: [String](#types) with the format `YYYY-MM-DD`, where `YYYY` stands for the year in the Gregorian calendar, `MM` is the month of the year between 01 (January) and 12 (December), and `DD` is the day of the month between 01 and 31.
 
 *Description*: A date that relates to the release of the structure in a database, e.g. the wwPDB archive.
 
@@ -369,7 +369,7 @@ For example, the third day of December in the year 2013 is written as:
 
 *Required field*
 
-*Type*: `Integer`.
+*Type*: [Integer](#types).
 
 *Description*: The overall number of atoms in the structure. This also includes atoms at alternate locations.
 
@@ -384,7 +384,7 @@ For example, the third day of December in the year 2013 is written as:
 
 *Required field*
 
-*Type*: `Integer`.
+*Type*: [Integer](#types).
 
 *Description*: The overall number of bonds. This number must reflect both the bonds given in `bondAtomList` and the bonds given in the `groupType` entries in `groupList`.
 
@@ -399,7 +399,7 @@ For example, the third day of December in the year 2013 is written as:
 
 *Optional field*
 
-*Type*: `String`.
+*Type*: [String](#types).
 
 *Description*: The Hermann-Mauguin space-group symbol.
 
@@ -414,7 +414,7 @@ For example, the third day of December in the year 2013 is written as:
 
 *Optional field*
 
-*Type*: `Array` of six `Float` values.
+*Type*: [Array](#types) of six [Float](#types) values.
 
 *Description*: List of six values defining the unit cell. The first three entries are the length of the sides `a`, `b`, and `c` in Å. The last three angles are the `alpha`, `beta`, and `gamma` angles in degree.
 
@@ -433,14 +433,14 @@ For example, the third day of December in the year 2013 is written as:
 
 | Name                      | Type             | Description                       |
 |---------------------------|------------------|-----------------------------------|
-| transformList             | [Array](#array)  | List of transform objects         |
+| transformList             | [Array](#types)  | List of transform objects         |
 
 Fields in a `transform` object:
 
 | Name                      | Type             | Description                       |
 |---------------------------|------------------|-----------------------------------|
-| chainIndexList            | [Array](#array)  | Pointers into chain data fields   |
-| transformation            | [Array](#array)  | 4x4 transformation matrix         |
+| chainIndexList            | [Array](#types)  | Pointers into chain data fields   |
+| transformation            | [Array](#types)  | 4x4 transformation matrix         |
 
 The entries of `chainIndexList` are indices into the [chainIdList](#chainidlist) and [chainNameList](#chainnamelist) fields.
 
@@ -475,7 +475,7 @@ The following example shows a single transform object from PDB ID [4opj](http://
 
 *Optional field*
 
-*Type*: `Array` of entity objects with the following fields:
+*Type*: [Array](#types) of entity objects with the following fields:
 
 | Name             | Type               | Description                                        |
 |------------------|--------------------|----------------------------------------------------|
@@ -516,7 +516,7 @@ The `sequence` string contains the full construct, not just the resolved residue
 
 *Optional field*
 
-*Type*: `Float`.
+*Type*: [Float](#types).
 
 *Description*: The experimental resolution in Angstrom. If not applicable the field must be omitted.
 
@@ -531,7 +531,7 @@ The `sequence` string contains the full construct, not just the resolved residue
 
 *Optional field*
 
-*Type*: `Float`.
+*Type*: [Float](#types).
 
 *Description*: The R-free value. If not applicable the field must be omitted.
 
@@ -546,7 +546,7 @@ The `sequence` string contains the full construct, not just the resolved residue
 
 *Optional field*
 
-*Type*: `Float`.
+*Type*: [Float](#types).
 
 *Description*: The R-work value. If not applicable the field must be omitted.
 
@@ -561,7 +561,7 @@ The `sequence` string contains the full construct, not just the resolved residue
 
 *Optional field*
 
-*Type*: `Array` of `String`s.
+*Type*: [Array](#types) of [String](#types)s.
 
 *Description*: The list of experimental methods employed for structure determination.
 
@@ -578,7 +578,7 @@ The `sequence` string contains the full construct, not just the resolved residue
 
 *Optional field*
 
-*Type*: `Binary` data that is interpreted as an array of 32-bit unsigned integers.
+*Type*: [Binary](#types) data that is interpreted as an array of 32-bit unsigned integers.
 
 *Description*: Pairs of values represent indices of covalently bonded atoms. The indices point to the [Atom data](#atom-data) arrays. Only covalent bonds may be given.
 
@@ -595,7 +595,7 @@ In the following example there are three bonds, one between the atoms with the i
 
 *Optional field* If it exists [bondAtomList](#bondatomlist) must also be present. However `bondAtomList` may exist without `bondOrderList`.
 
-*Type*: `Binary` data that is interpreted as an array of 8-bit unsigned integers, i.e. take as is.
+*Type*: [Binary](#types) data that is interpreted as an array of 8-bit unsigned integers, i.e. take as is.
 
 *Description*: List of bond orders for bonds in `bondAtomList`. Must be values between 1 and 3.
 
@@ -617,7 +617,7 @@ The number of models in a structure is equal to the length of the [chainsPerMode
 
 *Required field*
 
-*Type*: `Array` of `Integer` numbers. The number of models is thus equal to the length of the `chainsPerModel` field.
+*Type*: [Array](#types) of [Integer](#types) numbers. The number of models is thus equal to the length of the `chainsPerModel` field.
 
 *Description*: List of the number of chains in each model. The list allows looping over all models:
 
@@ -649,7 +649,7 @@ The number of chains in a structure is equal to the length of the [groupsPerChai
 
 *Required field*
 
-*Type*: `Array` of `Integer` numbers.
+*Type*: [Array](#types) of [Integer](#types) numbers.
 
 *Description*: List of the number of groups (aka residues) in each chain. The number of chains is thus equal to the length of the `groupsPerChain` field. In conjunction with `chainsPerModel`, the list allows looping over all chains:
 
@@ -684,7 +684,7 @@ In the following example there are 3 chains. The first chain has 73 groups, the 
 
 *Required field*
 
-*Type*: `Binary` data that is interpreted as an array of 8-bit unsigned integers representing ASCII characters.
+*Type*: [Binary](#types) data that is interpreted as an array of 8-bit unsigned integers representing ASCII characters.
 
 *Decoding*: Groups of four consecutive ASCII characters create the list of chain IDs. Note that the ASCII decoding here is optional, a decoding library may choose to pass the array of 8-bit unsigned integers on for performance reasons. Nevertheless we describe all the steps for complete decoding here as an illustration.
 
@@ -715,7 +715,7 @@ Creating the list of chain IDs:
 
 *Optional field*
 
-*Type*: `Binary` data that is interpreted as an array of 8-bit unsigned integers representing ASCII characters.
+*Type*: [Binary](#types) data that is interpreted as an array of 8-bit unsigned integers representing ASCII characters.
 
 *Decoding*: Same as for the `chainIdList` field.
 
@@ -733,18 +733,18 @@ The mmCIF format allows for so-called micro-heterogeneity on the group-level. Fo
 
 *Required field*
 
-*Type*: `List` of `groupType` objects with the following fields:
+*Type*: [Array](#types) of `groupType` objects with the following fields:
 
 | Name             | Type              | Description                                                 |
 |------------------|-------------------|-------------------------------------------------------------|
-| atomChargeList   | [Array](#array)   | List of formal charges as [Integers](#integer)              |
-| atomNameList     | [Array](#array)   | List of atom names, 0 to 5 character [Strings](#string)     |
-| elementList      | [Array](#array)   | List of elements, 0 to 3 character [Strings](#string)       |
-| bondIndexList    | [Array](#array)   | List of bonded atom indices, [Integers](#integer)           |
-| bondOrderList    | [Array](#array)   | List of bond orders as [Integers](#integer) between 1 and 3 |
-| groupName        | [String](#string) | The name of the group, 0 to 5 characters                    |
-| singleLetterCode | [String](#string) | The single letter code, 1 character                         |
-| chemCompType     | [String](#string) | The chemical component type                                 |
+| atomChargeList   | [Array](#types)   | List of formal charges as [Integers](#types)                |
+| atomNameList     | [Array](#types)   | List of atom names, 0 to 5 character [Strings](#types)      |
+| elementList      | [Array](#types)   | List of elements, 0 to 3 character [Strings](#types)        |
+| bondAtomList     | [Array](#types)   | List of bonded atom indices, [Integers](#types)             |
+| bondOrderList    | [Array](#types)   | List of bond orders as [Integers](#types) between 1 and 3   |
+| groupName        | [String](#types)  | The name of the group, 0 to 5 characters                    |
+| singleLetterCode | [String](#types)  | The single letter code, 1 character                         |
+| chemCompType     | [String](#types)  | The chemical component type                                 |
 
 
 The element name must follow the IUPAC standard where only the first character is capitalized and the remaining ones are lower case, for instance `Cd` for Cadmium.
@@ -779,7 +779,7 @@ The `singleLetterCode` is the IUPAC single letter code for protein or DNA/RNA re
 
 *Required field*
 
-*Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
+*Type*: [Binary](#types) data that is interpreted as an array of 32-bit signed integers.
 
 *Description*: List of pointers to `groupType` entries in `groupList` by their keys. One entry for each residue, thus the number of residues is equal to the length of the `groupTypeId` field.
 
@@ -796,7 +796,7 @@ In the following example there are 5 groups. The 1st, 4th and 5th reference the 
 
 *Required field*
 
-*Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
+*Type*: [Binary](#types) data that is interpreted as an array of 32-bit signed integers.
 
 *Decoding*: First, run-length decode the input array of 32-bit signed integers into a second array of 32-bit signed integers. Finally apply delta decoding to the second array, which can be done in-place, to create the output array of 32-bit signed integers.
 
@@ -827,7 +827,7 @@ Applying delta decoding:
 
 *Optional field*
 
-*Type*: `Binary` data that is interpreted as an array of 8-bit signed integers.
+*Type*: [Binary](#types) data that is interpreted as an array of 8-bit signed integers.
 
 *Description*: List of secondary structure assignments coded according to the following table, which shows the eight different types of secondary structure the [DSSP](https://dx.doi.org/10.1002%2Fbip.360221211) algorithm distinguishes. If the field is included there must be an entry for each group (residue) either in all models or only in the first model.
 
@@ -856,7 +856,7 @@ Starting with the array of 8-bit signed integers:
 
 *Optional field*
 
-*Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
+*Type*: [Binary](#types) data that is interpreted as an array of 32-bit signed integers.
 
 *Decoding*: Run-length decode the input array of 32-bit signed integers into an array of 8-bit unsigned integers representing ASCII characters.
 
@@ -887,7 +887,7 @@ If needed the ASCII codes can be converted to an `Array` of `String`s with the z
 
 *Required field*
 
-*Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
+*Type*: [Binary](#types) data that is interpreted as an array of 32-bit signed integers.
 
 *Decoding*: First, run-length decode the input array of 32-bit signed integers into a second array of 32-bit signed integers. Finally apply delta decoding to the second array, which can be done in-place, to create the output array of 32-bit signed integers.
 
@@ -925,7 +925,7 @@ The mmCIF format allows for alternate locations of atoms. Such atoms have multip
 
 *Optional field*
 
-*Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
+*Type*: [Binary](#types) data that is interpreted as an array of 32-bit signed integers.
 
 *Decoding*: First, run-length decode the input array of 32-bit signed integers into a second array of 32-bit signed integers. Finally apply delta decoding to the second array, which can be done in-place, to create the output array of 32-bit signed integers.
 
@@ -956,7 +956,7 @@ Applying delta decoding:
 
 *Optional field*
 
-*Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
+*Type*: [Binary](#types) data that is interpreted as an array of 32-bit signed integers.
 
 *Decoding*: Run-length decode the input array of 32-bit signed integers into an array of 8-bit unsigned integers representing ASCII characters.
 
@@ -987,7 +987,7 @@ If needed the ASCII codes can be converted to an `Array` of `String`s with the z
 
 *Optional fields*
 
-*Type*: Two `Binary` data fields that are interpreted as array of 32-bit signed integers and array of 16-bit signed integers.
+*Type*: Two [Binary](#types) data fields that are interpreted as array of 32-bit signed integers and array of 16-bit signed integers.
 
 *Decoding*: First split-list delta decode the input array of 32-bit signed integers and the array of 16-bit signed integers into a second array of 32-bit signed integers. Finally integer decode the second array using `100` as the divisor to create an array of 32-bit floating-point values.
 
@@ -1021,7 +1021,7 @@ Applying integer decoding with a divisor of `100` to create an array of 32-bit f
 
 *Required fields*
 
-*Type*: Two `Binary` data fields that are interpreted as array of 32-bit signed integers and array of 16-bit signed integers.
+*Type*: Two [Binary](#types) data fields that are interpreted as array of 32-bit signed integers and array of 16-bit signed integers.
 
 *Decoding*: First split-list delta decode the input array of 32-bit signed integers and the array of 16-bit signed integers into a second array of 32-bit signed integers. Finally integer decode the second array using `1000` as the divisor to create an array of 32-bit floating-point values.
 
@@ -1057,7 +1057,7 @@ Applying integer decoding with a divisor of `1000` to create an array of 32-bit 
 
 *Description*: List of atom occupancies, one for each atom.
 
-*Type*: `Binary` data that is interpreted as an array of 32-bit signed integers.
+*Type*: [Binary](#types) data that is interpreted as an array of 32-bit signed integers.
 
 *Decoding*: First, run-length decode the input array of 32-bit signed integers into a second array of 32-bit signed integers. Finally apply integer decoding using `100` as the divisor to the second array to create a array of 32-bit floating-point values.
 
