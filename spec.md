@@ -322,7 +322,7 @@ Another software name and its version number:
 
 *Type*: [String](#types).
 
-*Description*: An ID for the structure, for example the PDB ID if applicable.
+*Description*: An ID for the structure, for example the PDB ID if applicable. If not in conflict with the format of the ID, it must be given in uppercase.
 
 *Example*:
 
