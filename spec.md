@@ -749,7 +749,7 @@ The mmCIF format allows for so-called micro-heterogeneity on the group-level. Fo
 
 The element name must follow the IUPAC standard where only the first character is capitalized and the remaining ones are lower case, for instance `Cd` for Cadmium.
 
-Two consecutive entries in `bondIndexList` representing indices of covalently bound atoms. The indices point into the `atomChargeList`, `atomNameList`, and `elementList` fields.
+Two consecutive entries in `bondAtomList` representing indices of covalently bound atoms. The indices point into the `atomChargeList`, `atomNameList`, and `elementList` fields.
 
 The `singleLetterCode` is the IUPAC single letter code for protein or DNA/RNA residues, otherwise the character 'X'.
 
@@ -765,7 +765,7 @@ The `singleLetterCode` is the IUPAC single letter code for protein or DNA/RNA re
         "atomChargeList": [ 0, 0, 0, 0 ],
         "atomNameList": [ "N", "CA", "C", "O" ],
         "elementList": [ "N", "C", "C", "O" ],
-        "bondIndexList": [ 1, 0, 2, 1, 3, 2 ],
+        "bondAtomList": [ 1, 0, 2, 1, 3, 2 ],
         "bondOrderList": [ 1, 1, 2 ],
         "chemCompType": "PEPTIDE LINKING",
         "groupName": "GLY",
@@ -1116,12 +1116,12 @@ for modelChainCount in chainsPerModel
             print group.singleLetterCode
             print group.chemCompType
             set atomOffset to atomIndex
-            set groupBondCount to group.bondIndexList.length / 2
+            set groupBondCount to group.bondAtomList.length / 2
             for i in 1 to groupBondCount
-                print atomOffset + group.bondIndexList[ i * 2 ]      # atomIndex1
-                print atomOffset + group.bondIndexList[ i * 2 + 1 ]  # atomIndex2
+                print atomOffset + group.bondAtomList[ i * 2 ]      # atomIndex1
+                print atomOffset + group.bondAtomList[ i * 2 + 1 ]  # atomIndex2
                 print group.bondOrderList[ i ]
-            set groupAtomCount to group.atomChargeList.length
+            set groupAtomCount to group.atomNameList.length
             # traverse atoms
             for i in 1 to groupAtomCount
                 print atomIndex
