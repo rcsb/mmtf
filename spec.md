@@ -446,14 +446,27 @@ The entries of `chainIndexList` are indices into the [chainIdList](#chainidlist)
 
 The elements of the 4x4 `transformation` matrix are stored linearly in row major order. Thus, the translational component comprises the 4th, 8th, and 12th element.
 
-*Description*: List of instructions on how to transform coordinates for a list of chains to create (biological) assemblies.
+*Description*: List of instructions on how to transform coordinates for a list of chains to create (biological) assemblies. The translational component is given in Å.
 
 *Example*:
 
-The following example shows a single transform object from PDB ID [4opj](http://www.rcsb.org/pdb/explore.do?structureId=4OPJ). The transformation matrix performs no rotation and a translation of -42.387 in dimension x.
+The following example shows two transform objects from PDB ID [4OPJ](http://www.rcsb.org/pdb/explore.do?structureId=4OPJ). The transformation matrix of the first object performs no rotation and a translation of 42.387 Å in dimension x. The second one translates -42.387 Å in dimension x.
 
 ```JSON
 [
+    {
+        "transformList": [
+            {
+                "chainIndexList": [ 0, 4, 6 ],
+                "transformation": [
+                    1.0, 0.0, 0.0,  42.387,
+                    0.0, 1.0, 0.0,   0.000,
+                    0.0, 0.0, 1.0,   0.000,
+                    0.0, 0.0, 0.0,   1.000
+                ]
+            }
+        ]
+    },
     {
         "transformList": [
             {
