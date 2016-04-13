@@ -458,11 +458,11 @@ Fields in a `transform` object:
 | Name                      | Type             | Description                       |
 |---------------------------|------------------|-----------------------------------|
 | chainIndexList            | [Array](#types)  | Pointers into chain data fields   |
-| transformation            | [Array](#types)  | 4x4 transformation matrix         |
+| matrix                    | [Array](#types)  | 4x4 transformation matrix         |
 
 The entries of `chainIndexList` are indices into the [chainIdList](#chainidlist) and [chainNameList](#chainnamelist) fields.
 
-The elements of the 4x4 `transformation` matrix are stored linearly in row major order. Thus, the translational component comprises the 4th, 8th, and 12th element.
+The elements of the 4x4 transformation `matrix` are stored linearly in row major order. Thus, the translational component comprises the 4th, 8th, and 12th element.
 
 *Description*: List of instructions on how to transform coordinates for a list of chains to create (biological) assemblies. The translational component is given in Å.
 
@@ -476,7 +476,7 @@ The following example shows two transform objects from PDB ID [4OPJ](http://www.
         "transformList": [
             {
                 "chainIndexList": [ 0, 4, 6 ],
-                "transformation": [
+                "matrix": [
                     1.0, 0.0, 0.0,  42.387,
                     0.0, 1.0, 0.0,   0.000,
                     0.0, 0.0, 1.0,   0.000,
@@ -489,7 +489,7 @@ The following example shows two transform objects from PDB ID [4OPJ](http://www.
         "transformList": [
             {
                 "chainIndexList": [ 0, 4, 6 ],
-                "transformation": [
+                "matrix": [
                     1.0, 0.0, 0.0, -42.387,
                     0.0, 1.0, 0.0,   0.000,
                     0.0, 0.0, 1.0,   0.000,
