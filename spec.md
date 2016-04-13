@@ -486,7 +486,7 @@ The following example shows a single transform object from PDB ID [4opj](http://
 
 The entries of `chainIndexList` are indices into the [chainIdList](#chainidlist) and [chainNameList](#chainnamelist) fields.
 
-The `sequence` string contains the full construct, not just the resolved residues. Its characters are referenced by the entries of the [sequenceIdList](#sequenceidlist) field.
+The `sequence` string contains the full construct, not just the resolved residues. Its characters are referenced by the entries of the [sequenceIndexList](#sequenceindexlist) field.
 
 *Description*: List of unique molecular entities within the structure. Each entry in `chainIndexList` represents an instance of that entity in the structure.
 
@@ -726,7 +726,7 @@ Creating the list of chain IDs:
 
 The fields in the following sections hold group-related data.
 
-The mmCIF format allows for so-called micro-heterogeneity on the group-level. For groups (residues) with micro-heterogeneity there are two or more entries given that have the same [sequence id](#sequenceidlist), [group id](#groupidlist) (and [insertion code](#inscodelist)) but are of a different [group type](#grouptypelist). The defining property is their identical sequence id.
+The mmCIF format allows for so-called micro-heterogeneity on the group-level. For groups (residues) with micro-heterogeneity there are two or more entries given that have the same [sequence index](#sequenceindexlist), [group id](#groupidlist) (and [insertion code](#inscodelist)) but are of a different [group type](#grouptypelist). The defining property is their identical sequence index.
 
 
 #### groupList
@@ -883,7 +883,7 @@ If needed the ASCII codes can be converted to an `Array` of `String`s with the z
 ```
 
 
-#### sequenceIdList
+#### sequenceIndexList
 
 *Required field*
 
@@ -1109,7 +1109,7 @@ for modelChainCount in chainsPerModel
             print groupIdList[ groupIndex ]
             print insCodeList[ groupIndex ]
             print secStructList[ groupIndex ]
-            print sequenceIdList[ groupIndex ]
+            print sequenceIndexList[ groupIndex ]
             print groupTypeList[ groupIndex ]
             set group to groupList[ groupTypeList[ groupIndex ] ]
             print group.groupName
