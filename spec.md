@@ -499,7 +499,7 @@ The following example shows two transform objects from PDB ID [4OPJ](http://www.
 
 The entries of `chainIndexList` are indices into the [chainIdList](#chainidlist) and [chainNameList](#chainnamelist) fields.
 
-The `sequence` string contains the full construct, not just the resolved residues. Its characters are referenced by the entries of the [sequenceIndexList](#sequenceindexlist) field.
+The `sequence` string contains the full construct, not just the resolved residues. Its characters are referenced by the entries of the [sequenceIndexList](#sequenceindexlist) field. Further, characters follow the IUPAC single letter code for protein or DNA/RNA residues, otherwise the character 'X'.
 
 *Description*: List of unique molecular entities within the structure. Each entry in `chainIndexList` represents an instance of that entity in the structure.
 
