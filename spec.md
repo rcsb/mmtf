@@ -133,7 +133,7 @@ Applying delta decoding. The first entry in the list is left as is, the second i
 
 #### Split-list delta encoding
 
-Split-list delta encoding is an adjusted delta encoding to handle lists with some intermittent large delta values. The list is split into two arrays, called "big" and "small". The "big" array of 32-bit signed integers holds pairs of a large delta value (>=2^15) and the number of subsequent small delta values (<2^15). The "small" array of 16-bit signed integers holds the small values, that is, the values fitting into a 16-bit signed integer.
+Split-list delta encoding is an adjusted delta encoding to handle lists with some intermittent large delta values. The list is split into two arrays, called "big" and "small". The "big" array of 32-bit signed integers alternates between a large delta value (>=2^15) and the number of subsequent small delta values (<2^15). The "small" array of 16-bit signed integers holds the small values, that is, the values fitting into a 16-bit signed integer.
 
 *Example*:
 
@@ -144,7 +144,25 @@ Starting with the "big" and the "small" arrays:
 [ 0, 2, -1, -3, 5 ]  // small
 ```
 
-Applying split-list delta decoding to create an array of 32-bit signed integers:
+Building the decoded array step by step. The first value, `1200`, from the "big" array is the initial delta:
+
+```JSON
+[ 1200 ]
+```
+
+It is followed by `3` delta values from the "small" array `0, 2, -1`:
+
+```JSON
+[ 1200, 1200, 1202, 1201 ]
+```
+
+Adding the next delta value in the "big" array, `100`:
+
+```JSON
+[ 1200, 1200, 1202, 1201, 1301 ]
+```
+
+Followed by `2` delta values from the "small" array `-3, 5` to create the final array of 32-bit signed integers::
 
 ```JSON
 [ 1200, 1200, 1202, 1201, 1301, 1298, 1303 ]
