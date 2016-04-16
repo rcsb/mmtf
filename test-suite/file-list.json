@@ -1,0 +1,90 @@
+[
+    {
+        "comment": "Include a BIRD molecule bound to DNA",
+        "name": "173D",
+    },
+    {
+        "comment": "Contains the 21st amino acid Selenocysteine (SEC, U)",
+        "name": "1AA6",
+    },
+    {
+        "comment": "B-DNA structure",
+        "name": "1BNA",
+    },
+    {
+        "comment": "Has many modified amino acids",
+        "name": "1CAG",
+    },
+    {
+        "comment": "X-ray structures with homogeneous models (10 models)",
+        "name": "1HTQ",
+    },
+    {
+        "comment": "Has insertion codes, e.g. chain B has residues 82, 82A, 82B, and 82C",
+        "name": "1IGT",
+    },
+    {
+        "comment": "Contains the 22nd amino acid Pyrrolysine (PYL, O)",
+        "name": "1L2Q",
+    },
+    {
+        "comment": "Calpha atom is missing (not marked as calpha)",
+        "name": "1LPV",
+    },
+    {
+        "comment": "NMR structure with multiple models - one of which has chain missing",
+        "name": "1MSH",
+    },
+    {
+        "comment": "Weird NMR structure",
+        "name": "1O2F",
+    },
+    {
+        "comment": "No ATOM records just HETATM records (in PDB). Opposite true for MMCif. It's a D-Peptide.",
+        "name": "1R9V",
+    },
+    {
+        "comment": "Sugar structure",
+        "name": "1SKM",
+    },
+    {
+        "comment": "Tiny protein example, 19 residues",
+        "name": "3NJW",
+    },
+    {
+        "comment": "Another weird structure (jose's suggestion)",
+        "name": "3ZYB",
+    },
+    {
+        "comment": "Micro heterogenity",
+        "name": "4CK4",
+    },
+    {
+        "comment": "Standard structure",
+        "name": "4CUP",
+    },
+    {
+        "comment": "Bioassemblies created by different transformations to separate chains",
+        "name": "4OPJ",
+    },
+    {
+        "comment": "X-ray structures with heterogeneous models (250 models)",
+        "name": "4P3R",
+    },
+    {
+        "comment": "Ribosome",
+        "name": "4V5A",
+    },
+    {
+        "comment": "DNA structure",
+        "name": "4Y60",
+    },
+    {
+        "comment": "Biosynthetic protein",
+        "name": "5EMG",
+    },
+    {
+        "comment": "Negative residue numbers",
+        "name": "5ESW",
+    }
+]
