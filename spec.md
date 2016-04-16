@@ -21,7 +21,6 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
     * [Group data](#group-data)
     * [Atom data](#atom-data)
 * [Traversal](#traversal)
-* [mmCIF](#mmcif)
 
 
 ## Overview
