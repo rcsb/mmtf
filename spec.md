@@ -448,16 +448,16 @@ For example, the third day of December in the year 2013 is written as:
 
 *Type*: `Array` of assembly objects with the following fields:
 
-| Name                      | Type             | Description                       |
-|---------------------------|------------------|-----------------------------------|
-| transformList             | [Array](#types)  | List of transform objects         |
+| Name             | Type             | Description                       |
+|------------------|------------------|-----------------------------------|
+| transformList    | [Array](#types)  | List of transform objects         |
 
 Fields in a `transform` object:
 
-| Name                      | Type             | Description                       |
-|---------------------------|------------------|-----------------------------------|
-| chainIndexList            | [Array](#types)  | Pointers into chain data fields   |
-| matrix                    | [Array](#types)  | 4x4 transformation matrix         |
+| Name             | Type             | Description                                          |
+|------------------|------------------|------------------------------------------------------|
+| chainIndexList   | [Array](#types)  | Pointers into chain data fields, [Integers](#types)  |
+| matrix           | [Array](#types)  | 4x4 transformation matrix, [Floats](#types)          |
 
 The entries of `chainIndexList` are indices into the [chainIdList](#chainidlist) and [chainNameList](#chainnamelist) fields.
 
@@ -507,12 +507,12 @@ The following example shows two transform objects from PDB ID [4OPJ](http://www.
 
 *Type*: [Array](#types) of entity objects with the following fields:
 
-| Name             | Type               | Description                                        |
-|------------------|--------------------|----------------------------------------------------|
-| chainIndexList   | [Array](#array)    | Pointers into chain data fields                    |
-| description      | [String](#string)  | Description of the entity                          |
-| type             | [String](#string)  | Name of the entity type                            |
-| sequence         | [String](#string)  | Sequence of the full construct in one-letter-code  |
+| Name             | Type               | Description                                          |
+|------------------|--------------------|------------------------------------------------------|
+| chainIndexList   | [Array](#array)    | Pointers into chain data fields, [Integers](#types)  |
+| description      | [String](#string)  | Description of the entity                            |
+| type             | [String](#string)  | Name of the entity type                              |
+| sequence         | [String](#string)  | Sequence of the full construct in one-letter-code    |
 
 The entries of `chainIndexList` are indices into the [chainIdList](#chainidlist) and [chainNameList](#chainnamelist) fields.
 
