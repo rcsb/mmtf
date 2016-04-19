@@ -516,7 +516,7 @@ The following example shows two transform objects from PDB ID [4OPJ](http://www.
 
 The entries of `chainIndexList` are indices into the [chainIdList](#chainidlist) and [chainNameList](#chainnamelist) fields.
 
-The `sequence` string contains the full construct, not just the resolved residues. Its characters are referenced by the entries of the [sequenceIndexList](#sequenceindexlist) field. Further, characters follow the IUPAC single letter code for protein or DNA/RNA residues, otherwise the character 'X'.
+The `sequence` string contains the full construct, not just the resolved residues. Its characters are referenced by the entries of the [sequenceIndexList](#sequenceindexlist) field. Further, characters follow the IUPAC single letter code for [protein](https://dx.doi.org/10.1111/j.1432-1033.1984.tb07877.x) or [DNA/RNA](https://dx.doi.org/10.1093/nar/13.9.3021) residues, otherwise the character 'X'.
 
 *Description*: List of unique molecular entities within the structure. Each entry in `chainIndexList` represents an instance of that entity in the structure.
 
@@ -777,11 +777,11 @@ The mmCIF format allows for so-called micro-heterogeneity on the group-level. Fo
 | chemCompType     | [String](#types)  | The chemical component type                                 |
 
 
-The element name must follow the IUPAC standard where only the first character is capitalized and the remaining ones are lower case, for instance `Cd` for Cadmium.
+The element name must follow the IUPAC [standard](http://dx.doi.org/10.1515/ci.2014.36.4.25) where only the first character is capitalized and the remaining ones are lower case, for instance `Cd` for Cadmium.
 
 Two consecutive entries in `bondAtomList` representing indices of covalently bound atoms. The indices point into the `atomChargeList`, `atomNameList`, and `elementList` fields.
 
-The `singleLetterCode` is the IUPAC single letter code for protein or DNA/RNA residues, otherwise the character 'X'.
+The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.doi.org/10.1111/j.1432-1033.1984.tb07877.x) or [DNA/RNA](https://dx.doi.org/10.1093/nar/13.9.3021) residues, otherwise the character 'X'.
 
 *Description*: Common group (residue) data that is referenced via the `groupType` key by group entries.
 
