@@ -1019,7 +1019,7 @@ If needed the ASCII codes can be converted to an `Array` of `String`s with the z
 
 *Type*: Two [Binary](#types) data fields that are interpreted as array of 32-bit signed integers and array of 16-bit signed integers.
 
-*Decoding*: First split-list delta decode the input array of 32-bit signed integers and the array of 16-bit signed integers into a second array of 32-bit signed integers. Finally integer decode the second array using `100` as the divisor to create an array of 32-bit floating-point values.
+*Decoding*: First split-list delta decode the input array of 32-bit signed integers and the array of 16-bit signed integers into a second array of 32-bit signed integers. Finally integer decode the second array using `100` as the divisor to create an array of 32-bit floating-point values. The resulting array should be named `bFactorList`.
 
 *Description*: List of atom B-factors in in Å^2. One entry for each atom.
 
@@ -1053,7 +1053,7 @@ Applying integer decoding with a divisor of `100` to create an array of 32-bit f
 
 *Type*: Two [Binary](#types) data fields that are interpreted as array of 32-bit signed integers and array of 16-bit signed integers.
 
-*Decoding*: First split-list delta decode the input array of 32-bit signed integers and the array of 16-bit signed integers into a second array of 32-bit signed integers. Finally integer decode the second array using `1000` as the divisor to create an array of 32-bit floating-point values.
+*Decoding*: First split-list delta decode the input array of 32-bit signed integers and the array of 16-bit signed integers into a second array of 32-bit signed integers. Finally integer decode the second array using `1000` as the divisor to create an array of 32-bit floating-point values. The resulting arrays should be named `xCoordList`, `yCoordList`, and `zCoordList`, respectively.
 
 *Description*: List of x, y, and z atom coordinates, respectively, in Å. One entry for each atom and coordinate.
 
