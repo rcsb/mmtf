@@ -1,5 +1,5 @@
 
-The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encoding of biological structures.
+The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encoding of biological structures. For a general introduction to the format visit the [website](http://mmtf.rcsb.org/).
 
 This repository holds the [specification](spec.md) of the format and a [test suite](test-suite/).
 
