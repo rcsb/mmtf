@@ -3,6 +3,8 @@
 
 *WORK IN PROGRESS*
 
+*Version*: v0.1
+
 The test suite provides a number of files in different formats to facilitate testing and validations of encoder/decoder implementations. The formats are:
 
 * MMTF (all fields are encoded according to the specification and serialized using MessagePack to a binary file)
