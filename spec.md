@@ -716,7 +716,7 @@ In the following example there are 3 chains. The first chain has 73 groups, the 
 
 *Type*: [Binary](#types) data that is interpreted as an array of 8-bit unsigned integers representing ASCII characters.
 
-*Decoding*: Groups of four consecutive ASCII characters create the list of chain IDs. The characters must be left aligned and unused characters must be represented by a 0 byte. Note that the ASCII decoding here is optional, a decoding library may choose to pass the array of 8-bit unsigned integers on for performance reasons. Nevertheless we describe all the steps for complete decoding here as an illustration.
+*Decoding*: Groups of four consecutive ASCII characters create the list of chain IDs. The characters must be left aligned and unused characters must be represented by 0 bytes. Note that the ASCII decoding here is optional, a decoding library may choose to pass the array of 8-bit unsigned integers on for performance reasons. Nevertheless we describe all the steps for complete decoding here as an illustration.
 
 *Description*: List of chain IDs. For storing data from mmCIF files the `chainIdList` field should contain the value from the `label_asym_id` mmCIF data item and the `chainNameList` the `auth_asym_id` mmCIF data item. In PDB files there is only a single name/identifier for chains that corresponds to the `auth_asym_id` item. When there is only a single chain identifier available it must be stored in the `chainIdList` field.
 
