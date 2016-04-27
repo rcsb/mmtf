@@ -3,7 +3,7 @@
 
 *WORK IN PROGRESS*
 
-*Version*: v0.1
+*Version*: v0.2dev
 
 The test suite provides a number of files in different formats to facilitate testing and validations of encoder/decoder implementations. The formats are:
 
