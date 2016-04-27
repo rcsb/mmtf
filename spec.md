@@ -82,7 +82,7 @@ The following encoding strategies are used to compress the data contained in MMT
 
 Run-length decoding can generally be used to compress lists that contain stretches of equal values. Instead of storing each value itself, stretches of equal values are represented by the value itself and the occurrence count, that is a value/count pair.
 
-*Examples*:
+*Example*:
 
 Starting with the encoded list of value/count pairs. In the following example there are three pairs `1, 10`, `2, 1` and `1, 4`. The first entry in a pair is the value to be repeated and the second entry denotes how often the value must be repeated.
 
@@ -94,18 +94,6 @@ Applying run-length decoding by repeating, for each pair, the value as often as 
 
 ```JSON
 [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1 ]
-```
-
-Another example that has strings instead of numbers as values:
-
-```JSON
-[ "A", 5, "B", 2 ]
-```
-
-Applying run-length decoding:
-
-```JSON
-[ "A", "A", "A", "A", "A", "B", "B" ]
 ```
 
 
@@ -132,39 +120,39 @@ Applying delta decoding. The first entry in the list is left as is, the second i
 
 #### Split-list delta encoding
 
-Split-list delta encoding is an adjusted delta encoding to handle lists with some intermittent large delta values. The list is split into two arrays, called "big" and "small". The "big" array of 32-bit signed integers alternates between a large delta value (>=2^15) and the number of subsequent small delta values (<2^15). The "small" array of 16-bit signed integers holds the small values, that is, the values fitting into a 16-bit signed integer.
+Split-list delta encoding is an adjusted delta encoding to handle lists with some intermittent large delta values. The list is split into two arrays, called "big" and "small". The "big" array of 32-bit signed integers alternates between a large delta value (>=2^15) and the number of subsequent small delta values (<2^15). The "small" array of 16-bit signed integers holds the small values, that is, the values fitting into a 16-bit signed integer. Note that the "big" array may contain some values that would also fit into the "small" array if that suits the encoder implementation.
 
 *Example*:
 
 Starting with the "big" and the "small" arrays:
 
 ```JavaScript
-[ 1200, 3, 100, 2 ]  // big
+[ 100200, 3, 100, 2 ]  // big
 [ 0, 2, -1, -3, 5 ]  // small
 ```
 
 Building the decoded array step by step. The first value, `1200`, from the "big" array is the initial delta:
 
 ```JSON
-[ 1200 ]
+[ 100200 ]
 ```
 
 It is followed by `3` delta values from the "small" array `0, 2, -1`:
 
 ```JSON
-[ 1200, 1200, 1202, 1201 ]
+[ 100200, 100200, 100202, 100201 ]
 ```
 
 Adding the next delta value in the "big" array, `100`:
 
 ```JSON
-[ 1200, 1200, 1202, 1201, 1301 ]
+[ 100200, 100200, 100202, 100201, 100301 ]
 ```
 
 Followed by `2` delta values from the "small" array `-3, 5` to create the final array of 32-bit signed integers::
 
 ```JSON
-[ 1200, 1200, 1202, 1201, 1301, 1298, 1303 ]
+[ 100200, 100200, 100202, 100201, 100301, 100298, 100303 ]
 ```
 
 
@@ -189,32 +177,44 @@ Applying integer decoding with a divisor of `100`:
 
 ### Dictionary encoding
 
-For dictionary encoding a `Map` is created to store key-value pairs. References to the keys can then be used instead of repeating the values over and over again. Lists of keys can afterwards be compressed with delta and run-length encoding.
+For dictionary encoding a `List` is created to store index-value pairs. The indices as references to the values can then be used instead of repeating the values over and over again. Lists of indices can afterwards be compressed with delta and run-length encoding.
 
 *Example*:
 
 First create a `Map` to hold values that are referable by keys. In the following example the are two keys, `1` and `2` with some values associated.
 
 ```JSON
-{
-    "1": {
-        "A": [ 1, 2, 3 ],
-        "B": "HELLO"
+[
+    {
+        "groupName": "ASP",
+        "singleLetterCode": "D",
+        "chemCompType": "L-PEPTIDE LINKING",
+        "atomNameList": [ "N", "CA", "C", "O", "CB", "CG", "OD1" ],
+        "elementList": [ "N", "C", "C", "O", "C", "C", "O" ],
+        "atomChargeList": [ 0, 0, 0, 0, 0, 0, 0 ],
+        "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5 ],
+        "bondOrderList": [ 1, 1, 2, 1, 1, 2 ]
     },
-    "2": {
-        "A": [ 4, 5, 6 ],
-        "B": "HEY"
+    {
+        "groupName": "SER",
+        "singleLetterCode": "S",
+        "chemCompType": "L-PEPTIDE LINKING",
+        "atomNameList": [ "N", "CA", "C", "O", "CB", "OG" ],
+        "elementList": [ "N", "C", "C", "O", "C", "O" ],
+        "atomChargeList": [ 0, 0, 0, 0, 0, 0 ],
+        "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4 ],
+        "bondOrderList": [ 1, 1, 2, 1, 1 ]
     }
-}
+]
 ```
 
-The keys can then be used to reference the values as often as needed:
+The indices can then be used to reference the values as often as needed:
 
 ```JSON
 [ 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1 ]
 ```
 
-Note that in the above example the list of keys can also be efficiently run-length encoded:
+Note that in the above example the list of indices can also be efficiently run-length encoded:
 
 ```JSON
 [ 1, 4, 2, 4, 1, 3 ]
@@ -438,7 +438,7 @@ For example, the third day of December in the year 2013 is written as:
 *Example*:
 
 ```JSON
-[ 10.0, 12.0, 30.0, 90.0, 90.0, 120.0 ]
+[ 80.37, 96.12, 57.67, 90.00, 90.00, 90.00 ]
 ```
 
 
@@ -527,15 +527,27 @@ The `sequence` string contains the full construct, not just the resolved residue
 ```JSON
 [
     {
-        "chainIndexList": [ 0, 1, 2, 3 ],
-        "description": "some polymer",
+        "description": "BROMODOMAIN ADJACENT TO ZINC FINGER DOMAIN PROTEIN 2B",
         "type": "polymer",
-        "sequence": "MNTYASDE"
+        "chainIndexList": [ 0 ],
+        "sequence": "SMSVKKPKRDDSKDLALCSMILTEMETHEDAWPFLLPVNLKLVPGYKKVIKKPMDFSTIREKLSSGQYPNLETFALDVRLVFDNCETFNEDDSDIGRAGHNMRKYFEKKWTDTFKVS"
     },
     {
-        "chainIndexList": [ 4 ],
-        "description": "some ligand",
+        "description": "4-FLUOROBENZAMIDOXIME",
         "type": "non-polymer",
+        "chainIndexList": [ 1 ],
+        "sequence": ""
+    },
+    {
+        "description": "METHANOL",
+        "type": "non-polymer",
+        "chainIndexList": [ 2, 3, 4 ],
+        "sequence": ""
+    },
+    {
+        "description": "water",
+        "type": "water",
+        "chainIndexList": [ 5 ],
         "sequence": ""
     }
 ]
@@ -614,10 +626,10 @@ The `sequence` string contains the full construct, not just the resolved residue
 
 *Example*:
 
-In the following example there are three bonds, one between the atoms with the indices 0 and 1, one between the atoms with the indices 0 and 2, as well as one between the atoms with the indices 2 and 4.
+In the following example there are three bonds, one between the atoms with the indices 0 and 61, one between the atoms with the indices 2 and 4, as well as one between the atoms with the indices 6 and 12.
 
 ```JSON
-[ 0, 1, 0, 2, 2, 4 ]
+[ 0, 61, 2, 4, 6, 12 ]
 ```
 
 
@@ -661,12 +673,18 @@ for modelChainCount in chainsPerModel
     increment modelIndex by one
 ```
 
-*Example*:
+*Examples*:
 
 In the following example there are 2 models. The first model has 5 chains and the second model has 8 chains. This also means that the chains with indices 0 to 4 belong to the first model and that the chains with indices 5 to 12 belong to the second model.
 
 ```JSON
 [ 5, 8 ]
+```
+
+For structures with homogeneous models the number of chains per model is identical for all models. In the follwoing example there are five models, each with four chains.
+
+```JSON
+[ 4, 4, 4, 4, 4 ]
 ```
 
 
@@ -725,19 +743,19 @@ In the following example there are 3 chains. The first chain has 73 groups, the 
 Starting with the array of 8-bit unsigned integers:
 
 ```JSON
-[ 65, 0, 0, 0, 66, 0, 0, 0, 89, 67, 0, 0 ]
+[ 65, 0, 0, 0, 66, 0, 0, 0, 67, 0, 0, 0 ]
 ```
 
 Decoding the ASCII characters:
 
 ```JSON
-[ "A", "", "", "", "B", "", "", "", "Y", "C", "", "" ]
+[ "A", "", "", "", "B", "", "", "", "C", "", "", "" ]
 ```
 
 Creating the list of chain IDs:
 
 ```JSON
-[ "A", "B", "YC" ]
+[ "A", "B", "C" ]
 ```
 
 
@@ -750,6 +768,27 @@ Creating the list of chain IDs:
 *Decoding*: Same as for the `chainIdList` field.
 
 *Description*: List of chain names. This field allows to specify an additional set of labels/names for chains. For example, it can be used to store both, the `label_asym_id` (in `chainIdList`) and the `auth_asym_id` (in `chainNameList`) from mmCIF files.
+
+*Example*:
+
+Starting with the array of 8-bit unsigned integers:
+
+```JSON
+[ 65, 0, 0, 0, 68, 65, 0, 0 ]
+```
+
+Decoding the ASCII characters:
+
+```JSON
+[ "A", "", "", "", "DA", "", "", "" ]
+```
+
+Creating the list of chain IDs:
+
+```JSON
+[ "A", "DA" ]
+```
+
 
 
 ### Group data
@@ -790,18 +829,38 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
 *Example*:
 
 ```JSON
-{
+[
     "0": {
-        "atomChargeList": [ 0, 0, 0, 0 ],
+        "groupName": "GLY",
+        "singleLetterCode": "G",
+        "chemCompType": "PEPTIDE LINKING",
         "atomNameList": [ "N", "CA", "C", "O" ],
         "elementList": [ "N", "C", "C", "O" ],
+        "atomChargeList": [ 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2 ],
         "bondOrderList": [ 1, 1, 2 ],
-        "chemCompType": "PEPTIDE LINKING",
-        "groupName": "GLY",
-        "singleLetterCode": "G"
+    },
+    {
+        "groupName": "ASP",
+        "singleLetterCode": "D",
+        "chemCompType": "L-PEPTIDE LINKING",
+        "atomNameList": [ "N", "CA", "C", "O", "CB", "CG", "OD1" ],
+        "elementList": [ "N", "C", "C", "O", "C", "C", "O" ],
+        "atomChargeList": [ 0, 0, 0, 0, 0, 0, 0 ],
+        "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5 ],
+        "bondOrderList": [ 1, 1, 2, 1, 1, 2 ]
+    },
+    {
+        "groupName": "SER",
+        "singleLetterCode": "S",
+        "chemCompType": "L-PEPTIDE LINKING",
+        "atomNameList": [ "N", "CA", "C", "O", "CB", "OG" ],
+        "elementList": [ "N", "C", "C", "O", "C", "O" ],
+        "atomChargeList": [ 0, 0, 0, 0, 0, 0 ],
+        "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4 ],
+        "bondOrderList": [ 1, 1, 2, 1, 1 ]
     }
-}
+]
 ```
 
 
@@ -815,7 +874,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
 
 *Example*:
 
-In the following example there are 5 groups. The 1st, 4th and 5th reference the `groupType` with key `2`, the 2nd references key `0` and the third references key `1`.
+In the following example there are 5 groups. The 1st, 4th and 5th reference the `groupType` with index `2`, the 2nd references index `0` and the third references index `1`. So using the using the data from the `groupList` example this describes the polymer `SER-GLY-ASP-SER-SER`.
 
 ```JSON
 [ 2, 0, 1, 2, 2 ]
@@ -1028,20 +1087,20 @@ If needed the ASCII codes can be converted to an `Array` of `String`s with the z
 Starting with the "big" array of 32-bit signed integers and the "small" array of 16-bit signed integers:
 
 ```JavaScript
-[ 200, 3, 100, 2 ]   // big
-[ 0, 2, -1, -3, 5 ]  // small
+[ 18200, 3, 100, 2 ]  // big
+[ 0, 2, -1, -3, 5 ]   // small
 ```
 
 Applying split-list delta decoding to create an array of 32-bit signed integers:
 
 ```JSON
-[ 200, 200, 202, 201, 301, 298, 303 ]
+[ 18200, 18200, 18202, 18201, 18301, 18298, 18303 ]
 ```
 
 Applying integer decoding with a divisor of `100` to create an array of 32-bit floating-point values:
 
 ```JSON
-[ 2.00, 2.00, 2.02, 2.01, 3.01, 2.98, 3.03 ]
+[ 182.00, 182.00, 182.02, 182.01, 183.01, 182.98, 183.03 ]
 ```
 
 
@@ -1064,20 +1123,20 @@ Applying integer decoding with a divisor of `100` to create an array of 32-bit f
 Starting with the "big" array of 32-bit signed integers and the "small" array of 16-bit signed integers:
 
 ```JavaScript
-[ 1200, 3, 100, 2 ]  // big
-[ 0, 2, -1, -3, 5 ]  // small
+[ 105200, 3, 100, 2 ]  // big
+[ 0, 2, -1, -3, 5 ]    // small
 ```
 
 Applying split-list delta decoding to create an array of 32-bit signed integers:
 
 ```JSON
-[ 1200, 1200, 1202, 1201, 1301, 1298, 1303 ]
+[ 105200, 105200, 105202, 105201, 105301, 105298, 105303 ]
 ```
 
 Applying integer decoding with a divisor of `1000` to create an array of 32-bit floating-point values:
 
 ```JSON
-[ 1.000, 1.200, 1.202, 1.201, 1.301, 1.298, 1.303 ]
+[ 100.000, 105.200, 105.202, 105.201, 105.301, 105.298, 105.303 ]
 ```
 
 
