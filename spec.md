@@ -705,7 +705,7 @@ The number of chains in a structure is equal to the length of the [groupsPerChai
 
 ```Python
 # initialize index counters
-set chainIndex to 0
+set modelIndex to 0
 set chainIndex to 0
 
 # traverse models
