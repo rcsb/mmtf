@@ -193,7 +193,7 @@ First create a `Map` to hold values that are referable by keys. In the following
         "chemCompType": "L-PEPTIDE LINKING",
         "atomNameList": [ "N", "CA", "C", "O", "CB", "CG", "OD1" ],
         "elementList": [ "N", "C", "C", "O", "C", "C", "O" ],
-        "atomChargeList": [ 0, 0, 0, 0, 0, 0, 0 ],
+        "formalChargeList": [ 0, 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5 ],
         "bondOrderList": [ 1, 1, 2, 1, 1, 2 ]
     },
@@ -203,7 +203,7 @@ First create a `Map` to hold values that are referable by keys. In the following
         "chemCompType": "L-PEPTIDE LINKING",
         "atomNameList": [ "N", "CA", "C", "O", "CB", "OG" ],
         "elementList": [ "N", "C", "C", "O", "C", "O" ],
-        "atomChargeList": [ 0, 0, 0, 0, 0, 0 ],
+        "formalChargeList": [ 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4 ],
         "bondOrderList": [ 1, 1, 2, 1, 1 ]
     }
@@ -856,7 +856,7 @@ The mmCIF format allows for so-called micro-heterogeneity on the group-level. Fo
 
 | Name             | Type              | Description                                                 |
 |------------------|-------------------|-------------------------------------------------------------|
-| atomChargeList   | [Array](#types)   | List of formal charges as [Integers](#types)                |
+| formalChargeList | [Array](#types)   | List of formal charges as [Integers](#types)                |
 | atomNameList     | [Array](#types)   | List of atom names, 0 to 5 character [Strings](#types)      |
 | elementList      | [Array](#types)   | List of elements, 0 to 3 character [Strings](#types)        |
 | bondAtomList     | [Array](#types)   | List of bonded atom indices, [Integers](#types)             |
@@ -868,7 +868,7 @@ The mmCIF format allows for so-called micro-heterogeneity on the group-level. Fo
 
 The element name must follow the IUPAC [standard](http://dx.doi.org/10.1515/ci.2014.36.4.25) where only the first character is capitalized and the remaining ones are lower case, for instance `Cd` for Cadmium.
 
-Two consecutive entries in `bondAtomList` representing indices of covalently bound atoms. The indices point into the `atomChargeList`, `atomNameList`, and `elementList` fields.
+Two consecutive entries in `bondAtomList` representing indices of covalently bound atoms. The indices point into the `formalChargeList`, `atomNameList`, and `elementList` fields.
 
 The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.doi.org/10.1111/j.1432-1033.1984.tb07877.x) or [DNA/RNA](https://dx.doi.org/10.1093/nar/13.9.3021) residues, otherwise the character 'X'.
 
@@ -886,7 +886,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "chemCompType": "PEPTIDE LINKING",
         "atomNameList": [ "N", "CA", "C", "O" ],
         "elementList": [ "N", "C", "C", "O" ],
-        "atomChargeList": [ 0, 0, 0, 0 ],
+        "formalChargeList": [ 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2 ],
         "bondOrderList": [ 1, 1, 2 ],
     },
@@ -896,7 +896,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "chemCompType": "L-PEPTIDE LINKING",
         "atomNameList": [ "N", "CA", "C", "O", "CB", "CG", "OD1" ],
         "elementList": [ "N", "C", "C", "O", "C", "C", "O" ],
-        "atomChargeList": [ 0, 0, 0, 0, 0, 0, 0 ],
+        "formalChargeList": [ 0, 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5 ],
         "bondOrderList": [ 1, 1, 2, 1, 1, 2 ]
     },
@@ -906,7 +906,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "chemCompType": "L-PEPTIDE LINKING",
         "atomNameList": [ "N", "CA", "C", "O", "CB", "OG" ],
         "elementList": [ "N", "C", "C", "O", "C", "O" ],
-        "atomChargeList": [ 0, 0, 0, 0, 0, 0 ],
+        "formalChargeList": [ 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4 ],
         "bondOrderList": [ 1, 1, 2, 1, 1 ]
     }
@@ -1271,7 +1271,7 @@ for modelChainCount in chainsPerModel
                 print atomIdList[ atomIndex ]
                 print altLocList[ atomIndex ]
                 print occupancyList[ atomIndex ]
-                print group.atomChargeList[ i ]
+                print group.formalChargeList[ i ]
                 print group.atomNameList[ i ]
                 print group.elementList[ i ]
                 increment atomIndex by 1

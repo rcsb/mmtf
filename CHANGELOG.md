@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file, following t
 - WIP: faq.md
 - numGroups, numChains, numModels fields
 
+### Changed
+- renamed atomChargeList to formalChargeList in groupType objects
+
 
 ## v0.1.0 - 2016-04-26
 ### Added
