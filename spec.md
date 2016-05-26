@@ -245,6 +245,9 @@ The following table lists all top level fields, including their [type](#types) a
 | [rWork](#rwork)                             | [Float](#types)     |          |
 | [numBonds](#numbonds)                       | [Integer](#types)   |    Y     |
 | [numAtoms](#numatoms)                       | [Integer](#types)   |    Y     |
+| [numGroups](#numgroups)                     | [Integer](#types)   |    Y     |
+| [numChains](#numchains)                     | [Integer](#types)   |    Y     |
+| [numModels](#nummodels)                     | [Integer](#types)   |    Y     |
 | [groupList](#grouplist)                     | [Array](#types)     |    Y     |
 | [bondAtomList](#bondatomlist)               | [Binary](#types)    |          |
 | [bondOrderList](#bondorderlist)             | [Binary](#types)    |          |
@@ -384,6 +387,21 @@ For example, the third day of December in the year 2013 is written as:
 ```
 
 
+#### numBonds
+
+*Required field*
+
+*Type*: [Integer](#types).
+
+*Description*: The overall number of bonds. This number must reflect both the bonds given in `bondAtomList` and the bonds given in the `groupType` entries in `groupList`.
+
+*Example*:
+
+```JSON
+1142
+```
+
+
 #### numAtoms
 
 *Required field*
@@ -399,18 +417,48 @@ For example, the third day of December in the year 2013 is written as:
 ```
 
 
-#### numBonds
+#### numGroups
 
 *Required field*
 
 *Type*: [Integer](#types).
 
-*Description*: The overall number of bonds. This number must reflect both the bonds given in `bondAtomList` and the bonds given in the `groupType` entries in `groupList`.
+*Description*: The overall number of groups in the structure. This also includes extra groups due to micro-heterogeneity.
 
 *Example*:
 
 ```JSON
-1142
+302
+```
+
+
+#### numChains
+
+*Required field*
+
+*Type*: [Integer](#types).
+
+*Description*: The overall number of chains in the structure.
+
+*Example*:
+
+```JSON
+4
+```
+
+
+#### numModels
+
+*Required field*
+
+*Type*: [Integer](#types).
+
+*Description*: The overall number of models in the structure.
+
+*Example*:
+
+```JSON
+1
 ```
 
 
