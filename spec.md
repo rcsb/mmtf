@@ -832,7 +832,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
 
 ```JSON
 [
-    "0": {
+    {
         "groupName": "GLY",
         "singleLetterCode": "G",
         "chemCompType": "PEPTIDE LINKING",
