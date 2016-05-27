@@ -14,6 +14,9 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
 * [Overview](#overview)
 * [Container](#container)
 * [Types](#types)
+* [Codecs](#codecs)
+    * [Header](#header)
+    * [Strategies](#strategies)
 * [Encodings](#encodings)
 * [Fields](#fields)
     * [Format data](#format-data)
@@ -75,9 +78,172 @@ For example, for an array of 32-bit integers groups of 4 bytes are interpreted a
 Note that the MessagePack format limits the `String`, `Map`, `Array` and `Binary` type to (2^32)-1 entries per instance.
 
 
+## Codecs
+
+### Header
+
+* Bytes  0 to  3: 32-bit signed integer specifying the codec type
+* Bytes  4 to  7: 32-bit signed integer specifying the length of the resulting list
+* Bytes  8 to 11: 4 bytes containing codec-specific parameter data
+* Bytes 12 to  N: bytes containing the encoded list data
+
+
+### Strategies
+
+#### Pass-trough: 32-bit floating-point number list
+
+*Type* 1
+
+*Signature* `byte[] --view-> float32[]`
+
+*Description* Interpret list of bytes as list of 32-bit floating-point numbers.
+
+
+#### Pass-trough: 8-bit signed integer list
+
+*Type* 2
+
+*Signature* `byte[] --view-> int8[]`
+
+*Description* Interpret list of bytes as list of 8-bit signed integers.
+
+
+#### Pass-trough: 16-bit signed integer list
+
+*Type* 3
+
+*Signature* `byte[] --view-> int16[]`
+
+*Description* Interpret list of bytes as list of 16-bit signed integers.
+
+
+#### Pass-trough: 32-bit signed integer list
+
+*Type* 4
+
+*Signature* `byte[] --view-> int32[]`
+
+*Description* Interpret list of bytes as list of 32-bit signed integers.
+
+
+#### UTF8/ASCII fixed-length string list
+
+*Type* 5
+
+*Parameter* `byte[4] --view-> int32` denoting the string length
+
+*Signature* `byte[] --view-> uint8[] --consume-> string<length>[]`
+
+*Description* Interpret list of bytes as list of 8-bit unsigned integers, then iteratively consume `length` many bytes to form a string list.
+
+
+#### Run-length encoded character list
+
+*Type* 6
+
+*Signature* `byte[] --view-> int32[] --run-> char[]`
+
+*Description* Interpret list of bytes as list of 32-bit signed integers, then run-length decode into list of characters.
+
+
+#### Run-length encoded 32-bit signed integer list
+
+*Type* 7
+
+*Signature* `byte[] --view-> int32[] --run-> int32[]`
+
+*Description* Interpret list of bytes as list of 32-bit signed integers, then run-length decode into list of 32-bit signed integers.
+
+
+#### Delta & run-length encoded 32-bit signed integer list
+
+*Type* 8
+
+*Signature* `byte[] --view-> int32[] --run-> int32[] --delta-> int32[]`
+
+*Description* Interpret list of bytes as list of 32-bit signed integers, then run-length decode into list of 32-bit signed integers, then delta decode into list of 32-bit signed integers.
+
+
+#### Integer & run-length encoded 32-bit floating-point number list
+
+*Type* 9
+
+*Parameter* `byte[4] --view-> int32` denoting the divisor
+
+*Signature* `byte[] --view-> int32[] --run-> int32[] --integer-> float32[]`
+
+*Description* Interpret list of bytes as list of 32-bit signed integers, then run-length decode into list of 32-bit signed integers, then integer decode into list of 32-bit floating-point numbers using the `divisor` parameter.
+
+
+#### Integer & delta encoded & two-byte-packed 32-bit floating-point number list
+
+*Type* 10
+
+*Parameter* `byte[4] --view-> int32` denoting the divisor
+
+*Signature* `byte[] --view-> int16[] --unpack-> int32[] --delta-> int32[] --integer-> float32[]`
+
+*Description* Interpret list of bytes as list of 16-bit signed integers, then unpack into list of 32-bit integers, then delta decode into list of 32-bit integers, then integer decode into list of 32-bit floating-point numbers using the `divisor` parameter.
+
+
+#### Integer encoded 32-bit floating-point number list
+
+*Type* 11
+
+*Parameter* `byte[4] --view-> int32` denoting the divisor
+
+*Signature* `byte[] --view-> int16[] --integer-> float32[]`
+
+*Description* Interpret list of bytes as list of 16-bit signed integers, then integer decode into list of 32-bit floating-point numbers using the `divisor` parameter.
+
+
+#### Integer & two-byte-packed 32-bit floating-point number list
+
+*Type* 12
+
+*Parameter* `byte[4] --view-> int32` denoting the divisor
+
+*Signature* `byte[] --view-> int16[] --unpack-> int32[] --integer-> float32[]`
+
+*Description* Interpret list of bytes as list of 16-bit signed integers, then unpack into list of 32-bit signed integers, then integer decode into list of 32-bit floating-point numbers using the `divisor` parameter.
+
+
+#### Integer & one-byte-packed 32-bit floating-point number list
+
+*Type* 13
+
+*Parameter* `byte[4] --view-> int32` denoting the divisor
+
+*Signature* `byte[] --view-> int8[] --unpack-> int32[] --integer-> float32[]`
+
+*Description* Interpret list of bytes as list of 8-bit signed integers, then unpack into list of 32-bit signed integers, then integer decode into list of 32-bit floating-point numbers using the `divisor` parameter.
+
+
+#### Two-byte-packed 32-bit signed integer list
+
+*Type* 14
+
+*Parameter* `byte[4] --view-> int32` denoting the divisor
+
+*Signature* `byte[] --view-> int16[] --unpack-> int32[]`
+
+*Description* Interpret list of bytes as list of 16-bit signed integers, then unpack into list of 32-bit signed integers.
+
+
+#### One-byte-packed 32-bit signed integer list
+
+*Type* 15
+
+*Parameter* `byte[4] --view-> int32` denoting the divisor
+
+*Signature* `byte[] --view-> int8[] --unpack-> int32[]`
+
+*Description* Interpret list of bytes as list of 8-bit signed integers, then unpack into list of 32-bit signed integers.
+
+
 ## Encodings
 
-The following encoding strategies are used to compress the data contained in MMTF files.
+The following general encoding strategies are used to compress the data contained in MMTF files.
 
 
 ### Run-length encoding
