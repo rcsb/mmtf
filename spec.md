@@ -300,43 +300,6 @@ Each value in the input list bigger than 127 is recursively index, e.g 168 is re
 S'=[ 127, 41, 34, 1, 0, -50, -128, 0, 7, 127, 0, 127, 127, 14 ]
 ```
 
-#### Split-list delta encoding
-
-Split-list delta encoding is an adjusted delta encoding to handle lists with some intermittent large delta values. The list is split into two arrays, called "big" and "small". The "big" array of 32-bit signed integers alternates between a large delta value (>=2^15) and the number of subsequent small delta values (<2^15). The "small" array of 16-bit signed integers holds the small values, that is, the values fitting into a 16-bit signed integer. Note that the "big" array may contain some values that would also fit into the "small" array if that suits the encoder implementation.
-
-*Example*:
-
-Starting with the "big" and the "small" arrays:
-
-```JavaScript
-[ 100200, 3, 100, 2 ]  // big
-[ 0, 2, -1, -3, 5 ]  // small
-```
-
-Building the decoded array step by step. The first value, `1200`, from the "big" array is the initial delta:
-
-```JSON
-[ 100200 ]
-```
-
-It is followed by `3` delta values from the "small" array `0, 2, -1`:
-
-```JSON
-[ 100200, 100200, 100202, 100201 ]
-```
-
-Adding the next delta value in the "big" array, `100`:
-
-```JSON
-[ 100200, 100200, 100202, 100201, 100301 ]
-```
-
-Followed by `2` delta values from the "small" array `-3, 5` to create the final array of 32-bit signed integers::
-
-```JSON
-[ 100200, 100200, 100202, 100201, 100301, 100298, 100303 ]
-```
-
 
 ### Integer encoding
 
