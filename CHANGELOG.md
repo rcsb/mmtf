@@ -6,10 +6,16 @@ All notable changes to this project will be documented in this file, following t
 ### Added
 - WIP: faq.md
 - numGroups, numChains, numModels fields
+- recursive indexing encoding strategy
+- 12 byte header for binary fields holding encoding type, encoded list size and encoding parameters
+- the encoding strategy is now included in the header of binary fields instead of being hardcoded to the name of a field
 
 ### Changed
 - renamed atomChargeList to formalChargeList in groupType objects
 - allow quadruple bonds (bondOrder = 4)
+
+### Removed
+- split-list delta encoding strategy
 
 
 ## v0.1.0 - 2016-04-26
