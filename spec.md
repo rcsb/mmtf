@@ -285,6 +285,20 @@ Applying delta decoding. The first entry in the list is left as is, the second i
 [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16 ]
 ```
 
+#### Recursive indexing encoding
+
+Recursive indexing is a simple method for mapping a list of values to a moderate list so that values in the moderate list do not exceed a given range [MIN, MAX]. This method is adopted to create a more compact representation of a 32-bit signed integer list when the majority of values in the list do not consume more than 16-bit (8-bit). To encode each value in the input list the method stores the value itself if this value fits in the [MIN, MAX] range, otherwise it stores the MAX (or MIN if the number is negative) value, recursively extracts the MAX (or MIN) value from this number, stopping when the difference lies in the range. 
+
+*Example*:
+
+Starting with the list of 32-bit signed integers, map this list to an array of 8-bit signed integers [-128, 127]: 
+```JSON
+S=[ 168, 34, 1, 0, -50, -128, 7, 127, 268 ]
+```
+Each value in the input list bigger than 127 is recursively index, e.g 168 is represented as two values 127, 41. The next value is 34 is within a given range [-128, 127] and represent itself. The resulting list is:
+```JSON
+S'=[ 127, 41, 34, 1, 0, -50, -128, 0, 7, 127, 0, 127, 127, 14 ]
+```
 
 #### Split-list delta encoding
 
