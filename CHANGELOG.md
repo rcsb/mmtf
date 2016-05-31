@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file, following t
 
 ### Changed
 - renamed atomChargeList to formalChargeList in groupType objects
+- allow quadruple bonds (bondOrder = 4)
 
 
 ## v0.1.0 - 2016-04-26

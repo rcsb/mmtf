@@ -836,7 +836,7 @@ In the following example there are three bonds, one between the atoms with the i
 
 *Type*: [Binary](#types) data that is interpreted as an array of 8-bit unsigned integers, i.e. take as is.
 
-*Description*: List of bond orders for bonds in `bondAtomList`. Must be values between 1 and 3.
+*Description*: List of bond orders for bonds in `bondAtomList`. Must be values between 1 and 4, defining single, double, triplea, and quadruple bonds.
 
 *Example*:
 
@@ -1007,7 +1007,7 @@ The mmCIF format allows for so-called micro-heterogeneity on the group-level. Fo
 | atomNameList     | [Array](#types)   | List of atom names, 0 to 5 character [Strings](#types)      |
 | elementList      | [Array](#types)   | List of elements, 0 to 3 character [Strings](#types)        |
 | bondAtomList     | [Array](#types)   | List of bonded atom indices, [Integers](#types)             |
-| bondOrderList    | [Array](#types)   | List of bond orders as [Integers](#types) between 1 and 3   |
+| bondOrderList    | [Array](#types)   | List of bond orders as [Integers](#types) between 1 and 4   |
 | groupName        | [String](#types)  | The name of the group, 0 to 5 characters                    |
 | singleLetterCode | [String](#types)  | The single letter code, 1 character                         |
 | chemCompType     | [String](#types)  | The chemical component type                                 |
