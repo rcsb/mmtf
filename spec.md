@@ -90,7 +90,7 @@ Note that the MessagePack format limits the `String`, `Map`, `Array` and `Binary
 
 ### Strategies
 
-#### Pass-trough: 32-bit floating-point number list
+#### Pass-through: 32-bit floating-point number list
 
 *Type* 1
 
@@ -99,7 +99,7 @@ Note that the MessagePack format limits the `String`, `Map`, `Array` and `Binary
 *Description* Interpret list of bytes as list of 32-bit floating-point numbers.
 
 
-#### Pass-trough: 8-bit signed integer list
+#### Pass-through: 8-bit signed integer list
 
 *Type* 2
 
@@ -108,7 +108,7 @@ Note that the MessagePack format limits the `String`, `Map`, `Array` and `Binary
 *Description* Interpret list of bytes as list of 8-bit signed integers.
 
 
-#### Pass-trough: 16-bit signed integer list
+#### Pass-through: 16-bit signed integer list
 
 *Type* 3
 
@@ -117,7 +117,7 @@ Note that the MessagePack format limits the `String`, `Map`, `Array` and `Binary
 *Description* Interpret list of bytes as list of 16-bit signed integers.
 
 
-#### Pass-trough: 32-bit signed integer list
+#### Pass-through: 32-bit signed integer list
 
 *Type* 4
 
