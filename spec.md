@@ -648,6 +648,7 @@ For example, the third day of December in the year 2013 is written as:
 | Name             | Type             | Description                       |
 |------------------|------------------|-----------------------------------|
 | transformList    | [Array](#types)  | List of transform objects         |
+| name             | [String](#types) | Name of the biological assembly   |
 
 Fields in a `transform` object:
 

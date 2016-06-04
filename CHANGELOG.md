@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file, following t
 - recursive indexing encoding strategy
 - 12 byte header for binary fields holding encoding type, encoded list size and encoding parameters
 - the encoding strategy is now included in the header of binary fields instead of being hardcoded to the name of a field
+- bioAssemblyList[].name field
 
 ### Changed
 - renamed atomChargeList to formalChargeList in groupType objects
