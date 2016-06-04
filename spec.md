@@ -90,7 +90,7 @@ Note that the MessagePack format limits the `String`, `Map`, `Array` and `Binary
 
 ### Strategies
 
-#### Pass-trough: 32-bit floating-point number list
+#### Pass-through: 32-bit floating-point number list
 
 *Type* 1
 
@@ -99,7 +99,7 @@ Note that the MessagePack format limits the `String`, `Map`, `Array` and `Binary
 *Description* Interpret list of bytes as list of 32-bit floating-point numbers.
 
 
-#### Pass-trough: 8-bit signed integer list
+#### Pass-through: 8-bit signed integer list
 
 *Type* 2
 
@@ -108,7 +108,7 @@ Note that the MessagePack format limits the `String`, `Map`, `Array` and `Binary
 *Description* Interpret list of bytes as list of 8-bit signed integers.
 
 
-#### Pass-trough: 16-bit signed integer list
+#### Pass-through: 16-bit signed integer list
 
 *Type* 3
 
@@ -117,7 +117,7 @@ Note that the MessagePack format limits the `String`, `Map`, `Array` and `Binary
 *Description* Interpret list of bytes as list of 16-bit signed integers.
 
 
-#### Pass-trough: 32-bit signed integer list
+#### Pass-through: 32-bit signed integer list
 
 *Type* 4
 
@@ -288,7 +288,7 @@ Applying delta decoding. The first entry in the list is left as is, the second i
 
 #### Recursive indexing encoding
 
-Recursive indexing is encodes values such that the encoded values do not exceed a given range [MIN, MAX]. This allows to create a more compact representation of a 32-bit signed integer list when the majority of values in the list fit into 16-bit (or 8-bit). To encode each value in the input list the method stores the value itself if this value fits in the [MIN, MAX] range, otherwise it stores the MAX (or MIN if the number is negative) value, recursively substract the MAX (or MIN) value from this number, stopping when the difference lies in the range.
+Recursive indexing encodes values such that the encoded values do not exceed a given range [MIN, MAX]. This allows to create a more compact representation of a 32-bit signed integer list when the majority of values in the list fit into 16-bit (or 8-bit). To encode each value in the input list the method stores the value itself if this value fits in the [MIN, MAX] range, otherwise it stores the MAX (or MIN if the number is negative) value, recursively substracts the MAX (or MIN) value from this number, stopping when the difference lies in the range.
 
 *Example*:
 
@@ -298,7 +298,7 @@ Applying recursive indexing encoding. Starting with the list of 32-bit signed in
 [ 168, 34, 1, 0, -50, -128, 7, 127, 268 ]
 ```
 
-Each value in the input list bigger than 127 is recursively index, e.g 168 is represented as two values 127, 41. The next value is 34 is within a given range [-128, 127] and represent itself. The resulting list is:
+Each value in the input list bigger than 127 is recursively indexed, e.g 168 is represented as two values 127, 41. The next value is 34 is within a given range [-128, 127] and represents itself. The resulting list is:
 
 ```JSON
 [ 127, 41, 34, 1, 0, -50, -128, 0, 7, 127, 0, 127, 127, 14 ]
