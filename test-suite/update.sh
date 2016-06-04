@@ -1,0 +1,25 @@
+
+cd ./mmtf/;
+curl http://mmtf.rcsb.org/v0.2/full/173D.mmtf.gz -o 173D.mmtf.gz && gzip -df 173D.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/1AA6.mmtf.gz -o 1AA6.mmtf.gz && gzip -df 1AA6.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/1BNA.mmtf.gz -o 1BNA.mmtf.gz && gzip -df 1BNA.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/1CAG.mmtf.gz -o 1CAG.mmtf.gz && gzip -df 1CAG.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/1HTQ.mmtf.gz -o 1HTQ.mmtf.gz && gzip -df 1HTQ.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/1IGT.mmtf.gz -o 1IGT.mmtf.gz && gzip -df 1IGT.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/1L2Q.mmtf.gz -o 1L2Q.mmtf.gz && gzip -df 1L2Q.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/1LPV.mmtf.gz -o 1LPV.mmtf.gz && gzip -df 1LPV.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/1MSH.mmtf.gz -o 1MSH.mmtf.gz && gzip -df 1MSH.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/1O2F.mmtf.gz -o 1O2F.mmtf.gz && gzip -df 1O2F.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/1R9V.mmtf.gz -o 1R9V.mmtf.gz && gzip -df 1R9V.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/1SKM.mmtf.gz -o 1SKM.mmtf.gz && gzip -df 1SKM.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/3NJW.mmtf.gz -o 3NJW.mmtf.gz && gzip -df 3NJW.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/3ZYB.mmtf.gz -o 3ZYB.mmtf.gz && gzip -df 3ZYB.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/4CK4.mmtf.gz -o 4CK4.mmtf.gz && gzip -df 4CK4.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/4CUP.mmtf.gz -o 4CUP.mmtf.gz && gzip -df 4CUP.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/4OPJ.mmtf.gz -o 4OPJ.mmtf.gz && gzip -df 4OPJ.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/4P3R.mmtf.gz -o 4P3R.mmtf.gz && gzip -df 4P3R.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/4V5A.mmtf.gz -o 4V5A.mmtf.gz && gzip -df 4V5A.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/4Y60.mmtf.gz -o 4Y60.mmtf.gz && gzip -df 4Y60.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/5EMG.mmtf.gz -o 5EMG.mmtf.gz && gzip -df 5EMG.mmtf.gz;
+curl http://mmtf.rcsb.org/v0.2/full/5ESW.mmtf.gz -o 5ESW.mmtf.gz && gzip -df 5ESW.mmtf.gz;
+cd ../;
