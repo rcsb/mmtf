@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file, following t
 ### Changed
 - renamed atomChargeList to formalChargeList in groupType objects
 - allow quadruple bonds (bondOrder = 4)
+- allow '?' as the singleLetterCode for non-polymer groups
 
 ### Removed
 - split-list delta encoding strategy

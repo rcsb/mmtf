@@ -1018,7 +1018,7 @@ The element name must follow the IUPAC [standard](http://dx.doi.org/10.1515/ci.2
 
 Two consecutive entries in `bondAtomList` representing indices of covalently bound atoms. The indices point into the `formalChargeList`, `atomNameList`, and `elementList` fields.
 
-The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.doi.org/10.1111/j.1432-1033.1984.tb07877.x) or [DNA/RNA](https://dx.doi.org/10.1093/nar/13.9.3021) residues, otherwise the character 'X'.
+The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.doi.org/10.1111/j.1432-1033.1984.tb07877.x) or [DNA/RNA](https://dx.doi.org/10.1093/nar/13.9.3021) residues, otherwise the character 'X' for polymer groups or '?' for non-polymer groups.
 
 *Description*: Common group (residue) data that is referenced via the `groupType` key by group entries.
 
