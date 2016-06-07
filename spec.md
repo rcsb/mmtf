@@ -63,22 +63,15 @@ The following types are used for the fields in this specification.
 * `Array` A list of elements that may be of different type.
 * `Binary` A list of unsigned 8-bit integer numbers representing binary data.
 
-The `Binary` type is used here to store arrays with values of the same type. Such "typed arrays" are not directly supported by the `msgpack` format. However it is straightforward to work with arrays of simple numeric types by re-interpreting the data in a `Binary` field:
-
-* List of 8-bit unsigned integers.
-* List of 8-bit signed integers.
-* List of 16-bit unsigned integers in big-endian format.
-* List of 16-bit signed integers in big-endian format.
-* List of 32-bit unsigned integers in big-endian format.
-* List of 32-bit signed integers in big-endian format.
-* List of 32-bit floating-point numbers in big-endian format.
-
-For example, for an array of 32-bit integers groups of 4 bytes are interpreted as 32-bit integers. All such multi-byte types must be represented in big-endian format.
+The `Binary` type is used here to store encoded data as described in the [Codecs](#codecs) section. When the encoded data is to be interpreted as a multi-byte type (e.g. 32-bit integers) it must be represented in big-endian format.
 
 Note that the MessagePack format limits the `String`, `Map`, `Array` and `Binary` type to (2^32)-1 entries per instance.
 
 
 ## Codecs
+
+This section describes the binary layout of the header and the encoded data as well as the available en/decoding strategies.
+
 
 ### Header
 
@@ -90,155 +83,155 @@ Note that the MessagePack format limits the `String`, `Map`, `Array` and `Binary
 
 ### Strategies
 
-#### Pass-through: 32-bit floating-point number list
+#### Pass-through: 32-bit floating-point number array
 
 *Type* 1
 
-*Signature* `byte[] --view-> float32[]`
+*Signature* `byte[] -> float32[]`
 
-*Description* Interpret list of bytes as list of 32-bit floating-point numbers.
+*Description* Interpret bytes as array of 32-bit floating-point numbers.
 
 
-#### Pass-through: 8-bit signed integer list
+#### Pass-through: 8-bit signed integer array
 
 *Type* 2
 
-*Signature* `byte[] --view-> int8[]`
+*Signature* `byte[] -> int8[]`
 
-*Description* Interpret list of bytes as list of 8-bit signed integers.
+*Description* Interpret bytes as array of 8-bit signed integers.
 
 
-#### Pass-through: 16-bit signed integer list
+#### Pass-through: 16-bit signed integer array
 
 *Type* 3
 
-*Signature* `byte[] --view-> int16[]`
+*Signature* `byte[] -> int16[]`
 
-*Description* Interpret list of bytes as list of 16-bit signed integers.
+*Description* Interpret bytes as array of 16-bit signed integers.
 
 
-#### Pass-through: 32-bit signed integer list
+#### Pass-through: 32-bit signed integer array
 
 *Type* 4
 
-*Signature* `byte[] --view-> int32[]`
+*Signature* `byte[] -> int32[]`
 
-*Description* Interpret list of bytes as list of 32-bit signed integers.
+*Description* Interpret bytes as array of 32-bit signed integers.
 
 
-#### UTF8/ASCII fixed-length string list
+#### UTF8/ASCII fixed-length string array
 
 *Type* 5
 
-*Parameter* `byte[4] --view-> int32` denoting the string length
+*Parameter* `byte[4] -> int32` denoting the string length
 
-*Signature* `byte[] --view-> uint8[] --consume-> string<length>[]`
+*Signature* `byte[] -> uint8[] -> string<length>[]`
 
-*Description* Interpret list of bytes as list of 8-bit unsigned integers, then iteratively consume `length` many bytes to form a string list.
+*Description* Interpret bytes as array of 8-bit unsigned integers, then iteratively consume `length` many bytes to form a string array.
 
 
-#### Run-length encoded character list
+#### Run-length encoded character array
 
 *Type* 6
 
-*Signature* `byte[] --view-> int32[] --run-> char[]`
+*Signature* `byte[] -> int32[] -> char[]`
 
-*Description* Interpret list of bytes as list of 32-bit signed integers, then run-length decode into list of characters.
+*Description* Interpret bytes as array of 32-bit signed integers, then run-length decode into array of characters.
 
 
-#### Run-length encoded 32-bit signed integer list
+#### Run-length encoded 32-bit signed integer array
 
 *Type* 7
 
-*Signature* `byte[] --view-> int32[] --run-> int32[]`
+*Signature* `byte[] -> int32[] -> int32[]`
 
-*Description* Interpret list of bytes as list of 32-bit signed integers, then run-length decode into list of 32-bit signed integers.
+*Description* Interpret bytes as array of 32-bit signed integers, then run-length decode into array of 32-bit signed integers.
 
 
-#### Delta & run-length encoded 32-bit signed integer list
+#### Delta & run-length encoded 32-bit signed integer array
 
 *Type* 8
 
-*Signature* `byte[] --view-> int32[] --run-> int32[] --delta-> int32[]`
+*Signature* `byte[] -> int32[] -> int32[] -> int32[]`
 
-*Description* Interpret list of bytes as list of 32-bit signed integers, then run-length decode into list of 32-bit signed integers, then delta decode into list of 32-bit signed integers.
+*Description* Interpret bytes as array of 32-bit signed integers, then run-length decode into array of 32-bit signed integers, then delta decode into array of 32-bit signed integers.
 
 
-#### Integer & run-length encoded 32-bit floating-point number list
+#### Integer & run-length encoded 32-bit floating-point number array
 
 *Type* 9
 
-*Parameter* `byte[4] --view-> int32` denoting the divisor
+*Parameter* `byte[4] -> int32` denoting the divisor
 
-*Signature* `byte[] --view-> int32[] --run-> int32[] --integer-> float32[]`
+*Signature* `byte[] -> int32[] -> int32[] -> float32[]`
 
-*Description* Interpret list of bytes as list of 32-bit signed integers, then run-length decode into list of 32-bit signed integers, then integer decode into list of 32-bit floating-point numbers using the `divisor` parameter.
+*Description* Interpret bytes as array of 32-bit signed integers, then run-length decode into array of 32-bit signed integers, then integer decode into array of 32-bit floating-point numbers using the `divisor` parameter.
 
 
-#### Integer & delta encoded & two-byte-packed 32-bit floating-point number list
+#### Integer & delta encoded & two-byte-packed 32-bit floating-point number array
 
 *Type* 10
 
-*Parameter* `byte[4] --view-> int32` denoting the divisor
+*Parameter* `byte[4] -> int32` denoting the divisor
 
-*Signature* `byte[] --view-> int16[] --unpack-> int32[] --delta-> int32[] --integer-> float32[]`
+*Signature* `byte[] -> int16[] -> int32[] -> int32[] -> float32[]`
 
-*Description* Interpret list of bytes as list of 16-bit signed integers, then unpack into list of 32-bit integers, then delta decode into list of 32-bit integers, then integer decode into list of 32-bit floating-point numbers using the `divisor` parameter.
+*Description* Interpret bytes as array of 16-bit signed integers, then unpack into array of 32-bit integers, then delta decode into array of 32-bit integers, then integer decode into array of 32-bit floating-point numbers using the `divisor` parameter.
 
 
-#### Integer encoded 32-bit floating-point number list
+#### Integer encoded 32-bit floating-point number array
 
 *Type* 11
 
-*Parameter* `byte[4] --view-> int32` denoting the divisor
+*Parameter* `byte[4] -> int32` denoting the divisor
 
-*Signature* `byte[] --view-> int16[] --integer-> float32[]`
+*Signature* `byte[] -> int16[] -> float32[]`
 
-*Description* Interpret list of bytes as list of 16-bit signed integers, then integer decode into list of 32-bit floating-point numbers using the `divisor` parameter.
+*Description* Interpret bytes as array of 16-bit signed integers, then integer decode into array of 32-bit floating-point numbers using the `divisor` parameter.
 
 
-#### Integer & two-byte-packed 32-bit floating-point number list
+#### Integer & two-byte-packed 32-bit floating-point number array
 
 *Type* 12
 
-*Parameter* `byte[4] --view-> int32` denoting the divisor
+*Parameter* `byte[4] -> int32` denoting the divisor
 
-*Signature* `byte[] --view-> int16[] --unpack-> int32[] --integer-> float32[]`
+*Signature* `byte[] -> int16[] -> int32[] -> float32[]`
 
-*Description* Interpret list of bytes as list of 16-bit signed integers, then unpack into list of 32-bit signed integers, then integer decode into list of 32-bit floating-point numbers using the `divisor` parameter.
+*Description* Interpret bytes as array of 16-bit signed integers, then unpack into array of 32-bit signed integers, then integer decode into array of 32-bit floating-point numbers using the `divisor` parameter.
 
 
-#### Integer & one-byte-packed 32-bit floating-point number list
+#### Integer & one-byte-packed 32-bit floating-point number array
 
 *Type* 13
 
-*Parameter* `byte[4] --view-> int32` denoting the divisor
+*Parameter* `byte[4] -> int32` denoting the divisor
 
-*Signature* `byte[] --view-> int8[] --unpack-> int32[] --integer-> float32[]`
+*Signature* `byte[] -> int8[] -> int32[] -> float32[]`
 
-*Description* Interpret list of bytes as list of 8-bit signed integers, then unpack into list of 32-bit signed integers, then integer decode into list of 32-bit floating-point numbers using the `divisor` parameter.
+*Description* Interpret array of bytes as array of 8-bit signed integers, then unpack into array of 32-bit signed integers, then integer decode into array of 32-bit floating-point numbers using the `divisor` parameter.
 
 
-#### Two-byte-packed 32-bit signed integer list
+#### Two-byte-packed 32-bit signed integer array
 
 *Type* 14
 
-*Parameter* `byte[4] --view-> int32` denoting the divisor
+*Parameter* `byte[4] -> int32` denoting the divisor
 
-*Signature* `byte[] --view-> int16[] --unpack-> int32[]`
+*Signature* `byte[] -> int16[] -> int32[]`
 
-*Description* Interpret list of bytes as list of 16-bit signed integers, then unpack into list of 32-bit signed integers.
+*Description* Interpret bytes as array of 16-bit signed integers, then unpack into array of 32-bit signed integers.
 
 
-#### One-byte-packed 32-bit signed integer list
+#### One-byte-packed 32-bit signed integer array
 
 *Type* 15
 
-*Parameter* `byte[4] --view-> int32` denoting the divisor
+*Parameter* `byte[4] -> int32` denoting the divisor
 
-*Signature* `byte[] --view-> int8[] --unpack-> int32[]`
+*Signature* `byte[] -> int8[] -> int32[]`
 
-*Description* Interpret list of bytes as list of 8-bit signed integers, then unpack into list of 32-bit signed integers.
+*Description* Interpret bytes as array of 8-bit signed integers, then unpack into array of 32-bit signed integers.
 
 
 ## Encodings
@@ -398,14 +391,10 @@ The following table lists all top level fields, including their [type](#types) a
 | [groupList](#grouplist)                     | [Array](#types)     |    Y     |
 | [bondAtomList](#bondatomlist)               | [Binary](#types)    |          |
 | [bondOrderList](#bondorderlist)             | [Binary](#types)    |          |
-| [xCoordBig](#xcoordbig-xcoordsmall)         | [Binary](#types)    |    Y     |
-| [xCoordSmall](#xcoordbig-xcoordsmall)       | [Binary](#types)    |    Y     |
-| [yCoordBig](#ycoordbig-ycoordsmall)         | [Binary](#types)    |    Y     |
-| [yCoordSmall](#ycoordbig-ycoordsmall)       | [Binary](#types)    |    Y     |
-| [zCoordBig](#zcoordbig-zcoordsmall)         | [Binary](#types)    |    Y     |
-| [zCoordSmall](#zcoordbig-zcoordsmall)       | [Binary](#types)    |    Y     |
-| [bFactorBig](#bfactorbig-bfactorsmall)      | [Binary](#types)    |          |
-| [bFactorSmall](#bfactorbig-bfactorsmall)    | [Binary](#types)    |          |
+| [xCoordList](#xcoordlist)                   | [Binary](#types)    |    Y     |
+| [yCoordList](#ycoordlist)                   | [Binary](#types)    |    Y     |
+| [zCoordList](#zcoordlist)                   | [Binary](#types)    |    Y     |
+| [bFactorList](#bfactorlist)                 | [Binary](#types)    |          |
 | [atomIdList](#atomidlist)                   | [Binary](#types)    |          |
 | [altLocList](#altloclist)                   | [Binary](#types)    |          |
 | [occupancyList](#occupancylist)             | [Binary](#types)    |          |
@@ -818,11 +807,13 @@ The `sequence` string contains the full construct, not just the resolved residue
 
 *Optional field*
 
-*Type*: [Binary](#types) data that is interpreted as an array of 32-bit unsigned integers.
+*Type*: [Binary](#types) data that decodes into an array of 32-bit signed integers.
 
 *Description*: Pairs of values represent indices of covalently bonded atoms. The indices point to the [Atom data](#atom-data) arrays. Only covalent bonds may be given.
 
 *Example*:
+
+Using the 'Pass-through: 32-bit signed integer array' encoding strategy (type 4).
 
 In the following example there are three bonds, one between the atoms with the indices 0 and 61, one between the atoms with the indices 2 and 4, as well as one between the atoms with the indices 6 and 12.
 
@@ -835,11 +826,13 @@ In the following example there are three bonds, one between the atoms with the i
 
 *Optional field* If it exists [bondAtomList](#bondatomlist) must also be present. However `bondAtomList` may exist without `bondOrderList`.
 
-*Type*: [Binary](#types) data that is interpreted as an array of 8-bit unsigned integers, i.e. take as is.
+*Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers.
 
 *Description*: List of bond orders for bonds in `bondAtomList`. Must be values between 1 and 4, defining single, double, triplea, and quadruple bonds.
 
 *Example*:
+
+Using the 'Pass-through: 8-bit signed integer array' encoding strategy (type 2).
 
 In the following example there are bond orders given for three bonds. The first and third bond have a bond order of 1 while the second bond has a bond order of 2.
 
@@ -930,13 +923,15 @@ In the following example there are 3 chains. The first chain has 73 groups, the 
 
 *Required field*
 
-*Type*: [Binary](#types) data that is interpreted as an array of 8-bit unsigned integers representing ASCII characters.
-
-*Decoding*: Groups of four consecutive ASCII characters create the list of chain IDs. The characters must be left aligned and unused characters must be represented by 0 bytes. Note that the ASCII decoding here is optional, a decoding library may choose to pass the array of 8-bit unsigned integers on for performance reasons. Nevertheless we describe all the steps for complete decoding here as an illustration.
+*Type*: [Binary](#types) data that decodes into an array of 4-character strings.
 
 *Description*: List of chain IDs. For storing data from mmCIF files the `chainIdList` field should contain the value from the `label_asym_id` mmCIF data item and the `chainNameList` the `auth_asym_id` mmCIF data item. In PDB files there is only a single name/identifier for chains that corresponds to the `auth_asym_id` item. When there is only a single chain identifier available it must be stored in the `chainIdList` field.
 
+*Note*: The character strings must be left aligned and unused characters must be represented by 0 bytes.
+
 *Example*:
+
+Using the 'UTF8/ASCII fixed-length string array' encoding strategy (type 5).
 
 Starting with the array of 8-bit unsigned integers:
 
@@ -961,13 +956,13 @@ Creating the list of chain IDs:
 
 *Optional field*
 
-*Type*: [Binary](#types) data that is interpreted as an array of 8-bit unsigned integers representing ASCII characters.
-
-*Decoding*: Same as for the `chainIdList` field.
+*Type*: [Binary](#types) data that decodes into an array of 4-character strings.
 
 *Description*: List of chain names. This field allows to specify an additional set of labels/names for chains. For example, it can be used to store both, the `label_asym_id` (in `chainIdList`) and the `auth_asym_id` (in `chainNameList`) from mmCIF files.
 
 *Example*:
+
+Using the 'UTF8/ASCII fixed-length string array' encoding strategy (type 5).
 
 Starting with the array of 8-bit unsigned integers:
 
@@ -1066,11 +1061,13 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
 
 *Required field*
 
-*Type*: [Binary](#types) data that is interpreted as an array of 32-bit signed integers.
+*Type*: [Binary](#types) data that decodes into an array of 32-bit signed integers.
 
 *Description*: List of pointers to `groupType` entries in `groupList` by their keys. One entry for each residue, thus the number of residues is equal to the length of the `groupTypeId` field.
 
 *Example*:
+
+Using the 'Pass-through: 32-bit signed integer array' encoding strategy (type 4).
 
 In the following example there are 5 groups. The 1st, 4th and 5th reference the `groupType` with index `2`, the 2nd references index `0` and the third references index `1`. So using the using the data from the `groupList` example this describes the polymer `SER-GLY-ASP-SER-SER`.
 
@@ -1083,13 +1080,13 @@ In the following example there are 5 groups. The 1st, 4th and 5th reference the 
 
 *Required field*
 
-*Type*: [Binary](#types) data that is interpreted as an array of 32-bit signed integers.
-
-*Decoding*: First, run-length decode the input array of 32-bit signed integers into a second array of 32-bit signed integers. Finally apply delta decoding to the second array, which can be done in-place, to create the output array of 32-bit signed integers.
+*Type*: [Binary](#types) data that decodes into an array of 32-bit signed integers.
 
 *Description*: List of group (residue) numbers. One entry for each group/residue.
 
 *Example*:
+
+Using the 'Run-length encoded 32-bit signed integer array' encoding strategy (type 7).
 
 Starting with the array of 32-bit signed integers:
 
@@ -1114,7 +1111,7 @@ Applying delta decoding:
 
 *Optional field*
 
-*Type*: [Binary](#types) data that is interpreted as an array of 8-bit signed integers.
+*Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers.
 
 *Description*: List of secondary structure assignments coded according to the following table, which shows the eight different types of secondary structure the [DSSP](https://dx.doi.org/10.1002%2Fbip.360221211) algorithm distinguishes. If the field is included there must be an entry for each group (residue) either in all models or only in the first model.
 
@@ -1132,6 +1129,8 @@ Applying delta decoding:
 
 *Example*:
 
+Using the 'Pass-through: 8-bit signed integer array' encoding strategy (type 2).
+
 Starting with the array of 8-bit signed integers:
 
 ```JSON
@@ -1143,13 +1142,13 @@ Starting with the array of 8-bit signed integers:
 
 *Optional field*
 
-*Type*: [Binary](#types) data that is interpreted as an array of 32-bit signed integers.
-
-*Decoding*: Run-length decode the input array of 32-bit signed integers into an array of 8-bit unsigned integers representing ASCII characters.
+*Type*: [Binary](#types) data that decodes into an array of characters.
 
 *Description*: List of insertion codes, one for each group (residue).
 
 *Example*:
+
+Using the 'Run-length encoded character array' encoding strategy (type 6).
 
 Starting with the array of 32-bit signed integers:
 
@@ -1174,13 +1173,13 @@ If needed the ASCII codes can be converted to an `Array` of `String`s with the z
 
 *Required field*
 
-*Type*: [Binary](#types) data that is interpreted as an array of 32-bit signed integers.
-
-*Decoding*: First, run-length decode the input array of 32-bit signed integers into a second array of 32-bit signed integers. Finally apply delta decoding to the second array, which can be done in-place, to create the output array of 32-bit signed integers.
+*Type*: [Binary](#types) data that decodes into an array of 32-bit signed integers.
 
 *Description*: List of indices that point into the `sequence` property of an entity object in the [entityList](entitylist) field that is associated with the chain the group belongs to (i.e. the index of the chain is included in the `chainIndexList` of the entity). There is one entry for each group (residue). It must be set to `-1` when a group entry has no associated entity (and thus no sequence), for example water molecules.
 
 *Example*:
+
+Using the 'Delta & run-length encoded 32-bit signed integer array' encoding strategy (type 8).
 
 Starting with the array of 32-bit signed integers:
 
@@ -1212,13 +1211,13 @@ The mmCIF format allows for alternate locations of atoms. Such atoms have multip
 
 *Optional field*
 
-*Type*: [Binary](#types) data that is interpreted as an array of 32-bit signed integers.
-
-*Decoding*: First, run-length decode the input array of 32-bit signed integers into a second array of 32-bit signed integers. Finally apply delta decoding to the second array, which can be done in-place, to create the output array of 32-bit signed integers.
+*Type*: [Binary](#types) data that decodes into an array of 32-bit signed integers.
 
 *Description*: List of atom serial numbers. One entry for each atom.
 
 *Example*:
+
+Using the 'Delta & run-length encoded 32-bit signed integer array' encoding strategy (type 8).
 
 Starting with the array of 32-bit signed integers:
 
@@ -1243,13 +1242,13 @@ Applying delta decoding:
 
 *Optional field*
 
-*Type*: [Binary](#types) data that is interpreted as an array of 32-bit signed integers.
-
-*Decoding*: Run-length decode the input array of 32-bit signed integers into an array of 8-bit unsigned integers representing ASCII characters.
+*Type*: [Binary](#types) data that decodes into an array of characters.
 
 *Description*: List of alternate location labels, one for each atom.
 
 *Example*:
+
+Using the 'Run-length encoded character array' encoding strategy (type 6).
 
 Starting with the array of 32-bit signed integers:
 
@@ -1270,62 +1269,72 @@ If needed the ASCII codes can be converted to an `Array` of `String`s with the z
 ```
 
 
-#### bFactorBig bFactorSmall
+#### bFactorList
 
 *Optional fields*
 
-*Type*: Two [Binary](#types) data fields that are interpreted as array of 32-bit signed integers and array of 16-bit signed integers.
-
-*Decoding*: First split-list delta decode the input array of 32-bit signed integers and the array of 16-bit signed integers into a second array of 32-bit signed integers. Finally integer decode the second array using `100` as the divisor to create an array of 32-bit floating-point values. The resulting array should be named `bFactorList`.
+*Type*: [Binary](#types) data that decodes into an array of 32-bit floating-point numbers.
 
 *Description*: List of atom B-factors in in Å^2. One entry for each atom.
 
 *Example*:
 
-Starting with the "big" array of 32-bit signed integers and the "small" array of 16-bit signed integers:
+Using the 'Integer & delta encoded & two-byte-packed 32-bit floating-point number array' encoding strategy (type 10) with a divisor of 100.
 
-```JavaScript
-[ 18200, 3, 100, 2 ]  // big
-[ 0, 2, -1, -3, 5 ]   // small
+Starting with the packed array of 16-bit signed integers:
+
+```JSON
+[ 18200, 0, 2, -1, 100, -3, 5 ]
 ```
 
-Applying split-list delta decoding to create an array of 32-bit signed integers:
+Applying recursive indexing decoding to create an array of 32-bit signed integers (note, only the array type changed as the values all fitted into 16-bit signed integers):
+
+```JSON
+[ 18200, 0, 2, -1, 100, -3, 5 ]
+```
+
+Applying delta decoding to create an array of 32-bit signed integers:
 
 ```JSON
 [ 18200, 18200, 18202, 18201, 18301, 18298, 18303 ]
 ```
 
-Applying integer decoding with a divisor of `100` to create an array of 32-bit floating-point values:
+Applying integer decoding with a divisor of `100` to create an array of 32-bit floating-point numbers:
 
 ```JSON
 [ 182.00, 182.00, 182.02, 182.01, 183.01, 182.98, 183.03 ]
 ```
 
 
-#### xCoordBig xCoordSmall
-#### yCoordBig yCoordSmall
-#### zCoordBig zCoordSmall
+#### xCoordList
+#### yCoordList
+#### zCoordList
 
 *Required fields*
 
-*Type*: Two [Binary](#types) data fields that are interpreted as array of 32-bit signed integers and array of 16-bit signed integers.
-
-*Decoding*: First split-list delta decode the input array of 32-bit signed integers and the array of 16-bit signed integers into a second array of 32-bit signed integers. Finally integer decode the second array using `1000` as the divisor to create an array of 32-bit floating-point values. The resulting arrays should be named `xCoordList`, `yCoordList`, and `zCoordList`, respectively.
+*Type*: [Binary](#types) data that decodes into an array of 32-bit floating-point numbers.
 
 *Description*: List of x, y, and z atom coordinates, respectively, in Å. One entry for each atom and coordinate.
 
-*Note*: To clarify, the data for each coordinate is stored in a separate pair of arrays.
+*Note*: To clarify, the data for each coordinate is stored in a separate array.
 
 *Example*:
 
-Starting with the "big" array of 32-bit signed integers and the "small" array of 16-bit signed integers:
+Using the 'Integer & delta encoded & two-byte-packed 32-bit floating-point number array' encoding strategy (type 10) with a divisor of 1000.
 
-```JavaScript
-[ 105200, 3, 100, 2 ]  // big
-[ 0, 2, -1, -3, 5 ]    // small
+Starting with the packed array of 16-bit signed integers:
+
+```JSON
+[ 32767, 32767, 32767, 6899, 0, 2, -1, 100, -3, 5 ]
 ```
 
-Applying split-list delta decoding to create an array of 32-bit signed integers:
+Applying recursive indexing decoding to create an array of 32-bit signed integers:
+
+```JSON
+[ 105200, 0, 2, -1, 100, -3, 5 ]
+```
+
+Applying delta decoding to create an array of 32-bit signed integers:
 
 ```JSON
 [ 105200, 105200, 105202, 105201, 105301, 105298, 105303 ]
@@ -1344,11 +1353,11 @@ Applying integer decoding with a divisor of `1000` to create an array of 32-bit 
 
 *Description*: List of atom occupancies, one for each atom.
 
-*Type*: [Binary](#types) data that is interpreted as an array of 32-bit signed integers.
-
-*Decoding*: First, run-length decode the input array of 32-bit signed integers into a second array of 32-bit signed integers. Finally apply integer decoding using `100` as the divisor to the second array to create a array of 32-bit floating-point values.
+*Type*: [Binary](#types) data that decodes into an array of 32-bit floating-point numbers.
 
 *Example*:
+
+Using the 'Integer & run-length encoded 32-bit floating-point number array' encoding strategy (type 9) with a divisor of 100.
 
 Starting with the array of 32-bit signed integers:
 
