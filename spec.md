@@ -828,7 +828,7 @@ In the following example there are three bonds, one between the atoms with the i
 
 *Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers.
 
-*Description*: List of bond orders for bonds in `bondAtomList`. Must be values between 1 and 4, defining single, double, triplea, and quadruple bonds.
+*Description*: List of bond orders for bonds in `bondAtomList`. Must be values between 1 and 4, defining single, double, triple, and quadruple bonds.
 
 *Example*:
 
@@ -872,7 +872,7 @@ In the following example there are 2 models. The first model has 5 chains and th
 [ 5, 8 ]
 ```
 
-For structures with homogeneous models the number of chains per model is identical for all models. In the follwoing example there are five models, each with four chains.
+For structures with homogeneous models the number of chains per model is identical for all models. In the following example there are five models, each with four chains.
 
 ```JSON
 [ 4, 4, 4, 4, 4 ]
