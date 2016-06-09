@@ -7,6 +7,14 @@ The following encoding/decoding libaries implementing the specification are avai
 * [JavaScript decoder](https://github.com/rcsb/mmtf-javascript)
 
 
+## Version 0.2
+
+* [See changelog](https://github.com/rcsb/mmtf/releases/tag/v0.2)
+* [See specification](https://github.com/rcsb/mmtf/blob/v0.2/spec.md)
+* [See test-suite](https://github.com/rcsb/mmtf/blob/v0.2/test-suite)
+* [Download release](https://github.com/rcsb/mmtf/archive/v0.2.zip)
+
+
 ## Version 0.1
 
 * [See changelog](https://github.com/rcsb/mmtf/releases/tag/v0.1)
