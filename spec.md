@@ -4,7 +4,7 @@
 
 *DEVELOPMENT VERSION*
 
-*Version*: v0.2dev
+*Version*: v0.2+dev
 
 The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encoding of biological structures. It includes the coordinates, the topology and associated data. Specifically, a large subset of the data in mmCIF or PDB files can be represented. Pronounced goals are a reduced file size for efficient transmission over the Internet or from hard disk to memory and fast decoding/parsing speed. Additionally the format aims to be easy to understand and implement to facilitates its dissemination. For testing encoder and decoder implementations a [test suite](test-suite/) is available.
 
@@ -1144,7 +1144,7 @@ Starting with the array of 8-bit signed integers:
 
 *Type*: [Binary](#types) data that decodes into an array of characters.
 
-*Description*: List of insertion codes, one for each group (residue).
+*Description*: List of insertion codes, one for each group (residue). The lack of an insertion code must be denoted by a 0 byte.
 
 *Example*:
 
@@ -1244,7 +1244,7 @@ Applying delta decoding:
 
 *Type*: [Binary](#types) data that decodes into an array of characters.
 
-*Description*: List of alternate location labels, one for each atom.
+*Description*: List of alternate location labels, one for each atom. The lack of an alternate location label must be denoted by a 0 byte.
 
 *Example*:
 
