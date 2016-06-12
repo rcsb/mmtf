@@ -1086,7 +1086,7 @@ In the following example there are 5 groups. The 1st, 4th and 5th reference the 
 
 *Example*:
 
-Using the 'Run-length encoded 32-bit signed integer array' encoding strategy (type 7).
+Using the 'Delta & run-length encoded 32-bit signed integer array' encoding strategy (type 8).
 
 Starting with the array of 32-bit signed integers:
 
