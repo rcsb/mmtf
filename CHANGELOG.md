@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file, following t
 ## [Unreleased]
 ### Added
 - explanation for when types 12-15 are useful
+- documented ncsOperatorList field
 
 
 ## [v0.2]

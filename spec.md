@@ -385,6 +385,7 @@ The following table lists all top level fields, including their [type](#types) a
 | [title](#title)                             | [String](#types)    |          |
 | [depositionDate](#depositiondate)           | [String](#types)    |          |
 | [releaseDate](#releasedate)                 | [String](#types)    |          |
+| [ncsOperatorList](#ncsoperatorlist)         | [Array](#types)     |          |
 | [bioAssemblyList](#bioassemblylist)         | [Array](#types)     |          |
 | [entityList](#entitylist)                   | [Array](#types)     |          |
 | [experimentalMethods](#experimentalmethods) | [Array](#types)     |          |
@@ -633,6 +634,34 @@ For example, the third day of December in the year 2013 is written as:
 
 ```JSON
 [ 80.37, 96.12, 57.67, 90.00, 90.00, 90.00 ]
+```
+
+
+#### ncsOperatorList
+
+*Optional field*
+
+*Type*: [Array](#types) of [Array](#types)s of 16 [Float](#types) values.
+
+*Description*: List of arrays representing 4x4 transformation matrices that are stored linearly in row major order. Thus, the translational component comprises the 4th, 8th, and 12th element. The transformation matrices describe noncrystallographic symmetry operations needed to create all molecules in the unit cell.
+
+*Example*:
+
+```JSON
+[
+    [
+         0.5,   -0.809, -0.309,  128.875,
+         0.809,  0.309,  0.5,   -208.524,
+        -0.309, -0.5,    0.809,   79.649,
+         0,      0,      0,        1
+    ],
+    [
+        -0.5,    0.809, -0.309,  386.625,
+         0.809,  0.309, -0.5,   -208.524,
+        -0.309, -0.5,   -0.809,   79.649,
+         0,      0,      0,        1
+    ]
+]
 ```
 
 
