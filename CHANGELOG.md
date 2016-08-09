@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file, following t
 ### Added
 - explanation for when types 12-15 are useful
 - documented ncsOperatorList field
+- use of "array" when describing fields of type Array
 
 
 ## [v0.2]

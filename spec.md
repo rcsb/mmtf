@@ -60,8 +60,8 @@ The following types are used for the fields in this specification.
 * `Float` A 32-bit floating-point number.
 * `Integer` A 32-bit signed integer.
 * `Map` A data structure of key-value pairs where each key is unique. Also known as "dictionary", "hash".
-* `Array` A list of elements that may be of different type.
-* `Binary` A list of unsigned 8-bit integer numbers representing binary data.
+* `Array` A sequence of elements that have the same type.
+* `Binary` An array of unsigned 8-bit integer numbers representing binary data.
 
 The `Binary` type is used here to store encoded data as described in the [Codecs](#codecs) section. When the encoded data is to be interpreted as a multi-byte type (e.g. 32-bit integers) it must be represented in big-endian format.
 
@@ -76,9 +76,9 @@ This section describes the binary layout of the header and the encoded data as w
 ### Header
 
 * Bytes  0 to  3: 32-bit signed integer specifying the codec type
-* Bytes  4 to  7: 32-bit signed integer specifying the length of the resulting list
+* Bytes  4 to  7: 32-bit signed integer specifying the length of the resulting array
 * Bytes  8 to 11: 4 bytes containing codec-specific parameter data
-* Bytes 12 to  N: bytes containing the encoded list data
+* Bytes 12 to  N: bytes containing the encoded array data
 
 
 ### Strategies
@@ -249,11 +249,11 @@ The following general encoding strategies are used to compress the data containe
 
 ### Run-length encoding
 
-Run-length decoding can generally be used to compress lists that contain stretches of equal values. Instead of storing each value itself, stretches of equal values are represented by the value itself and the occurrence count, that is a value/count pair.
+Run-length decoding can generally be used to compress arrays that contain stretches of equal values. Instead of storing each value itself, stretches of equal values are represented by the value itself and the occurrence count, that is a value/count pair.
 
 *Example*:
 
-Starting with the encoded list of value/count pairs. In the following example there are three pairs `1, 10`, `2, 1` and `1, 4`. The first entry in a pair is the value to be repeated and the second entry denotes how often the value must be repeated.
+Starting with the encoded array of value/count pairs. In the following example there are three pairs `1, 10`, `2, 1` and `1, 4`. The first entry in a pair is the value to be repeated and the second entry denotes how often the value must be repeated.
 
 ```JSON
 [ 1, 10, 2, 1, 1, 4 ]
@@ -268,19 +268,19 @@ Applying run-length decoding by repeating, for each pair, the value as often as 
 
 ### Delta encoding
 
-Delta encoding is used to store lists of numbers. Instead of storing the numbers themselves, the differences (deltas) between the numbers are stored. When the values of the deltas are smaller than the numbers themselves they can be more efficiently packed to require less space.
+Delta encoding is used to store an array of numbers. Instead of storing the numbers themselves, the differences (deltas) between the numbers are stored. When the values of the deltas are smaller than the numbers themselves they can be more efficiently packed to require less space.
 
-Note that lists which change by an identical amount for a range of consecutive values lend themselves to subsequent run-length encoding.
+Note that arrays in which the values change by an identical amount for a range of consecutive values lend themselves to subsequent run-length encoding.
 
 *Example*:
 
-Starting with the encoded list of delta values:
+Starting with the encoded array of delta values:
 
 ```JSON
 [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1 ]
 ```
 
-Applying delta decoding. The first entry in the list is left as is, the second is calculated as the sum of the first and the second (not decoded) value, the third as the sum of the second (decoded) and third (not decoded) value and so forth.
+Applying delta decoding. The first entry in the array is left as is, the second is calculated as the sum of the first and the second (not decoded) value, the third as the sum of the second (decoded) and third (not decoded) value and so forth.
 
 ```JSON
 [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16 ]
@@ -289,17 +289,17 @@ Applying delta decoding. The first entry in the list is left as is, the second i
 
 #### Recursive indexing encoding
 
-Recursive indexing encodes values such that the encoded values lie within the open interval (MIN, MAX). This allows to create a more compact representation of a 32-bit signed integer list when the majority of values in the list fit into 16-bit (or 8-bit). To encode each value in the input list the method stores the value itself if it lies within the open interval (MIN, MAX), otherwise the MAX (or MIN if the number is negative) interval endpoint is stored and subtracted from the input value. This process of storing and subtracting is repeated recursively until the remainder lies within the interval.
+Recursive indexing encodes values such that the encoded values lie within the open interval (MIN, MAX). This allows to create a more compact representation of a 32-bit signed integer array when the majority of values in the array fit into 16-bit (or 8-bit). To encode each value in the input array the method stores the value itself if it lies within the open interval (MIN, MAX), otherwise the MAX (or MIN if the number is negative) interval endpoint is stored and subtracted from the input value. This process of storing and subtracting is repeated recursively until the remainder lies within the interval.
 
 *Example*:
 
-Starting with the list of 8-bit integer values, so the open interval is (127, -128):
+Starting with the array of 8-bit integer values, so the open interval is (127, -128):
 
 ```JSON
 [ 127, 41, 34, 1, 0, -50, -128, 0, 7, 127, 0, 127, 127, 14 ]
 ```
 
-Applying recursive indexing decoding. Values that lie within the interval are copied over to the output list. Values that are equal to an interval endpoint are added to the subsequent value while the subsequent value is equal to an interval endpoint, e.g. the sequence `127, 127, 14` becomes `268`:
+Applying recursive indexing decoding. Values that lie within the interval are copied over to the output array. Values that are equal to an interval endpoint are added to the subsequent value while the subsequent value is equal to an interval endpoint, e.g. the sequence `127, 127, 14` becomes `268`:
 
 ```JSON
 [ 168, 34, 1, 0, -50, -128, 7, 127, 268 ]
@@ -312,7 +312,7 @@ In integer encoding, floating point numbers are converted to integer values by m
 
 *Example*:
 
-Starting with the list of integer values:
+Starting with the array of integer values:
 
 ```JSON
 [ 100, 100, 100, 100, 50, 50 ]
@@ -327,7 +327,7 @@ Applying integer decoding with a divisor of `100`:
 
 ### Dictionary encoding
 
-For dictionary encoding a `List` is created to store index-value pairs. The indices as references to the values can then be used instead of repeating the values over and over again. Lists of indices can afterwards be compressed with delta and run-length encoding.
+For dictionary encoding an `Array` is created to store values. Indices as references to the values can then be used instead of repeating the values over and over again. Arrays of indices can afterwards be compressed with delta and run-length encoding.
 
 *Example*:
 
@@ -364,7 +364,7 @@ The indices can then be used to reference the values as often as needed:
 [ 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1 ]
 ```
 
-Note that in the above example the list of indices can also be efficiently run-length encoded:
+Note that in the above example the array of indices can also be efficiently run-length encoded:
 
 ```JSON
 [ 1, 4, 2, 4, 1, 3 ]
@@ -628,7 +628,7 @@ For example, the third day of December in the year 2013 is written as:
 
 *Type*: [Array](#types) of six [Float](#types) values.
 
-*Description*: List of six values defining the unit cell. The first three entries are the length of the sides `a`, `b`, and `c` in Å. The last three angles are the `alpha`, `beta`, and `gamma` angles in degree.
+*Description*: Array of six values defining the unit cell. The first three entries are the length of the sides `a`, `b`, and `c` in Å. The last three angles are the `alpha`, `beta`, and `gamma` angles in degree.
 
 *Example*:
 
@@ -643,7 +643,7 @@ For example, the third day of December in the year 2013 is written as:
 
 *Type*: [Array](#types) of [Array](#types)s of 16 [Float](#types) values.
 
-*Description*: List of arrays representing 4x4 transformation matrices that are stored linearly in row major order. Thus, the translational component comprises the 4th, 8th, and 12th element. The transformation matrices describe noncrystallographic symmetry operations needed to create all molecules in the unit cell.
+*Description*: Array of arrays representing 4x4 transformation matrices that are stored linearly in row major order. Thus, the translational component comprises the 4th, 8th, and 12th element. The transformation matrices describe noncrystallographic symmetry operations needed to create all molecules in the unit cell.
 
 *Example*:
 
@@ -653,13 +653,13 @@ For example, the third day of December in the year 2013 is written as:
          0.5,   -0.809, -0.309,  128.875,
          0.809,  0.309,  0.5,   -208.524,
         -0.309, -0.5,    0.809,   79.649,
-         0,      0,      0,        1
+         0.0,    0.0,    0.0,      1.0
     ],
     [
         -0.5,    0.809, -0.309,  386.625,
          0.809,  0.309, -0.5,   -208.524,
         -0.309, -0.5,   -0.809,   79.649,
-         0,      0,      0,        1
+         0.0,    0.0,    0.0,      1.0
     ]
 ]
 ```
@@ -673,7 +673,7 @@ For example, the third day of December in the year 2013 is written as:
 
 | Name             | Type             | Description                       |
 |------------------|------------------|-----------------------------------|
-| transformList    | [Array](#types)  | List of transform objects         |
+| transformList    | [Array](#types)  | Array of transform objects         |
 | name             | [String](#types) | Name of the biological assembly   |
 
 Fields in a `transform` object:
@@ -687,7 +687,7 @@ The entries of `chainIndexList` are indices into the [chainIdList](#chainidlist)
 
 The elements of the 4x4 transformation `matrix` are stored linearly in row major order. Thus, the translational component comprises the 4th, 8th, and 12th element.
 
-*Description*: List of instructions on how to transform coordinates for a list of chains to create (biological) assemblies. The translational component is given in Å.
+*Description*: Array of instructions on how to transform coordinates for an array of chains to create (biological) assemblies. The translational component is given in Å.
 
 *Example*:
 
@@ -742,7 +742,7 @@ The entries of `chainIndexList` are indices into the [chainIdList](#chainidlist)
 
 The `sequence` string contains the full construct, not just the resolved residues. Its characters are referenced by the entries of the [sequenceIndexList](#sequenceindexlist) field. Further, characters follow the IUPAC single letter code for [protein](https://dx.doi.org/10.1111/j.1432-1033.1984.tb07877.x) or [DNA/RNA](https://dx.doi.org/10.1093/nar/13.9.3021) residues, otherwise the character 'X'.
 
-*Description*: List of unique molecular entities within the structure. Each entry in `chainIndexList` represents an instance of that entity in the structure.
+*Description*: Array of unique molecular entities within the structure. Each entry in `chainIndexList` represents an instance of that entity in the structure.
 
 *Vocabulary*: Known values for the entity field `type` from the [mmCIF dictionary](http://mmcif.wwpdb.org/dictionaries/mmcif_pdbx.dic/Items/_entity.type.html) are `macrolide`, `non-polymer`, `polymer`, `water`.
 
@@ -829,7 +829,7 @@ The `sequence` string contains the full construct, not just the resolved residue
 
 *Type*: [Array](#types) of [String](#types)s.
 
-*Description*: The list of experimental methods employed for structure determination.
+*Description*: The array of experimental methods employed for structure determination.
 
 *Vocabulary*: Known values from the [mmCIF dictionary](http://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v40.dic/Items/_exptl.method.html) are `ELECTRON CRYSTALLOGRAPHY`, `ELECTRON MICROSCOPY`, `EPR`, `FIBER DIFFRACTION`, `FLUORESCENCE TRANSFER`, `INFRARED SPECTROSCOPY`, `NEUTRON DIFFRACTION`, `POWDER DIFFRACTION`, `SOLID-STATE NMR`, `SOLUTION NMR`, `SOLUTION SCATTERING`, `THEORETICAL MODEL`, `X-RAY DIFFRACTION`.
 
@@ -865,7 +865,7 @@ In the following example there are three bonds, one between the atoms with the i
 
 *Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers.
 
-*Description*: List of bond orders for bonds in `bondAtomList`. Must be values between 1 and 4, defining single, double, triple, and quadruple bonds.
+*Description*: Array of bond orders for bonds in `bondAtomList`. Must be values between 1 and 4, defining single, double, triple, and quadruple bonds.
 
 *Example*:
 
@@ -889,7 +889,7 @@ The number of models in a structure is equal to the length of the [chainsPerMode
 
 *Type*: [Array](#types) of [Integer](#types) numbers. The number of models is thus equal to the length of the `chainsPerModel` field.
 
-*Description*: List of the number of chains in each model. The list allows looping over all models:
+*Description*: Array of the number of chains in each model. The array allows looping over all models:
 
 ```Python
 # initialize index counter
@@ -927,7 +927,7 @@ The number of chains in a structure is equal to the length of the [groupsPerChai
 
 *Type*: [Array](#types) of [Integer](#types) numbers.
 
-*Description*: List of the number of groups (aka residues) in each chain. The number of chains is thus equal to the length of the `groupsPerChain` field. In conjunction with `chainsPerModel`, the list allows looping over all chains:
+*Description*: Array of the number of groups (aka residues) in each chain. The number of chains is thus equal to the length of the `groupsPerChain` field. In conjunction with `chainsPerModel`, the array allows looping over all chains:
 
 ```Python
 # initialize index counters
@@ -962,7 +962,7 @@ In the following example there are 3 chains. The first chain has 73 groups, the 
 
 *Type*: [Binary](#types) data that decodes into an array of 4-character strings.
 
-*Description*: List of chain IDs. For storing data from mmCIF files the `chainIdList` field should contain the value from the `label_asym_id` mmCIF data item and the `chainNameList` the `auth_asym_id` mmCIF data item. In PDB files there is only a single name/identifier for chains that corresponds to the `auth_asym_id` item. When there is only a single chain identifier available it must be stored in the `chainIdList` field.
+*Description*: Array of chain IDs. For storing data from mmCIF files the `chainIdList` field should contain the value from the `label_asym_id` mmCIF data item and the `chainNameList` the `auth_asym_id` mmCIF data item. In PDB files there is only a single name/identifier for chains that corresponds to the `auth_asym_id` item. When there is only a single chain identifier available it must be stored in the `chainIdList` field.
 
 *Note*: The character strings must be left aligned and unused characters must be represented by 0 bytes.
 
@@ -982,7 +982,7 @@ Decoding the ASCII characters:
 [ "A", "", "", "", "B", "", "", "", "C", "", "", "" ]
 ```
 
-Creating the list of chain IDs:
+Creating the array of chain IDs:
 
 ```JSON
 [ "A", "B", "C" ]
@@ -995,7 +995,7 @@ Creating the list of chain IDs:
 
 *Type*: [Binary](#types) data that decodes into an array of 4-character strings.
 
-*Description*: List of chain names. This field allows to specify an additional set of labels/names for chains. For example, it can be used to store both, the `label_asym_id` (in `chainIdList`) and the `auth_asym_id` (in `chainNameList`) from mmCIF files.
+*Description*: Array of chain names. This field allows to specify an additional set of labels/names for chains. For example, it can be used to store both, the `label_asym_id` (in `chainIdList`) and the `auth_asym_id` (in `chainNameList`) from mmCIF files.
 
 *Example*:
 
@@ -1013,7 +1013,7 @@ Decoding the ASCII characters:
 [ "A", "", "", "", "DA", "", "", "" ]
 ```
 
-Creating the list of chain IDs:
+Creating the array of chain IDs:
 
 ```JSON
 [ "A", "DA" ]
@@ -1036,11 +1036,11 @@ The mmCIF format allows for so-called micro-heterogeneity on the group-level. Fo
 
 | Name             | Type              | Description                                                 |
 |------------------|-------------------|-------------------------------------------------------------|
-| formalChargeList | [Array](#types)   | List of formal charges as [Integers](#types)                |
-| atomNameList     | [Array](#types)   | List of atom names, 0 to 5 character [Strings](#types)      |
-| elementList      | [Array](#types)   | List of elements, 0 to 3 character [Strings](#types)        |
-| bondAtomList     | [Array](#types)   | List of bonded atom indices, [Integers](#types)             |
-| bondOrderList    | [Array](#types)   | List of bond orders as [Integers](#types) between 1 and 4   |
+| formalChargeList | [Array](#types)   | Array of formal charges as [Integers](#types)               |
+| atomNameList     | [Array](#types)   | Array of atom names, 0 to 5 character [Strings](#types)     |
+| elementList      | [Array](#types)   | Array of elements, 0 to 3 character [Strings](#types)       |
+| bondAtomList     | [Array](#types)   | Array of bonded atom indices, [Integers](#types)            |
+| bondOrderList    | [Array](#types)   | Array of bond orders as [Integers](#types) between 1 and 4  |
 | groupName        | [String](#types)  | The name of the group, 0 to 5 characters                    |
 | singleLetterCode | [String](#types)  | The single letter code, 1 character                         |
 | chemCompType     | [String](#types)  | The chemical component type                                 |
@@ -1100,7 +1100,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
 
 *Type*: [Binary](#types) data that decodes into an array of 32-bit signed integers.
 
-*Description*: List of pointers to `groupType` entries in `groupList` by their keys. One entry for each residue, thus the number of residues is equal to the length of the `groupTypeId` field.
+*Description*: Array of pointers to `groupType` entries in `groupList` by their keys. One entry for each residue, thus the number of residues is equal to the length of the `groupTypeId` field.
 
 *Example*:
 
@@ -1119,7 +1119,7 @@ In the following example there are 5 groups. The 1st, 4th and 5th reference the 
 
 *Type*: [Binary](#types) data that decodes into an array of 32-bit signed integers.
 
-*Description*: List of group (residue) numbers. One entry for each group/residue.
+*Description*: Array of group (residue) numbers. One entry for each group/residue.
 
 *Example*:
 
@@ -1150,7 +1150,7 @@ Applying delta decoding:
 
 *Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers.
 
-*Description*: List of secondary structure assignments coded according to the following table, which shows the eight different types of secondary structure the [DSSP](https://dx.doi.org/10.1002%2Fbip.360221211) algorithm distinguishes. If the field is included there must be an entry for each group (residue) either in all models or only in the first model.
+*Description*: Array of secondary structure assignments coded according to the following table, which shows the eight different types of secondary structure the [DSSP](https://dx.doi.org/10.1002%2Fbip.360221211) algorithm distinguishes. If the field is included there must be an entry for each group (residue) either in all models or only in the first model.
 
 | Code | Name         |
 |-----:|--------------|
@@ -1181,7 +1181,7 @@ Starting with the array of 8-bit signed integers:
 
 *Type*: [Binary](#types) data that decodes into an array of characters.
 
-*Description*: List of insertion codes, one for each group (residue). The lack of an insertion code must be denoted by a 0 byte.
+*Description*: Array of insertion codes, one for each group (residue). The lack of an insertion code must be denoted by a 0 byte.
 
 *Example*:
 
@@ -1212,7 +1212,7 @@ If needed the ASCII codes can be converted to an `Array` of `String`s with the z
 
 *Type*: [Binary](#types) data that decodes into an array of 32-bit signed integers.
 
-*Description*: List of indices that point into the `sequence` property of an entity object in the [entityList](entitylist) field that is associated with the chain the group belongs to (i.e. the index of the chain is included in the `chainIndexList` of the entity). There is one entry for each group (residue). It must be set to `-1` when a group entry has no associated entity (and thus no sequence), for example water molecules.
+*Description*: Array of indices that point into the `sequence` property of an entity object in the [entityList](entitylist) field that is associated with the chain the group belongs to (i.e. the index of the chain is included in the `chainIndexList` of the entity). There is one entry for each group (residue). It must be set to `-1` when a group entry has no associated entity (and thus no sequence), for example water molecules.
 
 *Example*:
 
@@ -1250,7 +1250,7 @@ The mmCIF format allows for alternate locations of atoms. Such atoms have multip
 
 *Type*: [Binary](#types) data that decodes into an array of 32-bit signed integers.
 
-*Description*: List of atom serial numbers. One entry for each atom.
+*Description*: Array of atom serial numbers. One entry for each atom.
 
 *Example*:
 
@@ -1281,7 +1281,7 @@ Applying delta decoding:
 
 *Type*: [Binary](#types) data that decodes into an array of characters.
 
-*Description*: List of alternate location labels, one for each atom. The lack of an alternate location label must be denoted by a 0 byte.
+*Description*: Array of alternate location labels, one for each atom. The lack of an alternate location label must be denoted by a 0 byte.
 
 *Example*:
 
@@ -1312,7 +1312,7 @@ If needed the ASCII codes can be converted to an `Array` of `String`s with the z
 
 *Type*: [Binary](#types) data that decodes into an array of 32-bit floating-point numbers.
 
-*Description*: List of atom B-factors in in Å^2. One entry for each atom.
+*Description*: Array of atom B-factors in in Å^2. One entry for each atom.
 
 *Example*:
 
@@ -1351,7 +1351,7 @@ Applying integer decoding with a divisor of `100` to create an array of 32-bit f
 
 *Type*: [Binary](#types) data that decodes into an array of 32-bit floating-point numbers.
 
-*Description*: List of x, y, and z atom coordinates, respectively, in Å. One entry for each atom and coordinate.
+*Description*: Array of x, y, and z atom coordinates, respectively, in Å. One entry for each atom and coordinate.
 
 *Note*: To clarify, the data for each coordinate is stored in a separate array.
 
@@ -1388,7 +1388,7 @@ Applying integer decoding with a divisor of `1000` to create an array of 32-bit 
 
 *Optional field*
 
-*Description*: List of atom occupancies, one for each atom.
+*Description*: Array of atom occupancies, one for each atom.
 
 *Type*: [Binary](#types) data that decodes into an array of 32-bit floating-point numbers.
 
