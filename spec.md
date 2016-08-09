@@ -200,6 +200,8 @@ This section describes the binary layout of the header and the encoded data as w
 
 *Description* Interpret bytes as array of 16-bit signed integers, then unpack into array of 32-bit signed integers, then integer decode into array of 32-bit floating-point numbers using the `divisor` parameter.
 
+*Note* Useful for arrays where a small amount of values may be slightly larger than two bytes. However, note that with many values larger than that the packing becomes inefficient.
+
 
 #### Integer & one-byte-packed 32-bit floating-point number array
 
@@ -210,6 +212,8 @@ This section describes the binary layout of the header and the encoded data as w
 *Signature* `byte[] -> int8[] -> int32[] -> float32[]`
 
 *Description* Interpret array of bytes as array of 8-bit signed integers, then unpack into array of 32-bit signed integers, then integer decode into array of 32-bit floating-point numbers using the `divisor` parameter.
+
+*Note* Useful for arrays where a small amount of values may be slightly larger than one bytes. However, note that with many values larger than that the packing becomes inefficient.
 
 
 #### Two-byte-packed 32-bit signed integer array
@@ -222,6 +226,8 @@ This section describes the binary layout of the header and the encoded data as w
 
 *Description* Interpret bytes as array of 16-bit signed integers, then unpack into array of 32-bit signed integers.
 
+*Note* Useful for arrays where a small amount of values may be slightly larger than two bytes. However, note that with many values larger than that the packing becomes inefficient.
+
 
 #### One-byte-packed 32-bit signed integer array
 
@@ -232,6 +238,8 @@ This section describes the binary layout of the header and the encoded data as w
 *Signature* `byte[] -> int8[] -> int32[]`
 
 *Description* Interpret bytes as array of 8-bit signed integers, then unpack into array of 32-bit signed integers.
+
+*Note* Useful for arrays where a small amount of values may be slightly larger than one bytes. However, note that with many values larger than that the packing becomes inefficient.
 
 
 ## Encodings

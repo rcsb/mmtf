@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file, following the suggestions of [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [Unreleased]
+### Added
+- explanation for when types 12-15 are useful
+
+
 ## [v0.2]
 ### Added
 - WIP: faq.md
@@ -25,4 +30,5 @@ All notable changes to this project will be documented in this file, following t
 - Initial release
 
 
+[Unreleased]: https://github.com/rcsb/mmtf/compare/v0.2...HEAD
 [v0.2]: https://github.com/rcsb/mmtf/compare/v0.1...v0.2
