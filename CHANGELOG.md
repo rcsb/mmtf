@@ -2,14 +2,14 @@
 All notable changes to this project will be documented in this file, following the suggestions of [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## [Unreleased]
+## [v1.0] - 2016-08-15
 ### Added
 - explanation for when types 12-15 are useful
-- documented ncsOperatorList field
+- ncsOperatorList field
 - use of "array" when describing fields of type Array
 
 
-## [v0.2]
+## [v0.2] - 2016-06-08
 ### Added
 - WIP: faq.md
 - numGroups, numChains, numModels fields
@@ -32,5 +32,5 @@ All notable changes to this project will be documented in this file, following t
 - Initial release
 
 
-[Unreleased]: https://github.com/rcsb/mmtf/compare/v0.2...HEAD
+[v1.0]: https://github.com/rcsb/mmtf/compare/v0.2...v1.0
 [v0.2]: https://github.com/rcsb/mmtf/compare/v0.1...v0.2
