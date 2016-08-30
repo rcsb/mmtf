@@ -1104,7 +1104,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
 
 Using the 'Pass-through: 32-bit signed integer array' encoding strategy (type 4).
 
-In the following example there are 5 groups. The 1st, 4th and 5th reference the `groupType` with index `2`, the 2nd references index `0` and the third references index `1`. So using the using the data from the `groupList` example this describes the polymer `SER-GLY-ASP-SER-SER`.
+In the following example there are 5 groups. The 1st, 4th and 5th reference the `groupType` with index `2`, the 2nd references index `0` and the third references index `1`. So using the data from the `groupList` example this describes the polymer `SER-GLY-ASP-SER-SER`.
 
 ```JSON
 [ 2, 0, 1, 2, 2 ]
