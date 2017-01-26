@@ -1415,7 +1415,7 @@ Applying integer decoding with a divisor of `100` to create an array of 32-bit f
 
 ## Traversal
 
-The following traversal pseudo code assumes that all fields have been decoded and specifically that the split-list delta encoded fields are decoded into fields named like in the following example: `xCoordBig`/`xCoordSmall` decode into `xCoordList`.
+The following traversal pseudo code assumes that all fields have been decoded.
 
 ```Python
 # initialize index counters
