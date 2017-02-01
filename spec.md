@@ -329,7 +329,7 @@ For dictionary encoding an `Array` is created to store values. Indices as refere
 
 *Example*:
 
-First create a `Map` to hold values that are referable by keys. In the following example the are two keys, `1` and `2` with some values associated.
+First create a `Array` to hold values that are referable by indices. In the following example the are two indices, `0` and `1` with some values associated.
 
 ```JSON
 [
@@ -359,13 +359,7 @@ First create a `Map` to hold values that are referable by keys. In the following
 The indices can then be used to reference the values as often as needed:
 
 ```JSON
-[ 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1 ]
-```
-
-Note that in the above example the array of indices can also be efficiently run-length encoded:
-
-```JSON
-[ 1, 4, 2, 4, 1, 3 ]
+[ 0, 1, 1, 0, 1 ]
 ```
 
 
