@@ -247,7 +247,7 @@ The following general encoding strategies are used to compress the data containe
 
 ### Run-length encoding
 
-Run-length decoding can generally be used to compress arrays that contain stretches of equal values. Instead of storing each value itself, stretches of equal values are represented by the value itself and the occurrence count, that is a value/count pair.
+Run-length encoding can generally be used to compress arrays that contain stretches of equal values. Instead of storing each value itself, stretches of equal values are represented by the value itself and the occurrence count, that is a value/count pair.
 
 *Example*:
 
@@ -285,7 +285,7 @@ Applying delta decoding. The first entry in the array is left as is, the second 
 ```
 
 
-#### Recursive indexing encoding
+### Recursive indexing encoding
 
 Recursive indexing encodes values such that the encoded values lie within the open interval (MIN, MAX). This allows to create a more compact representation of a 32-bit signed integer array when the majority of values in the array fit into 16-bit (or 8-bit). To encode each value in the input array the method stores the value itself if it lies within the open interval (MIN, MAX), otherwise the MAX (or MIN if the number is negative) interval endpoint is stored and subtracted from the input value. This process of storing and subtracting is repeated recursively until the remainder lies within the interval.
 
