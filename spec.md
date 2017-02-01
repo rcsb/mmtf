@@ -281,9 +281,9 @@ Applying delta decoding. The first entry in the array is left as is, the second 
 ```
 
 
-### Recursive indexing encoding
+### Packing/Recursive indexing encoding
 
-Recursive indexing encodes values such that the encoded values lie within the open interval (MIN, MAX). This allows to create a more compact representation of a 32-bit signed integer array when the majority of values in the array fit into 16-bit (or 8-bit). To encode each value in the input array the method stores the value itself if it lies within the open interval (MIN, MAX), otherwise the MAX (or MIN if the number is negative) interval endpoint is stored and subtracted from the input value. This process of storing and subtracting is repeated recursively until the remainder lies within the interval.
+Packing/Recursive indexing encodes values such that the encoded values lie within the open interval (MIN, MAX). This allows to create a more compact representation of a 32-bit signed integer array when the majority of values in the array fit into 16-bit (or 8-bit). To encode each value in the input array the method stores the value itself if it lies within the open interval (MIN, MAX), otherwise the MAX (or MIN if the number is negative) interval endpoint is stored and subtracted from the input value. This process of storing and subtracting is repeated recursively until the remainder lies within the interval.
 
 *Example*:
 
@@ -293,7 +293,7 @@ Starting with the array of 8-bit integer values, so the open interval is (127, -
 [ 127, 41, 34, 1, 0, -50, -128, 0, 7, 127, 0, 127, 127, 14 ]
 ```
 
-Applying recursive indexing decoding. Values that lie within the interval are copied over to the output array. Values that are equal to an interval endpoint are added to the subsequent value while the subsequent value is equal to an interval endpoint, e.g. the sequence `127, 127, 14` becomes `268`:
+Unpacking/Applying recursive indexing decoding. Values that lie within the interval are copied over to the output array. Values that are equal to an interval endpoint are added to the subsequent value while the subsequent value is equal to an interval endpoint, e.g. the sequence `127, 127, 14` becomes `268`:
 
 ```JSON
 [ 168, 34, 1, 0, -50, -128, 7, 127, 268 ]
@@ -1312,7 +1312,7 @@ Starting with the packed array of 16-bit signed integers:
 [ 18200, 0, 2, -1, 100, -3, 5 ]
 ```
 
-Applying recursive indexing decoding to create an array of 32-bit signed integers (note, only the array type changed as the values all fitted into 16-bit signed integers):
+Unpacking/applying recursive indexing decoding to create an array of 32-bit signed integers (note, only the array type changed as the values all fitted into 16-bit signed integers):
 
 ```JSON
 [ 18200, 0, 2, -1, 100, -3, 5 ]
@@ -1353,7 +1353,7 @@ Starting with the packed array of 16-bit signed integers:
 [ 32767, 32767, 32767, 6899, 0, 2, -1, 100, -3, 5 ]
 ```
 
-Applying recursive indexing decoding to create an array of 32-bit signed integers:
+Unpacking/Applying recursive indexing decoding to create an array of 32-bit signed integers:
 
 ```JSON
 [ 105200, 0, 2, -1, 100, -3, 5 ]
