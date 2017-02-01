@@ -218,8 +218,6 @@ This section describes the binary layout of the header and the encoded data as w
 
 *Type* 14
 
-*Parameter* `byte[4] -> int32` denoting the divisor
-
 *Signature* `byte[] -> int16[] -> int32[]`
 
 *Description* Interpret bytes as array of 16-bit signed integers, then unpack into array of 32-bit signed integers.
@@ -230,8 +228,6 @@ This section describes the binary layout of the header and the encoded data as w
 #### One-byte-packed 32-bit signed integer array
 
 *Type* 15
-
-*Parameter* `byte[4] -> int32` denoting the divisor
 
 *Signature* `byte[] -> int8[] -> int32[]`
 
