@@ -333,11 +333,11 @@ First create a `Array` to hold values that are referable by indices. In the foll
         "groupName": "ASP",
         "singleLetterCode": "D",
         "chemCompType": "L-PEPTIDE LINKING",
-        "atomNameList": [ "N", "CA", "C", "O", "CB", "CG", "OD1" ],
-        "elementList": [ "N", "C", "C", "O", "C", "C", "O" ],
-        "formalChargeList": [ 0, 0, 0, 0, 0, 0, 0 ],
-        "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5 ],
-        "bondOrderList": [ 1, 1, 2, 1, 1, 2 ]
+        "atomNameList": [ "N", "CA", "C", "O", "CB", "CG", "OD1", "OD2" ],
+        "elementList": [ "N", "C", "C", "O", "C", "C", "O", "O" ],
+        "formalChargeList": [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+        "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5, 7, 5 ],
+        "bondOrderList": [ 1, 1, 2, 1, 1, 2, 1 ]
     },
     {
         "groupName": "SER",
@@ -1062,11 +1062,11 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "groupName": "ASP",
         "singleLetterCode": "D",
         "chemCompType": "L-PEPTIDE LINKING",
-        "atomNameList": [ "N", "CA", "C", "O", "CB", "CG", "OD1" ],
-        "elementList": [ "N", "C", "C", "O", "C", "C", "O" ],
-        "formalChargeList": [ 0, 0, 0, 0, 0, 0, 0 ],
-        "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5 ],
-        "bondOrderList": [ 1, 1, 2, 1, 1, 2 ]
+        "atomNameList": [ "N", "CA", "C", "O", "CB", "CG", "OD1", "OD2" ],
+        "elementList": [ "N", "C", "C", "O", "C", "C", "O", "O" ],
+        "formalChargeList": [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+        "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5, 7, 5 ],
+        "bondOrderList": [ 1, 1, 2, 1, 1, 2, 1 ]
     },
     {
         "groupName": "SER",
