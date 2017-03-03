@@ -87,4 +87,8 @@
         "comment": "Negative residue numbers",
         "name": "5ESW",
     }
+    {
+        "comment": "Structure with ncs operators (struct_ncs_oper mmcif category)",
+        "name": "1AUY",
+    }
 ]
