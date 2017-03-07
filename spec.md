@@ -1196,7 +1196,7 @@ If needed the ASCII codes can be converted to an `Array` of `String`s with the z
 
 #### sequenceIndexList
 
-*Required field*
+*Optional field*
 
 *Type*: [Binary](#types) data that decodes into an array of 32-bit signed integers.
 
