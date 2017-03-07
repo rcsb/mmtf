@@ -1088,7 +1088,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
 
 *Type*: [Binary](#types) data that decodes into an array of 32-bit signed integers.
 
-*Description*: Array of pointers to `groupType` entries in `groupList` by their keys. One entry for each residue, thus the number of residues is equal to the length of the `groupTypeId` field.
+*Description*: Array of pointers to `groupType` entries in `groupList` by their keys. One entry for each residue, thus the number of residues is equal to the length of the `groupTypeList` field.
 
 *Example*:
 
