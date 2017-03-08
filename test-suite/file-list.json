@@ -86,6 +86,22 @@
     {
         "comment": "Negative residue numbers",
         "name": "5ESW",
+    },
+    {
+        "comment": "All fields empty or zero",
+        "name": "empty-all0.mmtf",
+    },
+    {
+        "comment": "numModels=1 numChains=0",
+        "name": "empty-numModels1.mmtf",
+    },
+    {
+        "comment": "numChains=1 numAtoms=0",
+        "name": "empty-numChains1.mmtf",
+    },
+    {
+        "comment": "Unsupported major version (for semantic versioning)",
+        "name": "empty-mmtfVersion99999999.mmtf",
     }
     {
         "comment": "Structure with ncs operators (struct_ncs_oper mmcif category)",
