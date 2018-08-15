@@ -835,6 +835,7 @@ The `sequence` string contains the full construct, not just the resolved residue
 *Type*: [Binary](#types) data that decodes into an array of 32-bit signed integers.
 
 *Description*: Pairs of values represent indices of covalently bonded atoms. The indices point to the [Atom data](#atom-data) arrays. Only covalent bonds may be given.
+*Note*: This is an optional field in that if your mmtf file contains no bonds, the field is not required to exist (for decoding purposes).  If bonds exist this must be defined.
 
 *Example*:
 
@@ -854,6 +855,7 @@ In the following example there are three bonds, one between the atoms with the i
 *Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers.
 
 *Description*: Array of bond orders for bonds in `bondAtomList`. Must be values between 1 and 4, defining single, double, triple, and quadruple bonds.
+*Note*: This is an optional field in that if your mmtf file contains no bonds, the field is not required to exist (for decoding purposes).  If bonds exist this must be defined.
 
 *Example*:
 
