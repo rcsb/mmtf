@@ -865,6 +865,11 @@ In the following example there are bond orders given for three bonds. The first 
 [ 1, 2, 1 ]
 ```
 
+#### bondAromaticityList
+
+*Optional field* If it exists [bondAtomList](#bondatomlist) must also be present. However `bondAtomList` may exist without `bondOrderList`.
+
+
 
 ### Model data
 
