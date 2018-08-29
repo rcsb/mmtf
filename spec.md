@@ -853,7 +853,7 @@ In the following example there are three bonds, one between the atoms with the i
 
 *Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers.
 
-*Description*: Array of bond orders for bonds in `bondAtomList`. Must be values between 1 and 4, defining single, double, triple, and quadruple bonds.
+*Description*: Array of bond orders for bonds in `bondAtomList`. Must be values between 0 and 4, defining unknown, single, double, triple, and quadruple bonds.
 
 *Example*:
 
@@ -867,8 +867,19 @@ In the following example there are bond orders given for three bonds. The first 
 
 #### bondAromaticityList
 
-*Optional field* If it exists [bondAtomList](#bondatomlist) must also be present. However `bondAtomList` may exist without `bondOrderList`.
+*Optional field* If it exists [bondAtomList](#bondatomlist) must also be present. However [bondAtomList](#bondatomlist) may exist without [bondOrderList](#bondOrderlist).
 
+*Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers.
+
+*Description*: Array of bond Aromaticities for bonds in `bondAtomList`. Must be 0 (aromaticity is undefined/non-aromatic), or 1 (aromaticity is defined).
+
+Possible pairings between the bondAromaticityList and bondOrderList are shown below. 
+
+| bond-order | Aromaticity | explanation |
+------------------------------------------
+| 0          |      1      | kekulized form is unavailable, but aromaticity is known |
+| 1(or 2,3,4)|      1      | kekulized form is known, and aromaticity is known and exists |
+| 1(or 2,3,4)|      0      | kekulized form is known, but aromaticity is not known, or is nonexistant |
 
 
 ### Model data
@@ -1471,4 +1482,5 @@ for i in 1 to bondAtomList.length / 2
     print bondAtomList[ i * 2 ]      # atomIndex1
     print bondAtomList[ i * 2 + 1 ]  # atomIndex2
     print bondOrderList[ i ]
+    print bondAromaticityList[ i ]
 ```
