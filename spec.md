@@ -236,6 +236,15 @@ This section describes the binary layout of the header and the encoded data as w
 *Note* Useful for arrays where a small amount of values may be slightly larger than one bytes. However, note that with many values larger than that the packing becomes inefficient.
 
 
+#### Run-length encoded 8-bit array
+
+*Type* 16
+
+*Signature* `byte[] -> int32[] -> int8[]`
+
+*Description* Interpret bytes as array of 32-bit signed integers, then run-length decode into array of 8-bit integers.
+
+
 ## Encodings
 
 The following general encoding strategies are used to compress the data contained in MMTF files.
@@ -337,7 +346,8 @@ First create a `Array` to hold values that are referable by indices. In the foll
         "elementList": [ "N", "C", "C", "O", "C", "C", "O", "O" ],
         "formalChargeList": [ 0, 0, 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5, 7, 5 ],
-        "bondOrderList": [ 1, 1, 2, 1, 1, 2, 1 ]
+        "bondOrderList": [ 1, 1, 2, 1, 1, 2, 1 ],
+        "bondAromaticity": [ 0, 0, 1, 0, 0, 1, 1 ]
     },
     {
         "groupName": "SER",
@@ -347,7 +357,8 @@ First create a `Array` to hold values that are referable by indices. In the foll
         "elementList": [ "N", "C", "C", "O", "C", "O" ],
         "formalChargeList": [ 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4 ],
-        "bondOrderList": [ 1, 1, 2, 1, 1 ]
+        "bondOrderList": [ 1, 1, 2, 1, 1 ],
+        "bondAromaticity": [ 0, 0, 1, 0, 0 ]
     }
 ]
 ```
@@ -388,6 +399,7 @@ The following table lists all top level fields, including their [type](#types) a
 | [groupList](#grouplist)                     | [Array](#types)     |    Y     |
 | [bondAtomList](#bondatomlist)               | [Binary](#types)    |          |
 | [bondOrderList](#bondorderlist)             | [Binary](#types)    |          |
+| [bondAromaticityrList](#bondaromaticitylist)| [Binary](#types)    |          |
 | [xCoordList](#xcoordlist)                   | [Binary](#types)    |    Y     |
 | [yCoordList](#ycoordlist)                   | [Binary](#types)    |    Y     |
 | [zCoordList](#zcoordlist)                   | [Binary](#types)    |    Y     |
@@ -885,7 +897,6 @@ Possible pairings between the bondAromaticityList and bondOrderList are shown be
 | 1(or 2,3,4)|      1      | kekulized form is known, and aromaticity is known and exists             |
 | 1(or 2,3,4)|      0      | kekulized form is known, but aromaticity is not known, or is nonexistant |
 
-
 ### Model data
 
 The number of models in a structure is equal to the length of the [chainsPerModel](chainspermodel) field. The `chainsPerModel` field also defines which chains belong to each model.
@@ -1042,16 +1053,17 @@ The mmCIF format allows for so-called micro-heterogeneity on the group-level. Fo
 
 *Type*: [Array](#types) of `groupType` objects with the following fields:
 
-| Name             | Type              | Description                                                 |
-|------------------|-------------------|-------------------------------------------------------------|
-| formalChargeList | [Array](#types)   | Array of formal charges as [Integers](#types)               |
-| atomNameList     | [Array](#types)   | Array of atom names, 0 to 5 character [Strings](#types)     |
-| elementList      | [Array](#types)   | Array of elements, 0 to 3 character [Strings](#types)       |
-| bondAtomList     | [Array](#types)   | Array of bonded atom indices, [Integers](#types)            |
-| bondOrderList    | [Array](#types)   | Array of bond orders as [Integers](#types) between 1 and 4  |
-| groupName        | [String](#types)  | The name of the group, 0 to 5 characters                    |
-| singleLetterCode | [String](#types)  | The single letter code, 1 character                         |
-| chemCompType     | [String](#types)  | The chemical component type                                 |
+| Name                 | Type              | Description                                                      |
+|----------------------|-------------------|------------------------------------------------------------------|
+| formalChargeList     | [Array](#types)   | Array of formal charges as [Integers](#types)                    |
+| atomNameList         | [Array](#types)   | Array of atom names, 0 to 5 character [Strings](#types)          |
+| elementList          | [Array](#types)   | Array of elements, 0 to 3 character [Strings](#types)            |
+| bondAtomList         | [Array](#types)   | Array of bonded atom indices, [Integers](#types)                 |
+| bondOrderList        | [Array](#types)   | Array of bond orders as [Integers](#types) between 1 and 4       |
+| bondAromaticityList  | [Array](#types)   | Array of bond aromaticity as [Integers](#types) between 0 and 4  |
+| groupName            | [String](#types)  | The name of the group, 0 to 5 characters                         |
+| singleLetterCode     | [String](#types)  | The single letter code, 1 character                              |
+| chemCompType         | [String](#types)  | The chemical component type                                      |
 
 
 The element name must follow the IUPAC [standard](http://dx.doi.org/10.1515/ci.2014.36.4.25) where only the first character is capitalized and the remaining ones are lower case, for instance `Cd` for Cadmium.
@@ -1077,6 +1089,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "formalChargeList": [ 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2 ],
         "bondOrderList": [ 1, 1, 2 ],
+        "bondAromaticity": [ 0, 0, 1 ],
     },
     {
         "groupName": "ASP",
@@ -1086,7 +1099,8 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "elementList": [ "N", "C", "C", "O", "C", "C", "O", "O" ],
         "formalChargeList": [ 0, 0, 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5, 7, 5 ],
-        "bondOrderList": [ 1, 1, 2, 1, 1, 2, 1 ]
+        "bondOrderList": [ 1, 1, 2, 1, 1, 2, 1 ],
+        "bondAromaticity": [ 0, 0, 1, 0, 0, 1, 1 ]
     },
     {
         "groupName": "SER",
@@ -1096,7 +1110,8 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "elementList": [ "N", "C", "C", "O", "C", "O" ],
         "formalChargeList": [ 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4 ],
-        "bondOrderList": [ 1, 1, 2, 1, 1 ]
+        "bondOrderList": [ 1, 1, 2, 1, 1 ],
+        "bondAromaticity": [ 0, 0, 1, 0, 0 ]
     }
 ]
 ```
@@ -1462,6 +1477,7 @@ for modelChainCount in chainsPerModel
                 print atomOffset + group.bondAtomList[ i * 2 ]      # atomIndex1
                 print atomOffset + group.bondAtomList[ i * 2 + 1 ]  # atomIndex2
                 print group.bondOrderList[ i ]
+                print group.bondAromaticityList[ i ]
             set groupAtomCount to group.atomNameList.length
             # traverse atoms
             for i in 1 to groupAtomCount
