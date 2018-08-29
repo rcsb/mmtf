@@ -850,7 +850,7 @@ In the following example there are three bonds, one between the atoms with the i
 
 #### bondOrderList
 
-*Optional field* If it exists [bondAtomList](#bondatomlist) must also be present. However `bondAtomList` may exist without `bondOrderList`.
+*Optional field* If it exists [bondAtomList](#bondatomlist) must also be present.
 
 *Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers.
 
