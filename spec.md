@@ -883,7 +883,7 @@ In the following example there are bond orders given for three bonds. The first 
 
 *Optional field* If it exists [bondAtomList](#bondatomlist) must also be present.
 
-*Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers ([type 16](#Run-length encoded 8-bit array)).
+*Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers \([type 16](#Run-length encoded 8-bit array)\).
 
 *Description*: Array of bond Aromaticities for bonds in `bondAtomList`. Must be 0 (aromaticity is undefined/non-aromatic), or 1 (aromaticity is defined).
 *Note*: This is an optional field in that if your mmtf file contains no bonds, the field is not required to exist (for decoding purposes).  If bonds exist this must be defined.
