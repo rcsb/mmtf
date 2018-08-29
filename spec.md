@@ -867,7 +867,7 @@ In the following example there are bond orders given for three bonds. The first 
 
 #### bondAromaticityList
 
-*Optional field* If it exists [bondAtomList](#bondatomlist) must also be present. However [bondAtomList](#bondatomlist) may exist without [bondOrderList](#bondOrderlist).
+*Optional field* If it exists [bondAtomList](#bondatomlist) must also be present.
 
 *Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers.
 
