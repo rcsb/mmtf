@@ -875,10 +875,11 @@ In the following example there are bond orders given for three bonds. The first 
 
 Possible pairings between the bondAromaticityList and bondOrderList are shown below. 
 
-| bond-order | Aromaticity | explanation |
-------------------------------------------
-| 0          |      1      | kekulized form is unavailable, but aromaticity is known |
-| 1(or 2,3,4)|      1      | kekulized form is known, and aromaticity is known and exists |
+
+| Bond-order | Aromaticity | Explanation                                                              |
+|------------|-------------|--------------------------------------------------------------------------|
+| 0          |      1      | kekulized form is unavailable, but aromaticity is known                  |
+| 1(or 2,3,4)|      1      | kekulized form is known, and aromaticity is known and exists             |
 | 1(or 2,3,4)|      0      | kekulized form is known, but aromaticity is not known, or is nonexistant |
 
 
