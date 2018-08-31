@@ -880,6 +880,8 @@ In the following example there are three bonds, one between the atoms with the i
 *Description*: Array of bond orders for bonds in `bondAtomList`. Must be values -1, 1, 2, 3, or 4, defining unknown, single, double, triple, and quadruple bonds.
 *Note*: This is an optional field in that if your mmtf file contains no bonds, the field is not required to exist (for decoding purposes).  If bonds exist this must be defined.
 
+__There should never be a non-aromatic bond with an unknown bond order__
+
 *Example*:
 
 Using the 'Pass-through: 8-bit signed integer array' encoding strategy (type 2).
