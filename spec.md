@@ -904,9 +904,19 @@ Possible pairings between the bondAromaticityList and bondOrderList are shown be
 
 | Bond-order | Aromaticity | Explanation                                                              |
 |------------|-------------|--------------------------------------------------------------------------|
-| 0          |      1      | kekulized form is unavailable, but aromaticity is known                  |
+| -1         |      1      | kekulized form is unavailable, but aromaticity is known                  |
 | 1(or 2,3,4)|      1      | kekulized form is known, and aromaticity is known and exists             |
 | 1(or 2,3,4)|      0      | kekulized form is known, but aromaticity is not known, or is nonexistant |
+
+*Example*
+
+Using the `Run-length encoded 8-bit array` encoding strategy (type 16).
+
+In the following example there are bond Aromaticities given for three bonds.  The first and thrid bonds are aromatic bonds, while the second bond has no aromaticity.
+
+```JSON
+[ 1, 0, 1]
+```
 
 ### Model data
 
