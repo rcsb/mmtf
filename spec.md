@@ -1053,17 +1053,17 @@ The mmCIF format allows for so-called micro-heterogeneity on the group-level. Fo
 
 *Type*: [Array](#types) of `groupType` objects with the following fields:
 
-| Name                 | Type              | Description                                                      |
-|----------------------|-------------------|------------------------------------------------------------------|
-| formalChargeList     | [Array](#types)   | Array of formal charges as [Integers](#types)                    |
-| atomNameList         | [Array](#types)   | Array of atom names, 0 to 5 character [Strings](#types)          |
-| elementList          | [Array](#types)   | Array of elements, 0 to 3 character [Strings](#types)            |
-| bondAtomList         | [Array](#types)   | Array of bonded atom indices, [Integers](#types)                 |
-| bondOrderList        | [Array](#types)   | Array of bond orders as [Integers](#types) between 1 and 4       |
-| bondAromaticityList  | [Array](#types)   | Array of bond aromaticity as [Integers](#types) between 0 and 4  |
-| groupName            | [String](#types)  | The name of the group, 0 to 5 characters                         |
-| singleLetterCode     | [String](#types)  | The single letter code, 1 character                              |
-| chemCompType         | [String](#types)  | The chemical component type                                      |
+| Name                 | Type              | Description                                                      | Required |
+|----------------------|-------------------|------------------------------------------------------------------|:--------:|
+| formalChargeList     | [Array](#types)   | Array of formal charges as [Integers](#types)                    |    Y     |
+| atomNameList         | [Array](#types)   | Array of atom names, 0 to 5 character [Strings](#types)          |    Y     |
+| elementList          | [Array](#types)   | Array of elements, 0 to 3 character [Strings](#types)            |    Y     |
+| bondAtomList         | [Array](#types)   | Array of bonded atom indices, [Integers](#types)                 |          |
+| bondOrderList        | [Array](#types)   | Array of bond orders as [Integers](#types) between 1 and 4       |          |
+| bondAromaticityList  | [Array](#types)   | Array of bond aromaticity as [Integers](#types) between 0 and 4  |          |
+| groupName            | [String](#types)  | The name of the group, 0 to 5 characters                         |    Y     |
+| singleLetterCode     | [String](#types)  | The single letter code, 1 character                              |    Y     |
+| chemCompType         | [String](#types)  | The chemical component type                                      |    Y     |
 
 
 The element name must follow the IUPAC [standard](http://dx.doi.org/10.1515/ci.2014.36.4.25) where only the first character is capitalized and the remaining ones are lower case, for instance `Cd` for Cadmium.
