@@ -1433,11 +1433,11 @@ The restrictions on each of the fields are __not__ enforced at decode-time and a
 
 *Convention key:value pairs*
 
-| Key                 | Value-description                                                             |
-|---------------------|-------------------------------------------------------------------------------|
-| colorList           | color hex code                                                                |
-| transparancyList    | float (0-1)                                                                   |
-| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+| Key                    | Value-description                                                             |
+|------------------------|-------------------------------------------------------------------------------|
+| colorList              | color hex code                                                                |
+| transparancyList       | float (0-1)                                                                   |
+| representationTypeList | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
 
 
 #### atomProperties
@@ -1450,11 +1450,11 @@ The restrictions on each of the fields are __not__ enforced at decode-time and a
 
 *Convention key:value pairs*
 
-| Key                 | Value-description                                                             |
-|---------------------|-------------------------------------------------------------------------------|
-| colorList           | color hex code                                                                |
-| transparancyList    | float (0-1)                                                                   |
-| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+| Key                    | Value-description                                                             |
+|------------------------|-------------------------------------------------------------------------------|
+| colorList              | color hex code                                                                |
+| transparancyList       | float (0-1)                                                                   |
+| representationTypeList | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
 
 
 #### groupProperties
@@ -1467,11 +1467,11 @@ The restrictions on each of the fields are __not__ enforced at decode-time and a
 
 *Convention key:value pairs*
 
-| Key                 | Value-description                                                             |
-|---------------------|-------------------------------------------------------------------------------|
-| colorList           | color hex code                                                                |
-| transparancyList    | float (0-1)                                                                   |
-| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+| Key                    | Value-description                                                             |
+|------------------------|-------------------------------------------------------------------------------|
+| colorList              | color hex code                                                                |
+| transparancyList       | float (0-1)                                                                   |
+| representationTypeList | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
 
 #### chainProperties
 
@@ -1483,11 +1483,11 @@ The restrictions on each of the fields are __not__ enforced at decode-time and a
 
 *Convention key:value pairs*
 
-| Key                 | Value-description                                                             |
-|---------------------|-------------------------------------------------------------------------------|
-| colorList           | color hex code                                                                |
-| transparancyList    | float (0-1)                                                                   |
-| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+| Key                    | Value-description                                                             |
+|------------------------|-------------------------------------------------------------------------------|
+| colorList              | color hex code                                                                |
+| transparancyList       | float (0-1)                                                                   |
+| representationTypeList | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
 
 #### modelProperties
 
@@ -1499,13 +1499,13 @@ The restrictions on each of the fields are __not__ enforced at decode-time and a
 
 *Convention key:value pairs*
 
-| Key                 | Value-description                                                             |
-|---------------------|-------------------------------------------------------------------------------|
-| colorList           | color hex code                                                                |
-| transparancyList    | float (0-1)                                                                   |
-| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
-| rmsdList            | list[floats]                                                                  |
-| gdtList             | list[floats]                                                                  |
+| Key                    | Value-description                                                             |
+|------------------------|-------------------------------------------------------------------------------|
+| colorList              | color hex code                                                                |
+| transparancyList       | float (0-1)                                                                   |
+| representationTypeList | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+| rmsdList               | list[floats]                                                                  |
+| gdtList                | list[floats]                                                                  |
 
 #### extraProperties
 
