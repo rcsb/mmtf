@@ -404,12 +404,12 @@ The following table lists all top level fields, including their [type](#types) a
 | [chainNameList](#chainnamelist)             | [Binary](#types)    |          |
 | [groupsPerChain](#groupsperchain)           | [Array](#types)     |    Y     |
 | [chainsPerModel](#chainspermodel)           | [Array](#types)     |    Y     |
-| [extraProperties](#extraproperties)         | [Array](#types)     |          |
-| [bondProperties](#bondproperties)           | [Array](#types)     |          |
-| [atomProperties](#atomproperties)           | [Array](#types)     |          |
-| [groupProperties](#groupproperties)         | [Array](#types)     |          |
-| [chainProperties](#chainproperties)         | [Array](#types)     |          |
-| [modelProperties](#modelproperties)         | [Array](#types)     |          |
+| [bondProperties](#bondproperties)           | [Map](#types)       |          |
+| [atomProperties](#atomproperties)           | [Map](#types)       |          |
+| [groupProperties](#groupproperties)         | [Map](#types)       |          |
+| [chainProperties](#chainproperties)         | [Map](#types)       |          |
+| [modelProperties](#modelproperties)         | [Map](#types)       |          |
+| [extraProperties](#extraproperties)         | [Map](#types)       |          |
 
 
 ### Format data
@@ -919,124 +919,9 @@ The number of chains in a structure is equal to the length of the [groupsPerChai
 
 *Required field*
 
-# TODO MAP
 *Type*: [Array](#types) of [Integer](#types) numbers.
 
 *Description*: Array of the number of groups (aka residues) in each chain. The number of chains is thus equal to the length of the `groupsPerChain` field. In conjunction with `chainsPerModel`, the array allows looping over all chains:
-
-### Extra data
-
-The following are fields that are __not__ supplied by the *RCSB*, and are provided for applications to transfer application specific data along with the molecular data.
-
-The restrictions on each of the fields are __not__ enforced at decode-time and are simple conventions to help guide applications.
-
-| Name            | length-restrictions     | 
-|-----------------|-------------------------|
-| bondProperties  | length of numBonds      |
-| atomProperties  | length of numAtoms      |
-| groupProperties | length of numGroups     |
-| chainProperties | length of numChains     |
-| modelProperties | length of numModels     |
-| extraProperties | None                    |
-
-#### bondProperties
-
-*Optional field*
-
-*Type*: [Map](#types)
-
-*Description*: A field meant to store information on specific bonds.  Must have the same length as [numBonds](#numbonds).
-
-*Convention key:value pairs*
-
-| Key                 | Value-description                                                             |
-|---------------------|-------------------------------------------------------------------------------|
-| colorList           | color hex code                                                                |
-| transparancyList    | float (0-1)                                                                   |
-| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
-
-
-#### atomProperties
-
-*Optional field*
-
-*Type*: [Map](#types)
-
-*Description*: A field meant to store information on specific atoms. Must have the same length as [numAtoms](#numatoms)
-
-*Convention key:value pairs*
-
-| Key                 | Value-description                                                             |
-|---------------------|-------------------------------------------------------------------------------|
-| colorList           | color hex code                                                                |
-| transparancyList    | float (0-1)                                                                   |
-| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
-
-
-#### groupProperties
-
-*Optional field*
-
-*Type*: [Map](#types)
-
-*Description*: A field meant to store information on specific groups. Must have the same length as [numGroups](#numgroups)
-
-*Convention key:value pairs*
-
-| Key                 | Value-description                                                             |
-|---------------------|-------------------------------------------------------------------------------|
-| colorList           | color hex code                                                                |
-| transparancyList    | float (0-1)                                                                   |
-| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
-
-#### chainProperties
-
-*Optional field*
-
-*Type*: [Map](#types)
-
-*Description*: A field meant to store information on specific chains. Must have the same length as [numGroups](#numchains)
-
-*Convention key:value pairs*
-
-| Key                 | Value-description                                                             |
-|---------------------|-------------------------------------------------------------------------------|
-| colorList           | color hex code                                                                |
-| transparancyList    | float (0-1)                                                                   |
-| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
-
-#### modelProperties
-
-*Optional field*
-
-*Type*: [Map](#types)
-
-*Description*: A field meant to store information on specific models. Must have the same length as [numGroups](#nummodels)
-
-*Convention key:value pairs*
-
-| Key                 | Value-description                                                             |
-|---------------------|-------------------------------------------------------------------------------|
-| colorList           | color hex code                                                                |
-| transparancyList    | float (0-1)                                                                   |
-| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
-
-#### extraProperties
-
-*Optional field*
-
-*Type*: [Map](#types)
-
-*Description*: A field meant to store any information at all. There are no length restrictions associated with this field.  We
-encourage you to apply our encoding techniques to your application data to reduce file sizes!
-
-*Convention key:value pairs*
-
-| Key                   | Value-description                      |
-|-----------------------|----------------------------------------|
-| cameraPosition        | cartesian (x,y,z)                      |
-| cameraDirectionVector | cartesian vector [(x,y,z), (x,y,z)]    |
-
 
 ```Python
 # initialize index counters
@@ -1522,6 +1407,122 @@ Applying integer decoding with a divisor of `100` to create an array of 32-bit f
 ```JSON
 [ 1.00, 1.00, 1.00, 1.00, 0.50, 0.50 ]
 ```
+
+### Extra data
+
+The following are fields that are __not__ supplied by the *RCSB*, and are provided for applications to transfer non-molecular data along with the molecular data.
+
+The restrictions on each of the fields are __not__ enforced at decode-time and are simple conventions to help guide applications.
+
+| Name            | length-restrictions     | 
+|-----------------|-------------------------|
+| bondProperties  | length of numBonds      |
+| atomProperties  | length of numAtoms      |
+| groupProperties | length of numGroups     |
+| chainProperties | length of numChains     |
+| modelProperties | length of numModels     |
+| extraProperties | None                    |
+
+#### bondProperties
+
+*Optional field*
+
+*Type*: [Map](#types)
+
+*Description*: A field meant to store information on specific bonds.  Must have the same length as [numBonds](#numbonds).
+
+*Convention key:value pairs*
+
+| Key                 | Value-description                                                             |
+|---------------------|-------------------------------------------------------------------------------|
+| colorList           | color hex code                                                                |
+| transparancyList    | float (0-1)                                                                   |
+| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+
+
+#### atomProperties
+
+*Optional field*
+
+*Type*: [Map](#types)
+
+*Description*: A field meant to store information on specific atoms. Must have the same length as [numAtoms](#numatoms)
+
+*Convention key:value pairs*
+
+| Key                 | Value-description                                                             |
+|---------------------|-------------------------------------------------------------------------------|
+| colorList           | color hex code                                                                |
+| transparancyList    | float (0-1)                                                                   |
+| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+
+
+#### groupProperties
+
+*Optional field*
+
+*Type*: [Map](#types)
+
+*Description*: A field meant to store information on specific groups. Must have the same length as [numGroups](#numgroups)
+
+*Convention key:value pairs*
+
+| Key                 | Value-description                                                             |
+|---------------------|-------------------------------------------------------------------------------|
+| colorList           | color hex code                                                                |
+| transparancyList    | float (0-1)                                                                   |
+| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+
+#### chainProperties
+
+*Optional field*
+
+*Type*: [Map](#types)
+
+*Description*: A field meant to store information on specific chains. Must have the same length as [numChains](#numchains)
+
+*Convention key:value pairs*
+
+| Key                 | Value-description                                                             |
+|---------------------|-------------------------------------------------------------------------------|
+| colorList           | color hex code                                                                |
+| transparancyList    | float (0-1)                                                                   |
+| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+
+#### modelProperties
+
+*Optional field*
+
+*Type*: [Map](#types)
+
+*Description*: A field meant to store information on specific models. Must have the same length as [numModels](#nummodels)
+
+*Convention key:value pairs*
+
+| Key                 | Value-description                                                             |
+|---------------------|-------------------------------------------------------------------------------|
+| colorList           | color hex code                                                                |
+| transparancyList    | float (0-1)                                                                   |
+| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+| rmsdList            | list[floats]                                                                  |
+| gdtList             | list[floats]                                                                  |
+
+#### extraProperties
+
+*Optional field*
+
+*Type*: [Map](#types)
+
+*Description*: A field meant to store any information at all. There are no length restrictions associated with this field.  We
+encourage you to apply our encoding techniques to your application data to reduce file sizes!
+
+*Convention key:value pairs*
+
+| Key                   | Value-description                      |
+|-----------------------|----------------------------------------|
+| cameraPosition        | cartesian (x,y,z)                      |
+| cameraDirectionVector | cartesian vector [(x,y,z), (x,y,z)]    |
+
 
 
 ## Traversal
