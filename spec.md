@@ -899,7 +899,9 @@ In the following example there are bond orders given for three bonds. The first 
 *Description*: Array of bond Aromaticities for bonds in `bondAtomList`. Must be 0 (aromaticity is undefined/non-aromatic), or 1 (aromaticity is defined).
 *Note*: This is an optional field in that if your mmtf file contains no bonds, the field is not required to exist (for decoding purposes).  If bonds exist this must be defined.
 
-Possible pairings between the bondAromaticityList and bondOrderList are shown below. 
+Possible pairings between the bondAromaticityList and bondOrderList are shown below.
+
+__There should never be a non-aromatic bond with an unknown bond order__
 
 
 | Bond-order | Aromaticity | Explanation                                                              |
