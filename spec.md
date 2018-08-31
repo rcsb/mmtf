@@ -347,7 +347,7 @@ First create a `Array` to hold values that are referable by indices. In the foll
         "formalChargeList": [ 0, 0, 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5, 7, 5 ],
         "bondOrderList": [ 1, 1, 2, 1, 1, 2, 1 ],
-        "bondAromaticity": [ 0, 0, 1, 0, 0, 1, 1 ]
+        "bondAromaticityList": [ 0, 0, 1, 0, 0, 1, 1 ]
     },
     {
         "groupName": "SER",
@@ -358,7 +358,7 @@ First create a `Array` to hold values that are referable by indices. In the foll
         "formalChargeList": [ 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4 ],
         "bondOrderList": [ 1, 1, 2, 1, 1 ],
-        "bondAromaticity": [ 0, 0, 1, 0, 0 ]
+        "bondAromaticityList": [ 0, 0, 1, 0, 0 ]
     }
 ]
 ```
@@ -399,7 +399,7 @@ The following table lists all top level fields, including their [type](#types) a
 | [groupList](#grouplist)                     | [Array](#types)     |    Y     |
 | [bondAtomList](#bondatomlist)               | [Binary](#types)    |          |
 | [bondOrderList](#bondorderlist)             | [Binary](#types)    |          |
-| [bondAromaticityrList](#bondaromaticitylist)| [Binary](#types)    |          |
+| [bondAromaticityList](#bondaromaticitylist) | [Binary](#types)    |          |
 | [xCoordList](#xcoordlist)                   | [Binary](#types)    |    Y     |
 | [yCoordList](#ycoordlist)                   | [Binary](#types)    |    Y     |
 | [zCoordList](#zcoordlist)                   | [Binary](#types)    |    Y     |
@@ -866,7 +866,7 @@ In the following example there are three bonds, one between the atoms with the i
 
 *Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers.
 
-*Description*: Array of bond orders for bonds in `bondAtomList`. Must be values between 0 and 4, defining unknown, single, double, triple, and quadruple bonds.
+*Description*: Array of bond orders for bonds in `bondAtomList`. Must be values -1, 1, 2, 3, or 4, defining unknown, single, double, triple, and quadruple bonds.
 *Note*: This is an optional field in that if your mmtf file contains no bonds, the field is not required to exist (for decoding purposes).  If bonds exist this must be defined.
 
 *Example*:
@@ -1062,7 +1062,7 @@ The mmCIF format allows for so-called micro-heterogeneity on the group-level. Fo
 | elementList          | [Array](#types)   | Array of elements, 0 to 3 character [Strings](#types)            |    Y     |
 | bondAtomList         | [Array](#types)   | Array of bonded atom indices, [Integers](#types)                 |          |
 | bondOrderList        | [Array](#types)   | Array of bond orders as [Integers](#types) between 1 and 4       |          |
-| bondAromaticityList  | [Array](#types)   | Array of bond aromaticity as [Integers](#types) between 0 and 4  |          |
+| bondAromaticityList  | [Array](#types)   | Array of bond aromaticity as [Integers](#types) -1, 1,2,3 and 3  |          |
 | groupName            | [String](#types)  | The name of the group, 0 to 5 characters                         |    Y     |
 | singleLetterCode     | [String](#types)  | The single letter code, 1 character                              |    Y     |
 | chemCompType         | [String](#types)  | The chemical component type                                      |    Y     |
@@ -1091,7 +1091,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "formalChargeList": [ 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2 ],
         "bondOrderList": [ 1, 1, 2 ],
-        "bondAromaticity": [ 0, 0, 1 ],
+        "bondAromaticityList": [ 0, 0, 1 ],
     },
     {
         "groupName": "ASP",
@@ -1102,7 +1102,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "formalChargeList": [ 0, 0, 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5, 7, 5 ],
         "bondOrderList": [ 1, 1, 2, 1, 1, 2, 1 ],
-        "bondAromaticity": [ 0, 0, 1, 0, 0, 1, 1 ]
+        "bondAromaticityList": [ 0, 0, 1, 0, 0, 1, 1 ]
     },
     {
         "groupName": "SER",
@@ -1113,7 +1113,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "formalChargeList": [ 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4 ],
         "bondOrderList": [ 1, 1, 2, 1, 1 ],
-        "bondAromaticity": [ 0, 0, 1, 0, 0 ]
+        "bondAromaticityList": [ 0, 0, 1, 0, 0 ]
     }
 ]
 ```
