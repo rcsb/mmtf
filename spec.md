@@ -370,6 +370,7 @@ First create a `Array` to hold values that are referable by indices. In the foll
         "bondAtomList": [0, 1, 1, 2, 2, 3, 1, 4, 4, 5, 5, 6, 5, 7, 6, 8, 7, 9, 8, 10, 9, 10, 0, 11, 1, 12, 4, 13, 4, 14, 6, 15, 7, 16, 8, 17, 9, 18, 10, 19],
         "bondOrderList": [1, 1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         "bondAromaticityList": [0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    }
 ]
 ```
 
