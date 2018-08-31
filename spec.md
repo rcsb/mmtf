@@ -949,11 +949,11 @@ The restrictions on each of the fields are __not__ enforced at decode-time and a
 
 *Convention key:value pairs*
 
-| Key                 | Value-description |
-|---------------------|-------------------|
-| colorList           | color hex code    |
-| transparancyList    | float (0-100)     |
-| representation type | ('    |
+| Key                 | Value-description                                                             |
+|---------------------|-------------------------------------------------------------------------------|
+| colorList           | color hex code                                                                |
+| transparancyList    | float (0-1)                                                                   |
+| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
 
 
 #### atomProperties
@@ -966,9 +966,11 @@ The restrictions on each of the fields are __not__ enforced at decode-time and a
 
 *Convention key:value pairs*
 
-| Key       | Value-description |
-|-----------|-------------------|
-| colorList | color hex code    |
+| Key                 | Value-description                                                             |
+|---------------------|-------------------------------------------------------------------------------|
+| colorList           | color hex code                                                                |
+| transparancyList    | float (0-1)                                                                   |
+| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
 
 
 #### groupProperties
@@ -981,9 +983,11 @@ The restrictions on each of the fields are __not__ enforced at decode-time and a
 
 *Convention key:value pairs*
 
-| Key       | Value-description |
-|-----------|-------------------|
-| colorList | color hex code    |
+| Key                 | Value-description                                                             |
+|---------------------|-------------------------------------------------------------------------------|
+| colorList           | color hex code                                                                |
+| transparancyList    | float (0-1)                                                                   |
+| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
 
 #### chainProperties
 
@@ -995,9 +999,11 @@ The restrictions on each of the fields are __not__ enforced at decode-time and a
 
 *Convention key:value pairs*
 
-| Key       | Value-description |
-|-----------|-------------------|
-| colorList | color hex code    |
+| Key                 | Value-description                                                             |
+|---------------------|-------------------------------------------------------------------------------|
+| colorList           | color hex code                                                                |
+| transparancyList    | float (0-1)                                                                   |
+| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
 
 #### modelProperties
 
@@ -1009,9 +1015,11 @@ The restrictions on each of the fields are __not__ enforced at decode-time and a
 
 *Convention key:value pairs*
 
-| Key       | Value-description |
-|-----------|-------------------|
-| colorList | color hex code    |
+| Key                 | Value-description                                                             |
+|---------------------|-------------------------------------------------------------------------------|
+| colorList           | color hex code                                                                |
+| transparancyList    | float (0-1)                                                                   |
+| representation type | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
 
 #### extraProperties
 
@@ -1024,10 +1032,10 @@ encourage you to apply our encoding techniques to your application data to reduc
 
 *Convention key:value pairs*
 
-| Key       | Value-description |
-|-----------|-------------------|
-| colorList | color hex code    |
-
+| Key                   | Value-description                      |
+|-----------------------|----------------------------------------|
+| cameraPosition        | cartesian (x,y,z)                      |
+| cameraDirectionVector | cartesian vector [(x,y,z), (x,y,z)]    |
 
 
 ```Python
