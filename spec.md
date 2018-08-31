@@ -404,6 +404,12 @@ The following table lists all top level fields, including their [type](#types) a
 | [chainNameList](#chainnamelist)             | [Binary](#types)    |          |
 | [groupsPerChain](#groupsperchain)           | [Array](#types)     |    Y     |
 | [chainsPerModel](#chainspermodel)           | [Array](#types)     |    Y     |
+| [extraProperties](#extraproperties)         | [Array](#types)     |          |
+| [bondProperties](#bondproperties)           | [Array](#types)     |          |
+| [atomProperties](#atomproperties)           | [Array](#types)     |          |
+| [groupProperties](#groupproperties)         | [Array](#types)     |          |
+| [chainProperties](#chainproperties)         | [Array](#types)     |          |
+| [modelProperties](#modelproperties)         | [Array](#types)     |          |
 
 
 ### Format data
@@ -913,9 +919,116 @@ The number of chains in a structure is equal to the length of the [groupsPerChai
 
 *Required field*
 
+# TODO MAP
 *Type*: [Array](#types) of [Integer](#types) numbers.
 
 *Description*: Array of the number of groups (aka residues) in each chain. The number of chains is thus equal to the length of the `groupsPerChain` field. In conjunction with `chainsPerModel`, the array allows looping over all chains:
+
+### Extra data
+
+The following are fields that are __not__ supplied by the *RCSB*, and are provided for applications to transfer application specific data along with the molecular data.
+
+The restrictions on each of the fields are __not__ enforced at decode-time and are simple conventions to help guide applications.
+
+| Name            | length-restrictions     | 
+|-----------------|-------------------------|
+| bondProperties  | length of numBonds      |
+| atomProperties  | length of numAtoms      |
+| groupProperties | length of numGroups     |
+| chainProperties | length of numChains     |
+| modelProperties | length of numModels     |
+| extraProperties | None                    |
+
+#### bondProperties
+
+*Optional field*
+
+*Type*: [Map](#types)
+
+*Description*: A field meant to store information on specific bonds.  Must have the same length as [numBonds](#numbonds).
+
+*Convention key:value pairs*
+
+| Key                 | Value-description |
+|---------------------|-------------------|
+| colorList           | color hex code    |
+| transparancyList    | float (0-100)     |
+| representation type | ('    |
+
+
+#### atomProperties
+
+*Optional field*
+
+*Type*: [Map](#types)
+
+*Description*: A field meant to store information on specific atoms. Must have the same length as [numAtoms](#numatoms)
+
+*Convention key:value pairs*
+
+| Key       | Value-description |
+|-----------|-------------------|
+| colorList | color hex code    |
+
+
+#### groupProperties
+
+*Optional field*
+
+*Type*: [Map](#types)
+
+*Description*: A field meant to store information on specific groups. Must have the same length as [numGroups](#numgroups)
+
+*Convention key:value pairs*
+
+| Key       | Value-description |
+|-----------|-------------------|
+| colorList | color hex code    |
+
+#### chainProperties
+
+*Optional field*
+
+*Type*: [Map](#types)
+
+*Description*: A field meant to store information on specific chains. Must have the same length as [numGroups](#numchains)
+
+*Convention key:value pairs*
+
+| Key       | Value-description |
+|-----------|-------------------|
+| colorList | color hex code    |
+
+#### modelProperties
+
+*Optional field*
+
+*Type*: [Map](#types)
+
+*Description*: A field meant to store information on specific models. Must have the same length as [numGroups](#nummodels)
+
+*Convention key:value pairs*
+
+| Key       | Value-description |
+|-----------|-------------------|
+| colorList | color hex code    |
+
+#### extraProperties
+
+*Optional field*
+
+*Type*: [Map](#types)
+
+*Description*: A field meant to store any information at all. There are no length restrictions associated with this field.  We
+encourage you to apply our encoding techniques to your application data to reduce file sizes!
+
+*Convention key:value pairs*
+
+| Key       | Value-description |
+|-----------|-------------------|
+| colorList | color hex code    |
+
+
 
 ```Python
 # initialize index counters
