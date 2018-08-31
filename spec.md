@@ -918,6 +918,22 @@ In the following example there are bond Aromaticities given for three bonds.  Th
 [ 1, 0, 1]
 ```
 
+An example for not knowing bond order would be a scenario where we don't have the kekulized form for aromatics.
+
+```JSON
+    {
+        "groupName": "PHE",
+        "singleLetterCode": "F",
+        "chemCompType": "L-PEPTIDE LINKING",
+        "atomNameList": ["N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "CE1", "CE2", "CZ", "H", "HA", "1HB", "2HB", "HD1", "HD2", "HE1", "HE2", "HZ"],
+        "elementList": ["N", "C", "C", "O", "C", "C", "C", "C", "C", "C", "C", "H", "H", "H", "H", "H", "H", "H", "H", "H"],
+        "formalChargeList": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "bondAtomList": [0, 1, 1, 2, 2, 3, 1, 4, 4, 5, 5, 6, 5, 7, 6, 8, 7, 9, 8, 10, 9, 10, 0, 11, 1, 12, 4, 13, 4, 14, 6, 15, 7, 16, 8, 17, 9, 18, 10, 19],
+        "bondOrderList":       [1, 1, -1, 1, 1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        "bondAromaticityList": [0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    }
+```
+
 ### Model data
 
 The number of models in a structure is equal to the length of the [chainsPerModel](chainspermodel) field. The `chainsPerModel` field also defines which chains belong to each model.
