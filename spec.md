@@ -1046,6 +1046,8 @@ The fields in the following sections hold group-related data.
 
 The mmCIF format allows for so-called micro-heterogeneity on the group-level. For groups (residues) with micro-heterogeneity there are two or more entries given that have the same [sequence index](#sequenceindexlist), [group id](#groupidlist) (and [insertion code](#inscodelist)) but are of a different [group type](#grouptypelist). The defining property is their identical sequence index.
 
+*Note*: There is __no__ compression applied to elements in `Group data`.
+
 
 #### groupList
 
