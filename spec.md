@@ -1486,7 +1486,7 @@ data = {
 
 *Description*: A field meant to store information on specific bonds.  Must have the same length as [numBonds](#numbonds).
 
-*Convention key:value pairs*
+*Reserved key:value pairs*
 
 | Key                    | Value-description                                                             |
 |------------------------|-------------------------------------------------------------------------------|
@@ -1503,7 +1503,7 @@ data = {
 
 *Description*: A field meant to store information on specific atoms. Must have the same length as [numAtoms](#numatoms)
 
-*Convention key:value pairs*
+*Reserved key:value pairs*
 
 | Key                    | Value-description                                                             |
 |------------------------|-------------------------------------------------------------------------------|
@@ -1520,7 +1520,7 @@ data = {
 
 *Description*: A field meant to store information on specific groups. Must have the same length as [numGroups](#numgroups)
 
-*Convention key:value pairs*
+*Reserved key:value pairs*
 
 | Key                    | Value-description                                                             |
 |------------------------|-------------------------------------------------------------------------------|
@@ -1536,7 +1536,7 @@ data = {
 
 *Description*: A field meant to store information on specific chains. Must have the same length as [numChains](#numchains)
 
-*Convention key:value pairs*
+*Reserved key:value pairs*
 
 | Key                    | Value-description                                                             |
 |------------------------|-------------------------------------------------------------------------------|
@@ -1552,7 +1552,7 @@ data = {
 
 *Description*: A field meant to store information on specific models. Must have the same length as [numModels](#nummodels)
 
-*Convention key:value pairs*
+*Reserved key:value pairs*
 
 | Key                    | Value-description                                                             |
 |------------------------|-------------------------------------------------------------------------------|
@@ -1570,7 +1570,7 @@ data = {
 
 *Description*: A field meant to store any information at all.
 
-*Convention key:value pairs*
+*Reserved key:value pairs*
 
 | Key                   | Value-description                      |
 |-----------------------|----------------------------------------|
