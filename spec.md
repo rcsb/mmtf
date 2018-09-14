@@ -23,6 +23,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
     * [Chain data](#chain-data)
     * [Group data](#group-data)
     * [Atom data](#atom-data)
+    * [Extra data](#extra-data)
 * [Traversal](#traversal)
 
 
@@ -1412,7 +1413,13 @@ Applying integer decoding with a divisor of `100` to create an array of 32-bit f
 
 The following are fields that are __not__ supplied by the *RCSB*, and are provided for applications to transfer non-molecular data along with the molecular data.
 
-The restrictions on each of the fields are __not__ enforced at decode-time and are simple conventions to help guide applications.
+Each field is a [map](#types), and there are 6 possible fields `bondProperties`, `atomProperties`, `groupProperties`, `chainProperties`,
+`modelProperties`, and `extraProperties`.  The first 5 fields are restricted to holding data that is relevant to the field's prefix, while
+any other data can be stored in the `extraProperties` field.
+
+We encourage you to apply our encoding techniques to your application data to reduce file sizes!
+
+The restrictions on each of the lengths of the values in these fields are __not__ enforced at decode-time but are reserved to help guide applications.
 
 | Name            | length-restrictions     | 
 |-----------------|-------------------------|
@@ -1422,6 +1429,54 @@ The restrictions on each of the fields are __not__ enforced at decode-time and a
 | chainProperties | length of numChains     |
 | modelProperties | length of numModels     |
 | extraProperties | None                    |
+
+Example
+
+```JSON
+data = {
+  "mmtfVersion": "1.1",
+  "numAtoms": 999,
+  "numModels": 2,
+  "numChains": 4,
+  ...
+  "xCoordList": [1.2, 3.4, ...],
+  "yCoordList": [5.6, 7.8, ...],
+  "zCoordList": [9.0, 1.2, ...],
+  ...
+  "structureProperties": {
+    "foo_id": "ABC",
+  },
+  "modelProperties": {
+    # lists have len numModels=2
+    "foo_rmsdList": [0.5, 0.8],
+    "foo_scoreList": [1.2, 3.4],
+  },
+  "chainProperties": {
+    # lists have len numChains=4
+    "foo_uniprotIdList": ["HBB_HUMAN", "HBA_HUMAN", "HBB_HUMAN", "HBA_HUMAN"],
+    "foo_chainColorList": [0xFF0000, 0x00FF00, 0xFF0000, 0x00FF00],
+  },
+  "groupProperties": {
+    # lists have len numGroups
+    "stride_secStructList": [7, 7, 7, ...],
+    "sst_secStructList": [7, 7, 7, ...],
+  },
+  "atomProperties": {
+    # lists have len numAtoms=999
+    "pymol_colorList": [1, 2, 3, ...],
+    "pymol_repsList": [1, 1, 1, ...],
+    "apbs_chargeList": [0.1, -0.4, 0.7, ...],
+    "apbs_radiusList": [1.2, 1.8, 1.5, ...],
+  },
+  "bondProperties": {
+    # lists have len numBonds
+    "pymol_bondTypeList": [1, 1, 1, 4, 4, 4, 4, 4, 4, 1, ...],
+  },
+  "extraProperties": {
+    "pymol_bondTypes": {0: "metal", 1: "single", 2: "double", 3: "triple", 4: "aromatic"}
+  }
+}
+```
 
 #### bondProperties
 
@@ -1513,8 +1568,7 @@ The restrictions on each of the fields are __not__ enforced at decode-time and a
 
 *Type*: [Map](#types)
 
-*Description*: A field meant to store any information at all. There are no length restrictions associated with this field.  We
-encourage you to apply our encoding techniques to your application data to reduce file sizes!
+*Description*: A field meant to store any information at all.
 
 *Convention key:value pairs*
 
@@ -1522,7 +1576,6 @@ encourage you to apply our encoding techniques to your application data to reduc
 |-----------------------|----------------------------------------|
 | cameraPosition        | cartesian (x,y,z)                      |
 | cameraDirectionVector | cartesian vector [(x,y,z), (x,y,z)]    |
-
 
 
 ## Traversal
