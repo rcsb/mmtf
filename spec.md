@@ -347,7 +347,7 @@ First create a `Array` to hold values that are referable by indices. In the foll
         "formalChargeList": [ 0, 0, 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5, 7, 5 ],
         "bondOrderList": [ 1, 1, 2, 1, 1, 2, 1 ],
-        "bondAromaticityList": [ 0, 0, 1, 0, 0, 1, 1 ]
+        "bondResonanceList": [ 0, 0, 1, 0, 0, 1, 1 ]
     },
     {
         "groupName": "SER",
@@ -358,7 +358,7 @@ First create a `Array` to hold values that are referable by indices. In the foll
         "formalChargeList": [ 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4 ],
         "bondOrderList": [ 1, 1, 2, 1, 1 ],
-        "bondAromaticityList": [ 0, 0, 1, 0, 0 ]
+        "bondResonanceList": [ 0, 0, 1, 0, 0 ]
     }
     {
         "groupName": "PHE",
@@ -369,7 +369,7 @@ First create a `Array` to hold values that are referable by indices. In the foll
         "formalChargeList": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         "bondAtomList": [0, 1, 1, 2, 2, 3, 1, 4, 4, 5, 5, 6, 5, 7, 6, 8, 7, 9, 8, 10, 9, 10, 0, 11, 1, 12, 4, 13, 4, 14, 6, 15, 7, 16, 8, 17, 9, 18, 10, 19],
         "bondOrderList": [1, 1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        "bondAromaticityList": [0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        "bondResonanceList": [0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
 ]
 ```
@@ -410,7 +410,7 @@ The following table lists all top level fields, including their [type](#types) a
 | [groupList](#grouplist)                     | [Array](#types)     |    Y     |
 | [bondAtomList](#bondatomlist)               | [Binary](#types)    |          |
 | [bondOrderList](#bondorderlist)             | [Binary](#types)    |          |
-| [bondAromaticityList](#bondaromaticitylist) | [Binary](#types)    |          |
+| [bondResonanceList](#bondresonancelist)     | [Binary](#types)    |          |
 | [xCoordList](#xcoordlist)                   | [Binary](#types)    |    Y     |
 | [yCoordList](#ycoordlist)                   | [Binary](#types)    |    Y     |
 | [zCoordList](#zcoordlist)                   | [Binary](#types)    |    Y     |
@@ -878,9 +878,8 @@ In the following example there are three bonds, one between the atoms with the i
 *Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers.
 
 *Description*: Array of bond orders for bonds in `bondAtomList`. Must be values -1, 1, 2, 3, or 4, defining unknown, single, double, triple, and quadruple bonds.
-*Note*: This is an optional field in that if your mmtf file contains no bonds, the field is not required to exist (for decoding purposes).  If bonds exist this must be defined.
-
-__There should never be a non-aromatic bond with an unknown bond order__
+*Note*: This field is optional, it is not required that you know the order of the bonds when writing mmtf files. However if you have the information, we encourage
+you to include it!
 
 *Example*:
 
@@ -892,37 +891,38 @@ In the following example there are bond orders given for three bonds. The first 
 [ 1, 2, 1 ]
 ```
 
-#### bondAromaticityList
+#### bondResonanceList
 
-*Optional field* If it exists [bondAtomList](#bondatomlist) must also be present.
+*Optional field* If it exists [bondAtomList](#bondatomlist) and [bondOrderList](#bondorderlist) must also be present.
 
 *Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers ([type 16](#run-length-encoded-8-bit-array)).
 
-*Description*: Array of bond Aromaticities for bonds in `bondAtomList`. Must be 0 (aromaticity is undefined/non-aromatic), or 1 (aromaticity is defined).
-*Note*: This is an optional field in that if your mmtf file contains no bonds, the field is not required to exist (for decoding purposes).  If bonds exist this must be defined.
+*Description*: Array of bond Resonances for bonds in `bondAtomList`. Must be -1: resonance is unknown, 0: no resonance, or 1: resonance exists.
+*Note*: This field is optional, it is not required that you know the resonance of bonds when writing mmtf files. However if you have the information, we encourage
+you to include it!
 
-Possible pairings between the `bondAromaticityList` and `bondOrderList` are shown below.
+Possible pairings between the `bondResonanceList` and `bondOrderList` are shown below.
 
-__There should never be a non-aromatic bond with an unknown bond order__
+__If this field exists there should never be a non-resonating bond with an unknown bond order__
 
-
-| Bond-order | Aromaticity | Explanation                                                              |
+| Bond-order | Resonance   | Explanation                                                              |
 |------------|-------------|--------------------------------------------------------------------------|
-| -1         |      1      | kekulized form is unavailable, but aromaticity is known                  |
-| 1(or 2,3,4)|      1      | kekulized form is known, and aromaticity is known and exists             |
-| 1(or 2,3,4)|      0      | kekulized form is known, but aromaticity is not known, or is nonexistant |
+| -1         |      1      | kekulized form is unavailable, but resonance is known                    |
+| 1(or 2,3,4)|      1      | kekulized form is known, and resonance is known and exists               |
+| 1(or 2,3,4)|      0      | kekulized form is known, but resonance is nonexistant                    |
+| 1(or 2,3,4)|     -1      | kekulized form is known, but resonance is not known                      |
 
 *Example*
 
 Using the `Run-length encoded 8-bit array` encoding strategy (type 16).
 
-In the following example there are bond Aromaticities given for three bonds.  The first and thrid bonds are aromatic bonds, while the second bond has no aromaticity.
+In the following example there are bond Resonances given for three bonds.  The first and thrid bonds are resonating bonds, while the second bond has no resonance.
 
 ```JSON
 [ 1, 0, 1]
 ```
 
-An example for not knowing bond order would be a scenario where we don't have the kekulized form for aromatics.
+An example for not knowing bond order would be a scenario where we don't have the kekulized form for resonating bonds.
 
 ```JSON
     {
@@ -934,7 +934,7 @@ An example for not knowing bond order would be a scenario where we don't have th
         "formalChargeList": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         "bondAtomList": [0, 1, 1, 2, 2, 3, 1, 4, 4, 5, 5, 6, 5, 7, 6, 8, 7, 9, 8, 10, 9, 10, 0, 11, 1, 12, 4, 13, 4, 14, 6, 15, 7, 16, 8, 17, 9, 18, 10, 19],
         "bondOrderList":       [1, 1, -1, 1, 1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        "bondAromaticityList": [0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        "bondResonanceList": [0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
 ```
 
@@ -1103,7 +1103,7 @@ The mmCIF format allows for so-called micro-heterogeneity on the group-level. Fo
 | elementList          | [Array](#types)   | Array of elements, 0 to 3 character [Strings](#types)              |    Y     |
 | bondAtomList         | [Array](#types)   | Array of bonded atom indices, [Integers](#types)                   |          |
 | bondOrderList        | [Array](#types)   | Array of bond orders as [Integers](#types) either -1, 1, 2, 3 or 4 |          |
-| bondAromaticityList  | [Array](#types)   | Array of bond aromaticity as [Integers](#types) either 0, or 1     |          |
+| bondResonanceList    | [Array](#types)   | Array of bond resonance as [Integers](#types) either -1, 0, or 1   |          |
 | groupName            | [String](#types)  | The name of the group, 0 to 5 characters                           |    Y     |
 | singleLetterCode     | [String](#types)  | The single letter code, 1 character                                |    Y     |
 | chemCompType         | [String](#types)  | The chemical component type                                        |    Y     |
@@ -1132,7 +1132,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "formalChargeList": [ 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2 ],
         "bondOrderList": [ 1, 1, 2 ],
-        "bondAromaticityList": [ 0, 0, 1 ],
+        "bondResonanceList": [ 0, 0, 1 ],
     },
     {
         "groupName": "ASP",
@@ -1143,7 +1143,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "formalChargeList": [ 0, 0, 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5, 7, 5 ],
         "bondOrderList": [ 1, 1, 2, 1, 1, 2, 1 ],
-        "bondAromaticityList": [ 0, 0, 1, 0, 0, 1, 1 ]
+        "bondResonanceList": [ 0, 0, 1, 0, 0, 1, 1 ]
     },
     {
         "groupName": "SER",
@@ -1154,7 +1154,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "formalChargeList": [ 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4 ],
         "bondOrderList": [ 1, 1, 2, 1, 1 ],
-        "bondAromaticityList": [ 0, 0, 1, 0, 0 ]
+        "bondResonanceList": [ 0, 0, 1, 0, 0 ]
     },
     {
         "groupName": "PHE",
@@ -1165,7 +1165,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "formalChargeList": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         "bondAtomList": [0, 1, 1, 2, 2, 3, 1, 4, 4, 5, 5, 6, 5, 7, 6, 8, 7, 9, 8, 10, 9, 10, 0, 11, 1, 12, 4, 13, 4, 14, 6, 15, 7, 16, 8, 17, 9, 18, 10, 19],
         "bondOrderList": [1, 1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        "bondAromaticityList": [0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        "bondResonanceList": [0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
 
 ]
@@ -1532,7 +1532,7 @@ for modelChainCount in chainsPerModel
                 print atomOffset + group.bondAtomList[ i * 2 ]      # atomIndex1
                 print atomOffset + group.bondAtomList[ i * 2 + 1 ]  # atomIndex2
                 print group.bondOrderList[ i ]
-                print group.bondAromaticityList[ i ]
+                print group.bondResonanceList[ i ]
             set groupAtomCount to group.atomNameList.length
             # traverse atoms
             for i in 1 to groupAtomCount
@@ -1557,5 +1557,5 @@ for i in 1 to bondAtomList.length / 2
     print bondAtomList[ i * 2 ]      # atomIndex1
     print bondAtomList[ i * 2 + 1 ]  # atomIndex2
     print bondOrderList[ i ]
-    print bondAromaticityList[ i ]
+    print bondResonanceList[ i ]
 ```
