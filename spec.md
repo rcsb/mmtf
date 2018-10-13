@@ -2,7 +2,7 @@
 
 # MMTF Specification
 
-*Version*: v1.0
+*Version*: v1.1dev
 
 The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encoding of biological structures. It includes the coordinates, the topology and associated data. Specifically, a large subset of the data in mmCIF or PDB files can be represented. Pronounced goals are a reduced file size for efficient transmission over the Internet or from hard disk to memory and fast decoding/parsing speed. Additionally, the format aims to be easily understood and implemented to facilitate its wide dissemination. For testing encoder and decoder implementations a [test suite](test-suite/) is available.
 
