@@ -236,6 +236,15 @@ This section describes the binary layout of the header and the encoded data as w
 *Note* Useful for arrays where a small amount of values may be slightly larger than one bytes. However, note that with many values larger than that the packing becomes inefficient.
 
 
+#### Run-length encoded 8-bit array
+
+*Type* 16
+
+*Signature* `byte[] -> int32[] -> int8[]`
+
+*Description* Interpret bytes as array of 32-bit signed integers, then run-length decode into array of 8-bit integers.
+
+
 ## Encodings
 
 The following general encoding strategies are used to compress the data contained in MMTF files.
@@ -337,7 +346,8 @@ First create a `Array` to hold values that are referable by indices. In the foll
         "elementList": [ "N", "C", "C", "O", "C", "C", "O", "O" ],
         "formalChargeList": [ 0, 0, 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5, 7, 5 ],
-        "bondOrderList": [ 1, 1, 2, 1, 1, 2, 1 ]
+        "bondOrderList": [ 1, 1, 2, 1, 1, 2, 1 ],
+        "bondResonanceList": [ 0, 0, 1, 0, 0, 1, 1 ]
     },
     {
         "groupName": "SER",
@@ -347,7 +357,19 @@ First create a `Array` to hold values that are referable by indices. In the foll
         "elementList": [ "N", "C", "C", "O", "C", "O" ],
         "formalChargeList": [ 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4 ],
-        "bondOrderList": [ 1, 1, 2, 1, 1 ]
+        "bondOrderList": [ 1, 1, 2, 1, 1 ],
+        "bondResonanceList": [ 0, 0, 1, 0, 0 ]
+    }
+    {
+        "groupName": "PHE",
+        "singleLetterCode": "F",
+        "chemCompType": "L-PEPTIDE LINKING",
+        "atomNameList": ["N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "CE1", "CE2", "CZ", "H", "HA", "1HB", "2HB", "HD1", "HD2", "HE1", "HE2", "HZ"],
+        "elementList": ["N", "C", "C", "O", "C", "C", "C", "C", "C", "C", "C", "H", "H", "H", "H", "H", "H", "H", "H", "H"],
+        "formalChargeList": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "bondAtomList": [0, 1, 1, 2, 2, 3, 1, 4, 4, 5, 5, 6, 5, 7, 6, 8, 7, 9, 8, 10, 9, 10, 0, 11, 1, 12, 4, 13, 4, 14, 6, 15, 7, 16, 8, 17, 9, 18, 10, 19],
+        "bondOrderList": [1, 1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        "bondResonanceList": [0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
 ]
 ```
@@ -388,6 +410,7 @@ The following table lists all top level fields, including their [type](#types) a
 | [groupList](#grouplist)                     | [Array](#types)     |    Y     |
 | [bondAtomList](#bondatomlist)               | [Binary](#types)    |          |
 | [bondOrderList](#bondorderlist)             | [Binary](#types)    |          |
+| [bondResonanceList](#bondresonancelist)     | [Binary](#types)    |          |
 | [xCoordList](#xcoordlist)                   | [Binary](#types)    |    Y     |
 | [yCoordList](#ycoordlist)                   | [Binary](#types)    |    Y     |
 | [zCoordList](#zcoordlist)                   | [Binary](#types)    |    Y     |
@@ -835,6 +858,7 @@ The `sequence` string contains the full construct, not just the resolved residue
 *Type*: [Binary](#types) data that decodes into an array of 32-bit signed integers.
 
 *Description*: Pairs of values represent indices of covalently bonded atoms. The indices point to the [Atom data](#atom-data) arrays. Only covalent bonds may be given.
+*Note*: This is an optional field in that if your mmtf file contains no bonds, the field is not required to exist (for decoding purposes).  If bonds exist this must be defined.
 
 *Example*:
 
@@ -849,11 +873,13 @@ In the following example there are three bonds, one between the atoms with the i
 
 #### bondOrderList
 
-*Optional field* If it exists [bondAtomList](#bondatomlist) must also be present. However `bondAtomList` may exist without `bondOrderList`.
+*Optional field* If it exists [bondAtomList](#bondatomlist) must also be present.
 
 *Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers.
 
-*Description*: Array of bond orders for bonds in `bondAtomList`. Must be values between 1 and 4, defining single, double, triple, and quadruple bonds.
+*Description*: Array of bond orders for bonds in `bondAtomList`. Must be values -1, 1, 2, 3, or 4, defining unknown, single, double, triple, and quadruple bonds.
+*Note*: This field is optional, it is not required that you know the order of the bonds when writing mmtf files. However if you have the information, we encourage
+you to include it!
 
 *Example*:
 
@@ -865,6 +891,52 @@ In the following example there are bond orders given for three bonds. The first 
 [ 1, 2, 1 ]
 ```
 
+#### bondResonanceList
+
+*Optional field* If it exists [bondAtomList](#bondatomlist) and [bondOrderList](#bondorderlist) must also be present.
+
+*Type*: [Binary](#types) data that decodes into an array of 8-bit signed integers ([type 16](#run-length-encoded-8-bit-array)).
+
+*Description*: Array of bond Resonances for bonds in `bondAtomList`. Must be -1: resonance is unknown, 0: no resonance, or 1: resonance exists.
+*Note*: This field is optional, it is not required that you know the resonance of bonds when writing mmtf files. However if you have the information, we encourage
+you to include it!
+
+Possible pairings between the `bondResonanceList` and `bondOrderList` are shown below.
+
+__If this field exists there should never be a non-resonating bond with an unknown bond order__
+
+| Bond-order | Resonance   | Explanation                                                              |
+|------------|-------------|--------------------------------------------------------------------------|
+| -1         |      1      | kekulized form is unavailable, but resonance is known                    |
+| 1(or 2,3,4)|      1      | kekulized form is known, and resonance is known and exists               |
+| 1(or 2,3,4)|      0      | kekulized form is known, but resonance is nonexistant                    |
+| 1(or 2,3,4)|     -1      | kekulized form is known, but resonance is not known                      |
+
+*Example*
+
+Using the `Run-length encoded 8-bit array` encoding strategy (type 16).
+
+In the following example there are bond Resonances given for three bonds.  The first and thrid bonds are resonating bonds, while the second bond has no resonance.
+
+```JSON
+[ 1, 0, 1]
+```
+
+An example for not knowing bond order would be a scenario where we don't have the kekulized form for resonating bonds.
+
+```JSON
+    {
+        "groupName": "PHE",
+        "singleLetterCode": "F",
+        "chemCompType": "L-PEPTIDE LINKING",
+        "atomNameList": ["N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "CE1", "CE2", "CZ", "H", "HA", "1HB", "2HB", "HD1", "HD2", "HE1", "HE2", "HZ"],
+        "elementList": ["N", "C", "C", "O", "C", "C", "C", "C", "C", "C", "C", "H", "H", "H", "H", "H", "H", "H", "H", "H"],
+        "formalChargeList": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "bondAtomList": [0, 1, 1, 2, 2, 3, 1, 4, 4, 5, 5, 6, 5, 7, 6, 8, 7, 9, 8, 10, 9, 10, 0, 11, 1, 12, 4, 13, 4, 14, 6, 15, 7, 16, 8, 17, 9, 18, 10, 19],
+        "bondOrderList":       [1, 1, -1, 1, 1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        "bondResonanceList": [0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    }
+```
 
 ### Model data
 
@@ -1015,6 +1087,8 @@ The fields in the following sections hold group-related data.
 
 The mmCIF format allows for so-called micro-heterogeneity on the group-level. For groups (residues) with micro-heterogeneity there are two or more entries given that have the same [sequence index](#sequenceindexlist), [group id](#groupidlist) (and [insertion code](#inscodelist)) but are of a different [group type](#grouptypelist). The defining property is their identical sequence index.
 
+*Note*: There is __no__ compression applied to elements in `Group data`.
+
 
 #### groupList
 
@@ -1022,16 +1096,17 @@ The mmCIF format allows for so-called micro-heterogeneity on the group-level. Fo
 
 *Type*: [Array](#types) of `groupType` objects with the following fields:
 
-| Name             | Type              | Description                                                 |
-|------------------|-------------------|-------------------------------------------------------------|
-| formalChargeList | [Array](#types)   | Array of formal charges as [Integers](#types)               |
-| atomNameList     | [Array](#types)   | Array of atom names, 0 to 5 character [Strings](#types)     |
-| elementList      | [Array](#types)   | Array of elements, 0 to 3 character [Strings](#types)       |
-| bondAtomList     | [Array](#types)   | Array of bonded atom indices, [Integers](#types)            |
-| bondOrderList    | [Array](#types)   | Array of bond orders as [Integers](#types) between 1 and 4  |
-| groupName        | [String](#types)  | The name of the group, 0 to 5 characters                    |
-| singleLetterCode | [String](#types)  | The single letter code, 1 character                         |
-| chemCompType     | [String](#types)  | The chemical component type                                 |
+| Name                 | Type              | Description                                                        | Required |
+|----------------------|-------------------|--------------------------------------------------------------------|:--------:|
+| formalChargeList     | [Array](#types)   | Array of formal charges as [Integers](#types)                      |    Y     |
+| atomNameList         | [Array](#types)   | Array of atom names, 0 to 5 character [Strings](#types)            |    Y     |
+| elementList          | [Array](#types)   | Array of elements, 0 to 3 character [Strings](#types)              |    Y     |
+| bondAtomList         | [Array](#types)   | Array of bonded atom indices, [Integers](#types)                   |          |
+| bondOrderList        | [Array](#types)   | Array of bond orders as [Integers](#types) either -1, 1, 2, 3 or 4 |          |
+| bondResonanceList    | [Array](#types)   | Array of bond resonance as [Integers](#types) either -1, 0, or 1   |          |
+| groupName            | [String](#types)  | The name of the group, 0 to 5 characters                           |    Y     |
+| singleLetterCode     | [String](#types)  | The single letter code, 1 character                                |    Y     |
+| chemCompType         | [String](#types)  | The chemical component type                                        |    Y     |
 
 
 The element name must follow the IUPAC [standard](http://dx.doi.org/10.1515/ci.2014.36.4.25) where only the first character is capitalized and the remaining ones are lower case, for instance `Cd` for Cadmium.
@@ -1057,6 +1132,7 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "formalChargeList": [ 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2 ],
         "bondOrderList": [ 1, 1, 2 ],
+        "bondResonanceList": [ 0, 0, 1 ],
     },
     {
         "groupName": "ASP",
@@ -1066,7 +1142,8 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "elementList": [ "N", "C", "C", "O", "C", "C", "O", "O" ],
         "formalChargeList": [ 0, 0, 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5, 7, 5 ],
-        "bondOrderList": [ 1, 1, 2, 1, 1, 2, 1 ]
+        "bondOrderList": [ 1, 1, 2, 1, 1, 2, 1 ],
+        "bondResonanceList": [ 0, 0, 1, 0, 0, 1, 1 ]
     },
     {
         "groupName": "SER",
@@ -1076,8 +1153,21 @@ The `singleLetterCode` is the IUPAC single letter code for [protein](https://dx.
         "elementList": [ "N", "C", "C", "O", "C", "O" ],
         "formalChargeList": [ 0, 0, 0, 0, 0, 0 ],
         "bondAtomList": [ 1, 0, 2, 1, 3, 2, 4, 1, 5, 4 ],
-        "bondOrderList": [ 1, 1, 2, 1, 1 ]
+        "bondOrderList": [ 1, 1, 2, 1, 1 ],
+        "bondResonanceList": [ 0, 0, 1, 0, 0 ]
+    },
+    {
+        "groupName": "PHE",
+        "singleLetterCode": "F",
+        "chemCompType": "L-PEPTIDE LINKING",
+        "atomNameList": ["N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "CE1", "CE2", "CZ", "H", "HA", "1HB", "2HB", "HD1", "HD2", "HE1", "HE2", "HZ"],
+        "elementList": ["N", "C", "C", "O", "C", "C", "C", "C", "C", "C", "C", "H", "H", "H", "H", "H", "H", "H", "H", "H"],
+        "formalChargeList": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "bondAtomList": [0, 1, 1, 2, 2, 3, 1, 4, 4, 5, 5, 6, 5, 7, 6, 8, 7, 9, 8, 10, 9, 10, 0, 11, 1, 12, 4, 13, 4, 14, 6, 15, 7, 16, 8, 17, 9, 18, 10, 19],
+        "bondOrderList": [1, 1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        "bondResonanceList": [0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
+
 ]
 ```
 
@@ -1442,6 +1532,7 @@ for modelChainCount in chainsPerModel
                 print atomOffset + group.bondAtomList[ i * 2 ]      # atomIndex1
                 print atomOffset + group.bondAtomList[ i * 2 + 1 ]  # atomIndex2
                 print group.bondOrderList[ i ]
+                print group.bondResonanceList[ i ]
             set groupAtomCount to group.atomNameList.length
             # traverse atoms
             for i in 1 to groupAtomCount
@@ -1466,4 +1557,5 @@ for i in 1 to bondAtomList.length / 2
     print bondAtomList[ i * 2 ]      # atomIndex1
     print bondAtomList[ i * 2 + 1 ]  # atomIndex2
     print bondOrderList[ i ]
+    print bondResonanceList[ i ]
 ```
