@@ -1672,11 +1672,14 @@ data = {
 
 *Type*: [Map<String, String|Float|Integer|Map|Array|Binary>](#types)
 
-*Description*: A field meant to store any information at all.  There are no restrictions on second-level data structures such as Map<String, Map>.
-example
+*Description*: A field meant to store any information at all.  There are no restrictions on second level data structures like the inner Map in
+Map<String, Map>.  
+
+Example:
+
 ```python
 
-# Good!
+# Ok!
 data = {
   "mmtfVersion": "1.1",
   ...
