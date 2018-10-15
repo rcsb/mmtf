@@ -1538,7 +1538,7 @@ The restrictions on each of the lengths of the values in these fields are __not_
 
 Example
 
-```
+```python
 data = {
   "mmtfVersion": "1.1",
   "numAtoms": 999,
@@ -1549,9 +1549,6 @@ data = {
   "yCoordList": [5.6, 7.8, ...],
   "zCoordList": [9.0, 1.2, ...],
   ...
-  "structureProperties": {
-    "foo_id": "ABC",
-  },
   "modelProperties": {
     # lists have len numModels=2
     "foo_rmsdList": [0.5, 0.8],
@@ -1579,7 +1576,8 @@ data = {
     "pymol_bondTypeList": [1, 1, 1, 4, 4, 4, 4, 4, 4, 1, ...],
   },
   "extraProperties": {
-    "pymol_bondTypes": {0: "metal", 1: "single", 2: "double", 3: "triple", 4: "aromatic"}
+    "pymol_bondTypes": {0: "metal", 1: "single", 2: "double", 3: "triple", 4: "aromatic"},
+    "foo_id": "ABC",
   }
 }
 ```
