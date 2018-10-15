@@ -59,6 +59,9 @@ The following types are used for the fields in this specification.
 * `Float` A 32-bit floating-point number.
 * `Integer` A 32-bit signed integer.
 * `Map` A data structure of key-value pairs where each key is unique. Also known as "dictionary", "hash".
+  * In some fields we restrict the key-value types to specific types. Currently utilized restrictions are:
+    * <String, Array|Binary>: used by`atomProperties`, `bondProperties`, `groupProperties`, `chainProperties`, and `modelProperties`
+    * <String, String|Float|Integer|Map|Array|Binary>: used by `extraProperties`
 * `Array` A sequence of elements that have the same type.
 * `Binary` An array of unsigned 8-bit integer numbers representing binary data.
 
@@ -364,53 +367,53 @@ The indices can then be used to reference the values as often as needed:
 
 The following table lists all top level fields, including their [type](#types) and whether they are required or optional. The top-level fields themselves are stores as a `Map`.
 
-| Name                                        | Type                | Required |
-|---------------------------------------------|---------------------|:--------:|
-| [mmtfVersion](#mmtfversion)                 | [String](#types)    |    Y     |
-| [mmtfProducer](#mmtfproducer)               | [String](#types)    |    Y     |
-| [unitCell](#unitcell)                       | [Array](#types)     |          |
-| [spaceGroup](#spacegroup)                   | [String](#types)    |          |
-| [structureId](#structureid)                 | [String](#types)    |          |
-| [title](#title)                             | [String](#types)    |          |
-| [depositionDate](#depositiondate)           | [String](#types)    |          |
-| [releaseDate](#releasedate)                 | [String](#types)    |          |
-| [ncsOperatorList](#ncsoperatorlist)         | [Array](#types)     |          |
-| [bioAssemblyList](#bioassemblylist)         | [Array](#types)     |          |
-| [entityList](#entitylist)                   | [Array](#types)     |          |
-| [experimentalMethods](#experimentalmethods) | [Array](#types)     |          |
-| [resolution](#resolution)                   | [Float](#types)     |          |
-| [rFree](#rfree)                             | [Float](#types)     |          |
-| [rWork](#rwork)                             | [Float](#types)     |          |
-| [numBonds](#numbonds)                       | [Integer](#types)   |    Y     |
-| [numAtoms](#numatoms)                       | [Integer](#types)   |    Y     |
-| [numGroups](#numgroups)                     | [Integer](#types)   |    Y     |
-| [numChains](#numchains)                     | [Integer](#types)   |    Y     |
-| [numModels](#nummodels)                     | [Integer](#types)   |    Y     |
-| [groupList](#grouplist)                     | [Array](#types)     |    Y     |
-| [bondAtomList](#bondatomlist)               | [Binary](#types)    |          |
-| [bondOrderList](#bondorderlist)             | [Binary](#types)    |          |
-| [xCoordList](#xcoordlist)                   | [Binary](#types)    |    Y     |
-| [yCoordList](#ycoordlist)                   | [Binary](#types)    |    Y     |
-| [zCoordList](#zcoordlist)                   | [Binary](#types)    |    Y     |
-| [bFactorList](#bfactorlist)                 | [Binary](#types)    |          |
-| [atomIdList](#atomidlist)                   | [Binary](#types)    |          |
-| [altLocList](#altloclist)                   | [Binary](#types)    |          |
-| [occupancyList](#occupancylist)             | [Binary](#types)    |          |
-| [groupIdList](#groupidlist)                 | [Binary](#types)    |    Y     |
-| [groupTypeList](#grouptypelist)             | [Binary](#types)    |    Y     |
-| [secStructList](#secstructlist)             | [Binary](#types)    |          |
-| [insCodeList](#inscodelist)                 | [Binary](#types)    |          |
-| [sequenceIndexList](#sequenceindexlist)     | [Binary](#types)    |          |
-| [chainIdList](#chainidlist)                 | [Binary](#types)    |    Y     |
-| [chainNameList](#chainnamelist)             | [Binary](#types)    |          |
-| [groupsPerChain](#groupsperchain)           | [Array](#types)     |    Y     |
-| [chainsPerModel](#chainspermodel)           | [Array](#types)     |    Y     |
-| [bondProperties](#bondproperties)           | [Map](#types)       |          |
-| [atomProperties](#atomproperties)           | [Map](#types)       |          |
-| [groupProperties](#groupproperties)         | [Map](#types)       |          |
-| [chainProperties](#chainproperties)         | [Map](#types)       |          |
-| [modelProperties](#modelproperties)         | [Map](#types)       |          |
-| [extraProperties](#extraproperties)         | [Map](#types)       |          |
+| Name                                        | Type                                                               | Required |
+|---------------------------------------------|--------------------------------------------------------------------|:--------:|
+| [mmtfVersion](#mmtfversion)                 | [String](#types)                                                   |    Y     |
+| [mmtfProducer](#mmtfproducer)               | [String](#types)                                                   |    Y     |
+| [unitCell](#unitcell)                       | [Array](#types)                                                    |          |
+| [spaceGroup](#spacegroup)                   | [String](#types)                                                   |          |
+| [structureId](#structureid)                 | [String](#types)                                                   |          |
+| [title](#title)                             | [String](#types)                                                   |          |
+| [depositionDate](#depositiondate)           | [String](#types)                                                   |          |
+| [releaseDate](#releasedate)                 | [String](#types)                                                   |          |
+| [ncsOperatorList](#ncsoperatorlist)         | [Array](#types)                                                    |          |
+| [bioAssemblyList](#bioassemblylist)         | [Array](#types)                                                    |          |
+| [entityList](#entitylist)                   | [Array](#types)                                                    |          |
+| [experimentalMethods](#experimentalmethods) | [Array](#types)                                                    |          |
+| [resolution](#resolution)                   | [Float](#types)                                                    |          |
+| [rFree](#rfree)                             | [Float](#types)                                                    |          |
+| [rWork](#rwork)                             | [Float](#types)                                                    |          |
+| [numBonds](#numbonds)                       | [Integer](#types)                                                  |    Y     |
+| [numAtoms](#numatoms)                       | [Integer](#types)                                                  |    Y     |
+| [numGroups](#numgroups)                     | [Integer](#types)                                                  |    Y     |
+| [numChains](#numchains)                     | [Integer](#types)                                                  |    Y     |
+| [numModels](#nummodels)                     | [Integer](#types)                                                  |    Y     |
+| [groupList](#grouplist)                     | [Array](#types)                                                    |    Y     |
+| [bondAtomList](#bondatomlist)               | [Binary](#types)                                                   |          |
+| [bondOrderList](#bondorderlist)             | [Binary](#types)                                                   |          |
+| [xCoordList](#xcoordlist)                   | [Binary](#types)                                                   |    Y     |
+| [yCoordList](#ycoordlist)                   | [Binary](#types)                                                   |    Y     |
+| [zCoordList](#zcoordlist)                   | [Binary](#types)                                                   |    Y     |
+| [bFactorList](#bfactorlist)                 | [Binary](#types)                                                   |          |
+| [atomIdList](#atomidlist)                   | [Binary](#types)                                                   |          |
+| [altLocList](#altloclist)                   | [Binary](#types)                                                   |          |
+| [occupancyList](#occupancylist)             | [Binary](#types)                                                   |          |
+| [groupIdList](#groupidlist)                 | [Binary](#types)                                                   |    Y     |
+| [groupTypeList](#grouptypelist)             | [Binary](#types)                                                   |    Y     |
+| [secStructList](#secstructlist)             | [Binary](#types)                                                   |          |
+| [insCodeList](#inscodelist)                 | [Binary](#types)                                                   |          |
+| [sequenceIndexList](#sequenceindexlist)     | [Binary](#types)                                                   |          |
+| [chainIdList](#chainidlist)                 | [Binary](#types)                                                   |    Y     |
+| [chainNameList](#chainnamelist)             | [Binary](#types)                                                   |          |
+| [groupsPerChain](#groupsperchain)           | [Array](#types)                                                    |    Y     |
+| [chainsPerModel](#chainspermodel)           | [Array](#types)                                                    |    Y     |
+| [bondProperties](#bondproperties)           | [Map<String, Array|Binary>](#types)                                |          |
+| [atomProperties](#atomproperties)           | [Map<String, Array|Binary>](#types)                                |          |
+| [groupProperties](#groupproperties)         | [Map<String, Array|Binary>](#types)                                |          |
+| [chainProperties](#chainproperties)         | [Map<String, Array|Binary>](#types)                                |          |
+| [modelProperties](#modelproperties)         | [Map<String, Array|Binary>](#types)                                |          |
+| [extraProperties](#extraproperties)         | [Map<String, String|Float|Integer|Map|Array|Binary>](#types)       |          |
 
 
 ### Format data
@@ -1482,7 +1485,7 @@ data = {
 
 *Optional field*
 
-*Type*: [Map](#types)
+*Type*: [Map<String, Array|Binary>](#types)
 
 *Description*: A field meant to store information on specific bonds.  Must have the same length as [numBonds](#numbonds).
 
@@ -1499,7 +1502,7 @@ data = {
 
 *Optional field*
 
-*Type*: [Map](#types)
+*Type*: [Map<String, Array|Binary>](#types)
 
 *Description*: A field meant to store information on specific atoms. Must have the same length as [numAtoms](#numatoms)
 
@@ -1516,7 +1519,7 @@ data = {
 
 *Optional field*
 
-*Type*: [Map](#types)
+*Type*: [Map<String, Array|Binary>](#types)
 
 *Description*: A field meant to store information on specific groups. Must have the same length as [numGroups](#numgroups)
 
@@ -1532,7 +1535,7 @@ data = {
 
 *Optional field*
 
-*Type*: [Map](#types)
+*Type*: [Map<String, Array|Binary>](#types)
 
 *Description*: A field meant to store information on specific chains. Must have the same length as [numChains](#numchains)
 
@@ -1548,7 +1551,7 @@ data = {
 
 *Optional field*
 
-*Type*: [Map](#types)
+*Type*: [Map<String, Array|Binary>](#types)
 
 *Description*: A field meant to store information on specific models. Must have the same length as [numModels](#nummodels)
 
@@ -1566,7 +1569,7 @@ data = {
 
 *Optional field*
 
-*Type*: [Map](#types)
+*Type*: [Map<String, String|Float|Integer|Map|Array|Binary>](#types)
 
 *Description*: A field meant to store any information at all.
 
