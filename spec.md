@@ -1672,7 +1672,28 @@ data = {
 
 *Type*: [Map<String, String|Float|Integer|Map|Array|Binary>](#types)
 
-*Description*: A field meant to store any information at all.
+*Description*: A field meant to store any information at all.  There are no restrictions on second-level data structures such as Map<String, Map>.
+example
+```python
+
+# Good!
+data = {
+  "mmtfVersion": "1.1",
+  ...
+  "extraProperties": {
+    "pymol_bondTypes": {0: "metal", 1: "single", 2: "double", 3: "triple", 4: "aromatic"},
+  }
+}
+
+# Bad!
+data = {
+  "mmtfVersion": "1.1",
+  ...
+  "extraProperties": {
+    1: {0: "false", 1: "true", 2: "true", 3: "false", 4: "false"},
+  }
+}
+```
 
 *Reserved key:value pairs*
 
