@@ -1418,7 +1418,17 @@ The following are fields that are __not__ supplied by the *RCSB*, and are provid
 
 Each field is a [map](#types), and there are 6 possible fields `bondProperties`, `atomProperties`, `groupProperties`, `chainProperties`,
 `modelProperties`, and `extraProperties`.  The first 5 fields are restricted to holding data that is relevant to the field's prefix, while
-any other data can be stored in the `extraProperties` field.
+any other data can be stored in the `extraProperties` field.  
+
+As mentioned in [Types](#types) in some fields we restrict the key-value types to specific types. The current type format the sepc follows is:
+* <String, Array|Binary>
+  * `atomProperties`
+  * `bondProperties`
+  * `groupProperties`
+  * `chainProperties`
+  * `modelProperties`
+* <String, String|Float|Integer|Map|Array|Binary>
+  * `extraProperties`
 
 We encourage you to apply our encoding techniques to your application data to reduce file sizes!
 
