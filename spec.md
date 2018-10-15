@@ -1520,6 +1520,9 @@ As mentioned in [Types](#types) in some fields we restrict the key-value types t
 * <String, String|Float|Integer|Map|Array|Binary>
   * `extraProperties`
 
+For each of the fields above, we do reserve some key-value pair formats to help ensure cross-application-compatibility.  If you feel
+a certain key-value pair should be reserved and made a part of the spec, please let us know!  
+
 We encourage you to apply our encoding techniques to your application data to reduce file sizes!
 
 The restrictions on each of the lengths of the values in these fields are __not__ enforced at decode-time but are reserved to help guide applications.
