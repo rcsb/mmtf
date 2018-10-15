@@ -408,12 +408,12 @@ The following table lists all top level fields, including their [type](#types) a
 | [chainNameList](#chainnamelist)             | [Binary](#types)                                                   |          |
 | [groupsPerChain](#groupsperchain)           | [Array](#types)                                                    |    Y     |
 | [chainsPerModel](#chainspermodel)           | [Array](#types)                                                    |    Y     |
-| [bondProperties](#bondproperties)           | [Map<String, Array|Binary>](#types)                                |          |
-| [atomProperties](#atomproperties)           | [Map<String, Array|Binary>](#types)                                |          |
-| [groupProperties](#groupproperties)         | [Map<String, Array|Binary>](#types)                                |          |
-| [chainProperties](#chainproperties)         | [Map<String, Array|Binary>](#types)                                |          |
-| [modelProperties](#modelproperties)         | [Map<String, Array|Binary>](#types)                                |          |
-| [extraProperties](#extraproperties)         | [Map<String, String|Float|Integer|Map|Array|Binary>](#types)       |          |
+| [bondProperties](#bondproperties)           | [Map<String, Array\|Binary>](#types)                               |          |
+| [atomProperties](#atomproperties)           | [Map<String, Array\|Binary>](#types)                               |          |
+| [groupProperties](#groupproperties)         | [Map<String, Array\|Binary>](#types)                               |          |
+| [chainProperties](#chainproperties)         | [Map<String, Array\|Binary>](#types)                               |          |
+| [modelProperties](#modelproperties)         | [Map<String, Array\|Binary>](#types)                               |          |
+| [extraProperties](#extraproperties)         | [Map<String, String\|Float\|Integer\|Map\|Array\|Binary>](#types)  |          |
 
 
 ### Format data
@@ -1435,7 +1435,7 @@ The restrictions on each of the lengths of the values in these fields are __not_
 
 Example
 
-```JSON
+```
 data = {
   "mmtfVersion": "1.1",
   "numAtoms": 999,
