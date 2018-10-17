@@ -60,7 +60,7 @@ The following types are used for the fields in this specification.
 * `Integer` A 32-bit signed integer.
 * `Map` A data structure of key-value pairs where each key is unique. Also known as "dictionary", "hash".
   * In some fields we restrict the key-value types to specific types. Currently utilized restrictions are:
-    * <String, Array|Binary>: used by`atomProperties`, `bondProperties`, `groupProperties`, `chainProperties`, and `modelProperties`
+    * <String, Array|Binary>: used by `atomProperties`, `bondProperties`, `groupProperties`, `chainProperties`, and `modelProperties`
     * <String, String|Float|Integer|Map|Array|Binary>: used by `extraProperties`
 * `Array` A sequence of elements that have the same type.
 * `Binary` An array of unsigned 8-bit integer numbers representing binary data.
