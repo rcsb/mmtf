@@ -23,6 +23,7 @@ The **m**acro**m**olecular **t**ransmission **f**ormat (MMTF) is a binary encodi
     * [Chain data](#chain-data)
     * [Group data](#group-data)
     * [Atom data](#atom-data)
+    * [Extra data](#extra-data)
 * [Traversal](#traversal)
 
 
@@ -58,6 +59,9 @@ The following types are used for the fields in this specification.
 * `Float` A 32-bit floating-point number.
 * `Integer` A 32-bit signed integer.
 * `Map` A data structure of key-value pairs where each key is unique. Also known as "dictionary", "hash".
+  * In some fields we restrict the key-value types to specific types. Currently utilized restrictions are:
+    * <String, Array|Binary>: used by `atomProperties`, `bondProperties`, `groupProperties`, `chainProperties`, and `modelProperties`
+    * <String, String|Float|Integer|Map|Array|Binary>: used by `extraProperties`
 * `Array` A sequence of elements that have the same type.
 * `Binary` An array of unsigned 8-bit integer numbers representing binary data.
 
@@ -385,48 +389,54 @@ The indices can then be used to reference the values as often as needed:
 
 The following table lists all top level fields, including their [type](#types) and whether they are required or optional. The top-level fields themselves are stores as a `Map`.
 
-| Name                                        | Type                | Required |
-|---------------------------------------------|---------------------|:--------:|
-| [mmtfVersion](#mmtfversion)                 | [String](#types)    |    Y     |
-| [mmtfProducer](#mmtfproducer)               | [String](#types)    |    Y     |
-| [unitCell](#unitcell)                       | [Array](#types)     |          |
-| [spaceGroup](#spacegroup)                   | [String](#types)    |          |
-| [structureId](#structureid)                 | [String](#types)    |          |
-| [title](#title)                             | [String](#types)    |          |
-| [depositionDate](#depositiondate)           | [String](#types)    |          |
-| [releaseDate](#releasedate)                 | [String](#types)    |          |
-| [ncsOperatorList](#ncsoperatorlist)         | [Array](#types)     |          |
-| [bioAssemblyList](#bioassemblylist)         | [Array](#types)     |          |
-| [entityList](#entitylist)                   | [Array](#types)     |          |
-| [experimentalMethods](#experimentalmethods) | [Array](#types)     |          |
-| [resolution](#resolution)                   | [Float](#types)     |          |
-| [rFree](#rfree)                             | [Float](#types)     |          |
-| [rWork](#rwork)                             | [Float](#types)     |          |
-| [numBonds](#numbonds)                       | [Integer](#types)   |    Y     |
-| [numAtoms](#numatoms)                       | [Integer](#types)   |    Y     |
-| [numGroups](#numgroups)                     | [Integer](#types)   |    Y     |
-| [numChains](#numchains)                     | [Integer](#types)   |    Y     |
-| [numModels](#nummodels)                     | [Integer](#types)   |    Y     |
-| [groupList](#grouplist)                     | [Array](#types)     |    Y     |
-| [bondAtomList](#bondatomlist)               | [Binary](#types)    |          |
-| [bondOrderList](#bondorderlist)             | [Binary](#types)    |          |
-| [bondResonanceList](#bondresonancelist)     | [Binary](#types)    |          |
-| [xCoordList](#xcoordlist)                   | [Binary](#types)    |    Y     |
-| [yCoordList](#ycoordlist)                   | [Binary](#types)    |    Y     |
-| [zCoordList](#zcoordlist)                   | [Binary](#types)    |    Y     |
-| [bFactorList](#bfactorlist)                 | [Binary](#types)    |          |
-| [atomIdList](#atomidlist)                   | [Binary](#types)    |          |
-| [altLocList](#altloclist)                   | [Binary](#types)    |          |
-| [occupancyList](#occupancylist)             | [Binary](#types)    |          |
-| [groupIdList](#groupidlist)                 | [Binary](#types)    |    Y     |
-| [groupTypeList](#grouptypelist)             | [Binary](#types)    |    Y     |
-| [secStructList](#secstructlist)             | [Binary](#types)    |          |
-| [insCodeList](#inscodelist)                 | [Binary](#types)    |          |
-| [sequenceIndexList](#sequenceindexlist)     | [Binary](#types)    |          |
-| [chainIdList](#chainidlist)                 | [Binary](#types)    |    Y     |
-| [chainNameList](#chainnamelist)             | [Binary](#types)    |          |
-| [groupsPerChain](#groupsperchain)           | [Array](#types)     |    Y     |
-| [chainsPerModel](#chainspermodel)           | [Array](#types)     |    Y     |
+| Name                                        | Type                                                               | Required |
+|---------------------------------------------|--------------------------------------------------------------------|:--------:|
+| [mmtfVersion](#mmtfversion)                 | [String](#types)                                                   |    Y     |
+| [mmtfProducer](#mmtfproducer)               | [String](#types)                                                   |    Y     |
+| [unitCell](#unitcell)                       | [Array](#types)                                                    |          |
+| [spaceGroup](#spacegroup)                   | [String](#types)                                                   |          |
+| [structureId](#structureid)                 | [String](#types)                                                   |          |
+| [title](#title)                             | [String](#types)                                                   |          |
+| [depositionDate](#depositiondate)           | [String](#types)                                                   |          |
+| [releaseDate](#releasedate)                 | [String](#types)                                                   |          |
+| [ncsOperatorList](#ncsoperatorlist)         | [Array](#types)                                                    |          |
+| [bioAssemblyList](#bioassemblylist)         | [Array](#types)                                                    |          |
+| [entityList](#entitylist)                   | [Array](#types)                                                    |          |
+| [experimentalMethods](#experimentalmethods) | [Array](#types)                                                    |          |
+| [resolution](#resolution)                   | [Float](#types)                                                    |          |
+| [rFree](#rfree)                             | [Float](#types)                                                    |          |
+| [rWork](#rwork)                             | [Float](#types)                                                    |          |
+| [numBonds](#numbonds)                       | [Integer](#types)                                                  |    Y     |
+| [numAtoms](#numatoms)                       | [Integer](#types)                                                  |    Y     |
+| [numGroups](#numgroups)                     | [Integer](#types)                                                  |    Y     |
+| [numChains](#numchains)                     | [Integer](#types)                                                  |    Y     |
+| [numModels](#nummodels)                     | [Integer](#types)                                                  |    Y     |
+| [groupList](#grouplist)                     | [Array](#types)                                                    |    Y     |
+| [bondAtomList](#bondatomlist)               | [Binary](#types)                                                   |          |
+| [bondOrderList](#bondorderlist)             | [Binary](#types)                                                   |          |
+| [bondResonanceList](#bondresonancelist)     | [Binary](#types)                                                   |          |
+| [xCoordList](#xcoordlist)                   | [Binary](#types)                                                   |    Y     |
+| [yCoordList](#ycoordlist)                   | [Binary](#types)                                                   |    Y     |
+| [zCoordList](#zcoordlist)                   | [Binary](#types)                                                   |    Y     |
+| [bFactorList](#bfactorlist)                 | [Binary](#types)                                                   |          |
+| [atomIdList](#atomidlist)                   | [Binary](#types)                                                   |          |
+| [altLocList](#altloclist)                   | [Binary](#types)                                                   |          |
+| [occupancyList](#occupancylist)             | [Binary](#types)                                                   |          |
+| [groupIdList](#groupidlist)                 | [Binary](#types)                                                   |    Y     |
+| [groupTypeList](#grouptypelist)             | [Binary](#types)                                                   |    Y     |
+| [secStructList](#secstructlist)             | [Binary](#types)                                                   |          |
+| [insCodeList](#inscodelist)                 | [Binary](#types)                                                   |          |
+| [sequenceIndexList](#sequenceindexlist)     | [Binary](#types)                                                   |          |
+| [chainIdList](#chainidlist)                 | [Binary](#types)                                                   |    Y     |
+| [chainNameList](#chainnamelist)             | [Binary](#types)                                                   |          |
+| [groupsPerChain](#groupsperchain)           | [Array](#types)                                                    |    Y     |
+| [chainsPerModel](#chainspermodel)           | [Array](#types)                                                    |    Y     |
+| [bondProperties](#bondproperties)           | [Map<String, Array\|Binary>](#types)                               |          |
+| [atomProperties](#atomproperties)           | [Map<String, Array\|Binary>](#types)                               |          |
+| [groupProperties](#groupproperties)         | [Map<String, Array\|Binary>](#types)                               |          |
+| [chainProperties](#chainproperties)         | [Map<String, Array\|Binary>](#types)                               |          |
+| [modelProperties](#modelproperties)         | [Map<String, Array\|Binary>](#types)                               |          |
+| [extraProperties](#extraproperties)         | [Map<String, String\|Float\|Integer\|Map\|Array\|Binary>](#types)  |          |
 
 
 ### Format data
@@ -1491,6 +1501,209 @@ Applying integer decoding with a divisor of `100` to create an array of 32-bit f
 ```JSON
 [ 1.00, 1.00, 1.00, 1.00, 0.50, 0.50 ]
 ```
+
+### Extra data
+
+The following are fields that are __not__ supplied by the *RCSB*, and are provided for applications to transfer non-molecular data along with the molecular data.
+
+Each field is a [map](#types), and there are 6 possible fields `bondProperties`, `atomProperties`, `groupProperties`, `chainProperties`,
+`modelProperties`, and `extraProperties`.  The first 5 fields are restricted to holding data that is relevant to the field's prefix, while
+any other data can be stored in the `extraProperties` field.  
+
+As mentioned in [Types](#types) in some fields we restrict the key-value types to specific types. The current type format the sepc follows is:
+* <String, Array|Binary>
+  * `atomProperties`
+  * `bondProperties`
+  * `groupProperties`
+  * `chainProperties`
+  * `modelProperties`
+* <String, String|Float|Integer|Map|Array|Binary>
+  * `extraProperties`
+
+For each of the fields above, we do reserve some key-value pair formats to help ensure cross-application-compatibility.  If you feel
+a certain key-value pair should be reserved and made a part of the spec, please let us know!  
+
+We encourage you to apply our encoding techniques to your application data to reduce file sizes!
+
+The restrictions on each of the lengths of the values in these fields are __not__ enforced at decode-time but are reserved to help guide applications.
+
+| Name            | length-restrictions     | 
+|-----------------|-------------------------|
+| bondProperties  | length of numBonds      |
+| atomProperties  | length of numAtoms      |
+| groupProperties | length of numGroups     |
+| chainProperties | length of numChains     |
+| modelProperties | length of numModels     |
+| extraProperties | None                    |
+
+Example
+
+```python
+data = {
+  "mmtfVersion": "1.1",
+  "numAtoms": 999,
+  "numModels": 2,
+  "numChains": 4,
+  ...
+  "xCoordList": [1.2, 3.4, ...],
+  "yCoordList": [5.6, 7.8, ...],
+  "zCoordList": [9.0, 1.2, ...],
+  ...
+  "modelProperties": {
+    # lists have len numModels=2
+    "foo_rmsdList": [0.5, 0.8],
+    "foo_scoreList": [1.2, 3.4],
+  },
+  "chainProperties": {
+    # lists have len numChains=4
+    "foo_uniprotIdList": ["HBB_HUMAN", "HBA_HUMAN", "HBB_HUMAN", "HBA_HUMAN"],
+    "foo_chainColorList": [0xFF0000, 0x00FF00, 0xFF0000, 0x00FF00],
+  },
+  "groupProperties": {
+    # lists have len numGroups
+    "stride_secStructList": [7, 7, 7, ...],
+    "sst_secStructList": [7, 7, 7, ...],
+  },
+  "atomProperties": {
+    # lists have len numAtoms=999
+    "pymol_colorList": [1, 2, 3, ...],
+    "pymol_repsList": [1, 1, 1, ...],
+    "apbs_chargeList": [0.1, -0.4, 0.7, ...],
+    "apbs_radiusList": [1.2, 1.8, 1.5, ...],
+  },
+  "bondProperties": {
+    # lists have len numBonds
+    "pymol_bondTypeList": [1, 1, 1, 4, 4, 4, 4, 4, 4, 1, ...],
+  },
+  "extraProperties": {
+    "pymol_bondTypes": {0: "metal", 1: "single", 2: "double", 3: "triple", 4: "aromatic"},
+    "foo_id": "ABC",
+  }
+}
+```
+
+#### bondProperties
+
+*Optional field*
+
+*Type*: [Map<String, Array|Binary>](#types)
+
+*Description*: A field meant to store information on specific bonds.  Must have the same length as [numBonds](#numbonds).
+
+*Reserved key:value pairs*
+
+| Key                    | Value-description                                                             |
+|------------------------|-------------------------------------------------------------------------------|
+| colorList              | color hex code                                                                |
+| transparancyList       | float (0-1)                                                                   |
+| representationTypeList | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+
+
+#### atomProperties
+
+*Optional field*
+
+*Type*: [Map<String, Array|Binary>](#types)
+
+*Description*: A field meant to store information on specific atoms. Must have the same length as [numAtoms](#numatoms)
+
+*Reserved key:value pairs*
+
+| Key                    | Value-description                                                             |
+|------------------------|-------------------------------------------------------------------------------|
+| colorList              | color hex code                                                                |
+| transparancyList       | float (0-1)                                                                   |
+| representationTypeList | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+
+
+#### groupProperties
+
+*Optional field*
+
+*Type*: [Map<String, Array|Binary>](#types)
+
+*Description*: A field meant to store information on specific groups. Must have the same length as [numGroups](#numgroups)
+
+*Reserved key:value pairs*
+
+| Key                    | Value-description                                                             |
+|------------------------|-------------------------------------------------------------------------------|
+| colorList              | color hex code                                                                |
+| transparancyList       | float (0-1)                                                                   |
+| representationTypeList | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+
+#### chainProperties
+
+*Optional field*
+
+*Type*: [Map<String, Array|Binary>](#types)
+
+*Description*: A field meant to store information on specific chains. Must have the same length as [numChains](#numchains)
+
+*Reserved key:value pairs*
+
+| Key                    | Value-description                                                             |
+|------------------------|-------------------------------------------------------------------------------|
+| colorList              | color hex code                                                                |
+| transparancyList       | float (0-1)                                                                   |
+| representationTypeList | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+
+#### modelProperties
+
+*Optional field*
+
+*Type*: [Map<String, Array|Binary>](#types)
+
+*Description*: A field meant to store information on specific models. Must have the same length as [numModels](#nummodels)
+
+*Reserved key:value pairs*
+
+| Key                    | Value-description                                                             |
+|------------------------|-------------------------------------------------------------------------------|
+| colorList              | color hex code                                                                |
+| transparancyList       | float (0-1)                                                                   |
+| representationTypeList | (0: "lines", 1: "spheres", 2: "surface", 3: "ball and stick", 4: "cartoon")   |
+| rmsdList               | list[floats]                                                                  |
+| gdtList                | list[floats]                                                                  |
+
+#### extraProperties
+
+*Optional field*
+
+*Type*: [Map<String, String|Float|Integer|Map|Array|Binary>](#types)
+
+*Description*: A field meant to store any information at all.  There are no restrictions on second level data structures like the inner Map in
+Map<String, Map>.  
+
+Example:
+
+```python
+
+# Ok!
+data = {
+  "mmtfVersion": "1.1",
+  ...
+  "extraProperties": {
+    "pymol_bondTypes": {0: "metal", 1: "single", 2: "double", 3: "triple", 4: "aromatic"},
+  }
+}
+
+# Bad!
+data = {
+  "mmtfVersion": "1.1",
+  ...
+  "extraProperties": {
+    1: {0: "false", 1: "true", 2: "true", 3: "false", 4: "false"},
+  }
+}
+```
+
+*Reserved key:value pairs*
+
+| Key                   | Value-description                      |
+|-----------------------|----------------------------------------|
+| cameraPosition        | cartesian (x,y,z)                      |
+| cameraDirectionVector | cartesian vector [(x,y,z), (x,y,z)]    |
 
 
 ## Traversal
