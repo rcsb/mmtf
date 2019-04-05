@@ -867,7 +867,7 @@ The `sequence` string contains the full construct, not just the resolved residue
 
 *Type*: [Binary](#types) data that decodes into an array of 32-bit signed integers.
 
-*Description*: Pairs of values represent indices of covalently bonded atoms. The indices point to the [Atom data](#atom-data) arrays. Only covalent bonds may be given.
+*Description*: Pairs of values represent indices of covalently bonded atoms. The indices point to the [Atom data](#atom-data) arrays. Only covalent bonds may be given. Only inter-groups bonds are expected here: intra-groups bonds are defined later in the [groupList](#groupList) section.
 *Note*: This is an optional field in that if your mmtf file contains no bonds, the field is not required to exist (for decoding purposes).  If bonds exist this must be defined.
 
 *Example*:
