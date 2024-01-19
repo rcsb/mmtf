@@ -9,6 +9,7 @@ The following encoding/decoding libaries implementing the specification are avai
 * [Python encoder/decoder](https://github.com/rcsb/mmtf-python)
 * [JavaScript decoder](https://github.com/rcsb/mmtf-javascript)
 
+> :warning: Please note that while the specification and tools for the MMTF format are still available, up-to-date MMTF files for the PDB archive will not be produced anymore from July 2024. Users are strongly encouraged to migrate to the [BinaryCIF format](https://github.com/molstar/BinaryCIF). Details on how to access BinaryCIF(BCIF) data files for the entire PDB archive are available [here](https://www.rcsb.org/docs/programmatic-access/file-download-services#pdb-entry-files). 
 
 ## Version 1.0
 
